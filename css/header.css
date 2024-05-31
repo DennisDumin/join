@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: Inter;
 }
 
 header {
@@ -72,4 +73,27 @@ header a {
 
 .rights-links div {
   width: 105px;
+}
+.head-top {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 1px 3px 0px #cdcdcd;
+  align-items: center;
+  background-color: white;
+  padding: 20px 40px 20px 348px;
+}
+.head-top span {
+  font-size: 20px;
+}
+
+.logo-for-responive {
+  display: none;
+}
+
+.head-top-right-side-cont {
+  display: flex;
+  align-items: center;
+  width: 140px;
+  height: 56px;
+  justify-content: space-around;
 }
