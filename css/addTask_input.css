@@ -1,0 +1,341 @@
+/*  DESCRIPTION FIELD  */
+
+.input-container-description {
+    height: 120px;
+    width: 100%;
+    display: flex;
+    flex-direction: column !important;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 18px 16px 4px 16px !important;
+}
+
+.input-container-description img {
+    margin-right: -12px;
+    height: 18.9px;
+    width: 18.9px;
+    cursor: auto;
+}
+
+.textarea-description {
+    width: 100%;
+    height: 100%;
+    resize: vertical;
+    border: none;
+    background-color: white;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    cursor: pointer;
+    font-family: inter;
+}
+
+.textarea-description:focus {
+    border-color: #29ABE2;
+    outline: none;
+}
+
+.textarea-description::placeholder {
+    color: #D1D1D1;
+}
+
+.textarea-description::-webkit-resizer {
+    display: none;
+}
+
+/*  ASSIGNED TO FIELD  */
+
+#add-task-assigned::placeholder {
+    color: #000000;
+}
+
+.dropdown-img {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+.dropdown-img:hover {
+    background-color: #F6F7F8;
+    border-radius: 50%;
+}
+
+.dropdown-img-rotated {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.add-task-contacts-container {
+    width: 100%;
+    height: 200px;
+    background-color: white;
+    margin-top: -23px;
+    padding-top: 15px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+    overflow-y: scroll;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 16px 7px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: black;
+}
+
+.contact-container:hover {
+    background-color: #EEEEEE;
+}
+
+.contact-container-focus {
+    background-color: #2A3647;
+    color: white !important;
+
+    .contact-container-check {
+        background-image: url(../assets/img/icon_checkedbuttonWhite.svg);
+    }
+}
+
+.contact-container-focus:hover {
+    background-color: #091931;
+}
+
+.contact-container-name {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.contact-container-check {
+    background-image: url(../assets/img/icon_CheckButtonBlue.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.contact-circles {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/*  DATE FIELD  */
+
+.inputfield[type="date"] {
+    position: relative;
+}
+
+.inputfield[type=date]:invalid::-webkit-datetime-edit {
+    color: #D1D1D1;
+}
+
+.inputfield[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    cursor: pointer;
+}
+
+/*  PRIO FIELD    */
+
+.prio-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.prio-buttons button {
+    width: 33.3%;
+    height: auto;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 10px 16px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prio-buttons button:hover {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.urgent-button-focus {
+    background-color: #FF3D00 !important;
+    color: white;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    line-height: 25.2px !important;
+
+    .urgent-img {
+        background-image: url(../assets/img/icon_PrioAltaWhite.svg);
+    }
+}
+
+.urgent-img {
+    background-image: url(../assets/img/icon_PrioAltaRed.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 14.51px;
+}
+
+.medium-button-focus {
+    background-color: #FFA800 !important;
+    color: white;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    line-height: 25.2px !important;
+
+    .medium-img {
+        background-image: url(../assets/img/icon_PrioMediaWhite.svg);
+    }
+}
+
+.medium-img {
+    background-image: url(../assets/img/icon_PrioMediaOrange.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 7.45px;
+}
+
+.low-button-focus {
+    background-color: #7AE229 !important;
+    color: white;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    line-height: 25.2px !important;
+
+    .low-img {
+        background-image: url(../assets/img/icon_PrioBajaWhite.svg);
+    }
+}
+
+.low-img {
+    background-image: url(../assets/img/icon_PrioBajaGreen.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 14.51px;
+}
+
+/*  CATEGORY FIELD  */
+
+.add-task-category-section {
+    position: relative;
+    z-index: 1;
+}
+
+#add-task-category-container {
+    width: 100%;
+    background-color: white;
+    margin-top: -20px;
+    position: absolute;
+    z-index: -1;
+    border-radius: 10px;
+    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.single-Category {
+    padding: 12px 16px 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.single-Category:hover {
+    background-color: #D1D1D1;
+}
+
+/*  SUBTASKS FIELD  */
+
+.subtasks-list {
+    height: 100px;
+    overflow: scroll;
+}
+
+.input-container:focus-within {
+    .dropdown-img-plus {
+        display: none;
+    }
+}
+
+.subtasks-list-element {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 16px 6px 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+.subtasks-list-element:hover {
+    background-color: #EEEEEE;
+    display: flex;
+    justify-content: space-between;
+
+    .subtasks-icon-hidden {
+        visibility: visible;
+    }
+
+    .subtasks-icon img:hover {
+        scale: 1.1;
+    }
+}
+
+.subtasks-list-element li {
+    cursor: pointer;
+}
+
+.subtasks-icon {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.subtasks-icon-hidden {
+    visibility: hidden;
+}
+
+.subtasks-icon img:hover {
+    scale: 1.1;
+}
+
+.subtasks-icon-line {
+    height: 22px;
+}
+
+.subtask-edit-container{
+    background-color: white;
+    border-bottom: 1px solid #005DFF;
+    border-radius: 0;
+    padding: 4px 16px 4px 16px;
+}
+
+.subtask-edit-container:hover{
+    background-color: white;
+}
+
+.subtask-edit-input{
+    font-size: 16px;
+    line-height: 19.2px;
+}
