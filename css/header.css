@@ -97,3 +97,10 @@ header a {
   height: 56px;
   justify-content: space-around;
 }
+.info-img-container {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+}
