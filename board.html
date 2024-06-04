@@ -13,7 +13,7 @@
     <!--Stylesheets-->
     <link rel="stylesheet" href="./css/addTask.css" />
     <link rel="stylesheet" href="./css/board.css" />
-    <link rel="stylesheet" href="./css/board.css" />
+    <link rel="stylesheet" href="./css/font.css" />
     <!--JS-->
     <script src="script.js"></script>
     <link rel="stylesheet" href="/assets/templates/side_menu.html" />
@@ -25,7 +25,7 @@
         <div class="board-top-content">
           <div class="board-top-cont-left">
             <h2>Board</h2>
-            <div class="board-top-add" onclick="navigateToAddTask()"></div>
+            <div class="board-top-add"></div>
           </div>
           <div class="board-top-cont-right">
             <div class="board-search-form">
@@ -46,7 +46,7 @@
               <div id="searchInfo"></div>
             </div>
             <div class="board-add-button">
-              <div><img src="./assets/img/addTaskButton.svg"" alt="add" /></div>
+              <div><img src="./assets/img/addTaskButton.svg" alt="add" /></div>
             </div>
           </div>
         </div>
@@ -100,6 +100,37 @@
           <div class="board-title-content" id="title-inprogress">
             <div>
               <span>In Progress</span>
+            </div>
+            <div class="add-svg">
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="1.5"
+                  width="22"
+                  height="22"
+                  rx="7"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 8.5V16.5"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M16 12.5754L8 12.5754"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
             </div>
           </div>
           <div>
@@ -158,13 +189,38 @@
             <div>
               <span>Done</span>
             </div>
+            <div class="add-svg">
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="1.5"
+                  width="22"
+                  height="22"
+                  rx="7"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 8.5V16.5"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M16 12.5754L8 12.5754"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
           </div>
-          <div
-            id="done"
-            ondragleave="removeGhostCard('ghostcard')"
-            ondrop="moveTo('done')"
-            ondragover="allowDrop(event);renderGhostCard('done')"
-          >
             <div class="board-no-task">
               <span>No tasks To do</span>
             </div>
