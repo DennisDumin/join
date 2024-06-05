@@ -254,13 +254,13 @@
     flex-direction: column;
 }
 
-.single-Category {
+.single-category {
     padding: 12px 16px 12px 16px;
     border-radius: 10px;
     cursor: pointer;
 }
 
-.single-Category:hover {
+.single-category:hover {
     background-color: #D1D1D1;
 }
 

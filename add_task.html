@@ -11,9 +11,12 @@
   <link rel="stylesheet" href="./css/addTask.css" />
   <link rel="stylesheet" href="./css/addTask_input.css" />
   <link rel="stylesheet" href="./css/font.css" />
+  <script src="script.js"></script>
+    <link rel="stylesheet" href="./assets/templates/side_menu.html" />
 </head>
 
-<body>
+<body onload="includeHTML()">
+  <div w3-include-html="/assets/templates/side_menu.html"></div>
   <div class="add-task-page">
     <div class="content">
       <div class="add-task">
@@ -101,9 +104,9 @@
                       src="./assets/img/icon_arrow_drop_down.svg">
                   </div>
                   <div id="add-task-category-container" class="d-none">
-                    <span id="technicalTask" onclick="" class="single-Category">Technical
+                    <span id="technicalTask" onclick="" class="single-category">Technical
                       Task</span>
-                    <span id="userStory" onclick="" class="single-Category">User Story</span>
+                    <span id="userStory" onclick="" class="single-category">User Story</span>
                   </div>
                 </div>
               </div>
