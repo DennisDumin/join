@@ -19,11 +19,7 @@ function openAddTask() {
   */
   function closeMe() {
     let content = document.getElementById("add-task");
-    let showContent = document.getElementById("show-task");
-    let editContent = document.getElementById("add-task-edit");
-    showContent.classList.add("hidden");
     content.classList.add("hidden");
-    editContent.classList.add("hidden");
     let overlay = document.getElementsByClassName("overlay")[0];
     overlay.classList.add("hidden");
   }
