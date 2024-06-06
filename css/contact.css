@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+}
+
+.displayNone {
+    display: none !important; 
+}
+
+.layout-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.contacts {
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 12px 0 12px 0;
+    padding: 0 12px 0 12px;
+}
+
+.content {
+    flex: 1;
+    height: 100%;
+}
+
+.addContact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+}
+
+.addContactButton {
+    background-color: rgb(9, 25, 49);
+    color: white;
+}
+
+.addContactButton:hover {
+  cursor: pointer;
+}
+
+.bg-popUp {
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popUp {
+    height: 70vh;
+    width: 70vw;
+    border-radius: 24px;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+}
+
+.popUp-logo {
+    background-color: rgb(9, 25, 49);
+    width: 40%;
+    height: 100%;
+}
+
+.popUp-content {
+    background-color: white;
+    flex: 1;
+    height: 100%;
+}

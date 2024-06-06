@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="css/font.css" />
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/contact.css">
+        <script src="js/contact.js"></script>
         <title>Join</title>
         <!--Favicon-->
         <link
@@ -17,5 +19,33 @@
         <link rel="stylesheet" href="./css/addTask.css" />
         <link rel="stylesheet" href="css/font.css" />
       </head>
-  <body></body>
+  <body onload="loadData()">
+    <div class="layout-wrapper" id="layout-wrapper">
+      <section class="contacts">
+          <div class="addContact">
+              <button onclick="openClosePopUp('open')" class="addContactButton">Add new Contact</button>
+          </div>
+          <div class="list" id="contacts"></div>
+      </section>
+      <section class="content" id="content">
+          <div>
+              <h2>Contacts</h2>
+              <span>Better with a team</span>
+          </div>
+          <div class="information" id="information"></div>
+      </section>
+      <div id="backgroundPopUp" onclick="openClosePopUp('close')" class="displayNone bg-popUp">
+          <div onclick="openClosePopUp(event)" class="popUp">
+              <div class="popUp-logo"></div>
+              <div class="popUp-content">
+                  <input type="text">
+                  <input type="text">
+                  <input type="text">
+                  <button>Cancel</button>
+                  <button>Create Contact</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  </body>
 </html>
