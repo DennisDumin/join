@@ -34,106 +34,106 @@
               <input id="add-task-assigned" onkeyup="" class="inputfield" type="text"
                 placeholder="Select contacts to assign" onfocus="this.placeholder = ''"
                 onblur="this.placeholder = 'Select contacts to assign'">
-              <img id="dropdown-img-contacts" onclick="" class="dropdown-img" src="./assets/img/icon_arrow_drop_down.svg">
+              <img id="dropdown-img-contacts" onclick="" class="dropdown-img"
+                src="./assets/img/icon_arrow_drop_down.svg">
             </div>
             <div id="selected-contacts" class="contact-circles"></div>
             <div id="add-task-contacts-container" class="add-task-contacts-container d-none">
             </div>
           </div>
         </div>
-      </div>
-      <div class="parting-line line-page"></div>
-      <div class="input-section-right">
-        <!-- DUE DATE -->
-        <div class="input-section-element">
-          <label for="add-task-due-date">Due Date<span style="color: #FF8190">*</span></label>
-          <div class="input-container-required">
-            <div id="add-task-due-date" onclick="" class="input-container">
-              <input id="task-date" class="inputfield" type="date" placeholder="dd/mm/yyyy" required="">
-              <img src="./assets/img/icon_event.svg">
-            </div>
-            <span id="required-date" class="required-text transparent">This field is required</span>
-          </div>
-        </div>
-        <!-- PRIO -->
-        <div class="input-section-element">
-          <span>Prio</span>
-          <div class="prio-buttons">
-            <button id="urgent-button" onclick="" class="urgentButton">
-              <span>Urgent</span>
-              <div class="urgent-img"></div>
-            </button>
-            <button id="medium-button" onclick="" class="mediumButton">
-              <span>Medium</span>
-              <div class="medium-img"></div>
-            </button>
-            <button id="low-button" onclick="" class="lowButton">
-              <span>Low</span>
-              <div class="low-img"></div>
-            </button>
-          </div>
-        </div>
-        <!-- CATEGORY -->
-        <div class="input-section-element">
-          <label for="add-task-category">Category<span style="color: #FF8190">*</span></label>
-          <div id="add-task-category-section" onclick="" class="add-task-category-section">
-            <div id="add-task-category" class="input-container input-container-category input-container-select">
-              <span id="select-task-text" class="inputfield">Select task category</span>
-              <img id="dropdown-img-category" onclick="" class="dropdown-img" src="./assets/img/icon_arrow_drop_down.svg">
-            </div>
-            <div id="add-task-category-container" class="d-none">
-              <span id="technical-task" onclick="" class="single-category">Technical
-                Task</span>
-              <span id="user-story" onclick="" class="single-category">User
-                Story</span>
+        <div class="parting-line line-page"></div>
+        <div class="input-section-right">
+          <!-- DUE DATE -->
+          <div class="input-section-element">
+            <label for="add-task-due-date">Due Date<span style="color: #FF8190">*</span></label>
+            <div class="input-container-required">
+              <div id="add-task-due-date" onclick="" class="input-container">
+                <input id="task-date" class="inputfield" type="date" placeholder="dd/mm/yyyy" required="">
+                <img src="./assets/img/icon_event.svg">
+              </div>
+              <span id="required-date" class="required-text transparent">This field is required</span>
             </div>
           </div>
-        </div>
-        <!-- SUBTASKS -->
-        <div class="input-section-element">
-          <label for="add-task-subtasks">Subtasks</label>
-          <div id="add-task-subtasks-container" class="input-container">
-            <input id="add-task-subtasks" onkeypress="" onclick="" class="inputfield" type="text"
-              placeholder="Add new subtask">
-            <div id="add-task-subtasks-icons" class="subtasks-icon d-none">
-              <img onclick="" src="./assets/img/icon_closeVectorBlack.svg" alt="Löschen">
-              <div class="parting-line subtasks-icon-line"></div>
-              <img id="add-subtask-button" onclick="" src="./assets/img/icon_done.svg" alt="Bestätigen">
+          <!-- PRIO -->
+          <div class="input-section-element">
+            <span>Prio</span>
+            <div class="prio-buttons">
+              <button id="urgent-button" onclick="" class="urgentButton">
+                <span>Urgent</span>
+                <div class="urgent-img"></div>
+              </button>
+              <button id="medium-button" onclick="" class="mediumButton">
+                <span>Medium</span>
+                <div class="medium-img"></div>
+              </button>
+              <button id="low-button" onclick="" class="lowButton">
+                <span>Low</span>
+                <div class="low-img"></div>
+              </button>
             </div>
-            <img id="dropdown-img-plus" onclick="" class="dropdown-img dropdown-img-plus"
-              src="./assets/img/icon_subtasks.svg">
           </div>
-          <div id="subtasks-list" class="subtasks-list"></div>
+          <!-- CATEGORY -->
+          <div class="input-section-element">
+            <label for="add-task-category">Category<span style="color: #FF8190">*</span></label>
+            <div id="add-task-category-section" onclick="" class="add-task-category-section">
+              <div id="add-task-category" class="input-container input-container-category input-container-select">
+                <span id="select-task-text" class="inputfield">Select task category</span>
+                <img id="dropdown-img-category" onclick="" class="dropdown-img"
+                  src="./assets/img/icon_arrow_drop_down.svg">
+              </div>
+              <div id="add-task-category-container" class="d-none">
+                <span id="technical-task" onclick="" class="single-category">Technical
+                  Task</span>
+                <span id="user-story" onclick="" class="single-category">User
+                  Story</span>
+              </div>
+            </div>
+          </div>
+          <!-- SUBTASKS -->
+          <div class="input-section-element">
+            <label for="add-task-subtasks">Subtasks</label>
+            <div id="add-task-subtasks-container" class="input-container">
+              <input id="add-task-subtasks" onkeypress="" onclick="" class="inputfield" type="text"
+                placeholder="Add new subtask">
+              <div id="add-task-subtasks-icons" class="subtasks-icon d-none">
+                <img onclick="" src="./assets/img/icon_closeVectorBlack.svg" alt="Löschen">
+                <div class="parting-line subtasks-icon-line"></div>
+                <img id="add-subtask-button" onclick="" src="./assets/img/icon_done.svg" alt="Bestätigen">
+              </div>
+              <img id="dropdown-img-plus" onclick="" class="dropdown-img dropdown-img-plus"
+                src="./assets/img/icon_subtasks.svg">
+            </div>
+            <div id="subtasks-list" class="subtasks-list d-none"></div>
+          </div>
         </div>
       </div>
     </div>
 
+    <div class="add-task-bottom">
+      <span class="required-bottom"><span style="color: #FF8190">*</span>This field is required</span>
+      <div class="add-task-bottom-buttons">
+
+        <button id="clear-button" onclick="">
+          <span>Clear</span>
+          <div class="close-img"></div>
+        </button>
+
+        <button id="create-task-button" onclick="">
+          <span>Create Task</span>
+          <img src="./assets/img/icon_check-white.svg" alt="Bestätigen">
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div class="add-task-bottom">
-    <span class="required-bottom"><span style="color: #FF8190">*</span>This field is required</span>
-    <div class="add-task-bottom-buttons">
-
-      <button id="clear-button" onclick="">
-        <span>Clear</span>
-        <div class="close-img"></div>
-      </button>
-
-      <button id="create-task-button" onclick="">
-        <span>Create Task</span>
-        <img src="./assets/img/icon_check-white.svg" alt="Bestätigen">
-      </button>
+  <div id="added-container" class="added-container d-none">
+    <div id="task-added">
+      Task added to board
+      <img src="./assets/img/icon_board.svg" alt="">
     </div>
   </div>
 </div>
-
-<div id="added-container" class="added-container d-none">
-  <div id="task-added">
-    Task added to board
-    <img src="./assets/img/icon_board.svg" alt="">
-  </div>
-</div>
-
 </div>
 </div>
 </div>

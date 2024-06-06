@@ -22,5 +22,7 @@ function openAddTask() {
     content.classList.add("hidden");
     let overlay = document.getElementsByClassName("overlay")[0];
     overlay.classList.add("hidden");
+    let dialog = document.querySelector('.add-task-board');
+    dialog.classList.remove('slide-in'); 
   }
   
