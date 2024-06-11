@@ -423,6 +423,10 @@ board-title {
   transform: translate(-50%, -50%);
 }
 
+.add-task-board.slide-out {
+  transform: translate(150%, -50%);
+}
+
 .add-task-title-content {
   display: flex;
   align-items: center;
