@@ -11,47 +11,38 @@
       href="../../assets/img/logo_coloured.svg"
     />
     <!--Stylesheets-->
-    <link rel="stylesheet" href="../../css/header.css" />
-    <link rel="stylesheet" href="../../css/font.css" />
+    <link rel="stylesheet" href="/css/side_menu.css" />
+    <link rel="stylesheet" href="/css/font.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <meta charset="UTF-8" />
-    <script src="./js/w3include.js"></script>
+    <script src="../../js/init.js"></script>
   </head>
 
   <body>
-    <header>
-      <div class="logo-cont">
-        <img src="../../assets/img/logo.svg" alt="" />
+    <section class="container-sidebar">
+      <img
+        src="/assets/img/logo.svg"
+        class="sidebar-logo d-none-mobile"
+        alt="logo_join"
+      />
+      <nav>
+        <a id="link-summary" href="/summary.html" id="summary"
+          ><img src="/assets/img/icon_summary.svg" alt="Summary" />Summary</a
+        >
+        <a id="link-task" href="/add_task.html"
+          ><img src="/assets/img/icon_addTask.svg" alt="addtask" />Add Task</a
+        >
+        <a id="link-board" href="/board.html"
+          ><img src="/assets/img/icon_board.svg" alt="board" />Board</a
+        >
+        <a id="link-contact" href="/contacts.html"
+          ><img src="/assets/img/icon_contacts.svg" alt="contacts" />Contacts</a
+        >
+      </nav>
+      <div class="nav-bottom-link d-none-mobile">
+        <a href="/privacy-police.html" onclick="saveTheUrl()">Privacy Policy</a>
+        <a href="/legal_notice.html">Legal notice</a>
       </div>
-      <div class="sidebar">
-        <a href="../../summary.html" class="sidebarbutton summary-btn">
-          <div><img src="/assets/img/icon_summary.svg" alt="" />Summary</div>
-        </a>
-        <a href="../../add_task.html" class="sidebarbutton addtask-btn">
-          <div><img src="/assets/img/icon_addTask.svg">Add Task</div>
-        </a>
-        <a href="../../board.html" class="sidebarbutton board-btn">
-          <div><img src="/assets/img/icon_board.svg" alt="" />Board</div>
-        </a>
-        <a href="../../contacts.html" class="sidebarbutton contacts-btn">
-          <div><img src="/assets/img/icon_contacts.svg" alt="" />Contacts</div>
-        </a>
-      </div>
-      <div class="rights-cont">
-        <a href="../../privacy-police.html" class="rights-links privacy-btn" id="">
-          <div>Privacy Policy</div>
-        </a>
-        <a href="../../legal_notice.html" class="rights-links legal-notice-btn" id="">
-          <div>Legal notice</div>
-        </a>
-      </div>
-    </header>
-    <div class="head-top">
-
-      <span class="head-top-headline">Kanban Project Management Tool</span>
-      <div class="head-top-right-side-cont">
-          <div class="info-img-container">
-              <img src="../img/icon_help.svg" alt="">
-          </div>
-  
+    </section>
   </body>
 </html>

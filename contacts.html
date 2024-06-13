@@ -7,7 +7,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="css/contact.css">
-        <script src="js/contact.js"></script>
+        
         <title>Join</title>
         <!--Favicon-->
         <link
@@ -15,11 +15,25 @@
           type="image/x-icon"
           href="./assets/img/logo_coloured.svg"
         />
-        <!--Stylesheets-->
-        <link rel="stylesheet" href="./css/addTask.css" />
+    <!--Stylesheets-->
+        <link rel="stylesheet" href="./css/legal-Help_privacy.css" />
+        <link rel="stylesheet" href="./css/style.css" />
         <link rel="stylesheet" href="css/font.css" />
+        <link rel="stylesheet" href="css/contact.css">
+        <link rel="stylesheet" href="css/side_menu.css">
+    <!--JS-->
+        <script src="/js/goBack.js"></script>
+        <script src="/js/header.js"></script>
+        <script src="/js/add_task.js"></script>
+        <script src="js/contact.js"></script>
       </head>
-  <body onload="loadData()">
+  <body onload="loadData(), init()">
+    <div w3-include-html="./assets/templates/side_menu.html"></div>
+    <main> 
+    <div
+        w3-include-html="./assets/templates/header.html"
+        class="header-sticky"
+      ></div>
     <div class="layout-wrapper" id="layout-wrapper">
       <section class="contacts">
           <div class="addContact">
@@ -47,5 +61,7 @@
           </div>
       </div>
   </div>
+</main> 
+  <script src="js/init.js"></script>
   </body>
 </html>

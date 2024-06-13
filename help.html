@@ -11,125 +11,123 @@
       href="./assets/img/logo_coloured.svg"
     />
     <!--Stylesheets-->
+    <link rel="stylesheet" href="./css/legal-Help_privacy.css" />
     <link rel="stylesheet" href="./css/font.css" />
-    <link rel="stylesheet" href="./css/help.css" />
+    <link rel="stylesheet" href="./css/side_menu.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+
     <!--JS-->
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="/assets/templates/side_menu.html" />
+    <script src="/js/header.js"></script>
+    <script src="/js/goBack.js"></script>
   </head>
-  <body onload="includeHTML()">
-    <div w3-include-html="/assets/templates/side_menu.html"></div>
+  <body onload="init()">
+    <div w3-include-html="./assets/templates/side_menu.html"></div>
     <main>
-      <div class="help-headline">
-        <h2>Help</h2>
-        <div>
-          <svg
-            width="22"
-            height="20"
-            viewBox="0 0 22 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4.93725 8.66667H19.8333C20.5696 8.66667 21.1666 9.26362 21.1666 10C21.1666 10.7364 20.5696 11.3333 19.8333 11.3333H4.93725L11.1466 17.5427C11.6672 18.0633 11.6672 18.9074 11.1466 19.428C10.626 19.9486 9.78187 19.9486 9.26125 19.428L1.24746 11.4142C0.466415 10.6332 0.466417 9.36684 1.24747 8.58579L9.26125 0.571999C9.78187 0.0513788 10.626 0.0513796 11.1466 0.572C11.6672 1.09262 11.6672 1.93671 11.1466 2.45733L4.93725 8.66667Z"
-              fill="#29ABE2"
-            />
-          </svg>
+      <div
+        w3-include-html="./assets/templates/header.html"
+        class="header-sticky"
+      ></div>
+      <section class="content-section">
+        <div class="header m-btm">
+          <h1>Help</h1>
+          <button onclick="goToLastPage()">
+            <img src="/assets/img/icon_back.svg" alt="" />
+          </button>
         </div>
-      </div>
-      <div class="help-text">
-        <span
-          >Welcome to the help page for <a href="./index.html">Join</a>, your
-          guide to using our kanban project management tool. Here, we'llprovide
-          an overview of what <a href="./index.html">Join</a> is, how it can
-          benefit you, and how to use it.</span
-        >
-      </div>
-      <div class="help-text">
-        <h3>What is Join?</h3>
-        <span
-          ><a href="./index.html">Join</a> is a kanban-based project management
-          tool designed and built by a group of dedicated students as part of
-          their web development bootcamp at the
-          <a href="https://www.developerakademie.com">Developer Akademie GmbH</a
-          >. <br /><br />
+
+        <p>
+          Welcome to the help page for <span>Join</span>, your guide to using
+          our kanban project management tool. Here, we'll provide an overview of
+          what <span>Join</span> is, how it can benefit you, and how to use it.
+        </p>
+
+        <h2>What is Join?</h2>
+
+        <p>
+          <span>Join</span> is a kanban-based project management tool designed
+          and built by a group of dedicated students as part of their web
+          development bootcamp at the Developer Akademie.
+        </p>
+
+        <p>
           Kanban, a Japanese term meaning "billboard", is a highly effective
           method to visualize work, limit work-in-progress, and maximize
-          efficiency (or flow). <a href="./index.html">Join</a> leverages the
-          principles of kanban to help users manage their tasks and projects in
-          an intuitive, visual interface. <br /><br />
-          It is important to note that <a href="./index.html">Join</a> is
-          designed as an educational exercise and is not intended for extensive
-          business usage. While we strive to ensure the best possible user
-          experience, we cannot guarantee consistent availability, reliability,
-          accuracy, or other aspects of quality regarding
-          <a href="./index.html">Join</a>.</span
-        >
-      </div>
-      <h3 class="rm-mb">How to use it</h3>
-      <div class="help-text">
-        <span
-          >Here is a step-by-step guide on how to use
-          <a href="./index.html">Join</a>:</span
-        >
-        <ol>
-          <li>
-            <h4>Exploring the Board</h4>
-            <span
-              >When you log in to <a href="./index.html">Join</a>, you'll find a
-              default board. This board represents your project and contains
-              four default lists: "To Do", "In Progress", “Await feedback” and
-              "Done".</span
-            >
+          efficiency (or flow). <span>Join</span> leverages the principles of
+          kanban to help users manage their tasks and projects in an intuitive,
+          visual interface.
+        </p>
+
+        <p>
+          It is important to note that <span>Join</span> is designed as an
+          educational exercise and is not intended for extensive business usage.
+          While we strive to ensure the best possible user experience, we cannot
+          guarantee consistent availability, reliability, accuracy, or other
+          aspects of quality regarding <span>Join</span>.
+        </p>
+
+        <h2>How to use it</h2>
+
+        <p>Here is a step-by-step guide on how to use <span>Join</span>:</p>
+
+        <ol type="1">
+          <li class="space">
+            <h3>Exploring the Board</h3>
+            <p>
+              When you log in to <span>Join</span>, you'll find a default board.
+              This board represents your project and contains four default
+              lists: "To Do", "In Progress", “Await feedback” and "Done".
+            </p>
           </li>
-          <li>
-            <h4>Creating Contacts</h4>
-            <span
-              >In <a href="./index.html">Join</a>, you can add contacts to
-              collaborate on your projects. Go to the "Contacts" section, click
-              on "New contact", and fill in the required information. Once
-              added, these contacts can be assigned tasks and they can interact
-              with the tasks on the board.</span
-            >
+          <li class="space">
+            <h3>Creating Contacts</h3>
+            <p>
+              In <span>Join</span>, you can add contacts to collaborate on your
+              projects. Go to the "Contacts" section, click on "New contact",
+              and fill in the required information. Once added, these contacts
+              can be assigned tasks and they can interact with the tasks on the
+              board.
+            </p>
           </li>
-          <li>
-            <h4>Adding Cards</h4>
-            <span
-              >Now that you've added your contacts, you can start adding cards.
+          <li class="space">
+            <h3>Adding Cards</h3>
+            <p>
+              Now that you've added your contacts, you can start adding cards.
               Cards represent individual tasks. Click the "+" button under the
               appropriate list to create a new card. Fill in the task details in
-              the card, like task name, description, due date, assignees,
-              etc.</span
-            >
+              the card, like task name, description, due date, assignees, etc.
+            </p>
           </li>
-          <li>
-            <h4>Moving Cards</h4>
-            <span
-              >As the task moves from one stage to another, you can reflect that
+          <li class="space">
+            <h3>Moving Cards</h3>
+            <p>
+              As the task moves from one stage to another, you can reflect that
               on the board by dragging and dropping the card from one list to
-              another.</span
-            >
+              another.
+            </p>
           </li>
-          <li>
-            <h4>Deleting Cards</h4>
-            <span>
+          <li class="space">
+            <h3>Deleting Cards</h3>
+            <p>
               Once a task is completed, you can either move it to the "Done"
               list or delete it. Deleting a card will permanently remove it from
-              the board. Please exercise caution when deleting cards, as this
+              the board. Please exercise caution when deleting card, as this
               action is irreversible.
-              <br /><br />
-              Remember that using <a href="./index.html">Join</a> effectively
-              requires consistent updates from you and your team to ensure the
-              board reflects the current state of your project. <br /><br />
-              Have more questions about Join? Feel free to contact us at
-              <a href="mailto:gruppe63@developer-akademie.de">
-                join-233@developer-akademie.de</a
-              >. We're here to help you!
-            </span>
+            </p>
+            <p>
+              Remember that using <span>Join</span> effectively requires
+              consistent uptates from you and your team to ensure the board
+              reflects the current state of your project.
+            </p>
+            <p>
+              Have more questions about <span>Join</span>? Feel free to contact
+              us at schmidalbin15@gmail.com. We're here to help you!
+            </p>
           </li>
         </ol>
-        <h3>Enjoy using Join!</h3>
-      </div>
+
+        <h2>Enjoying using Join!</h2>
+      </section>
     </main>
+    <script src="./js/init.js"></script>
   </body>
 </html>
