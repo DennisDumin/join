@@ -2,7 +2,7 @@ main {
   width: calc(100vw - 232px);
 }
 
-.d-none {
+.d-noneHead {
   display: none;
 }
 
