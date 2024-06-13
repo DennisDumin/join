@@ -2,8 +2,14 @@ body {
     margin: 0;
 }
 
+h2 {
+    border-right: solid 2px rgb(41, 171, 226);
+    font-size: xxx-large;
+    padding-right: 48px;
+}
+
 .displayNone {
-    display: none !important; 
+    display: none !important;
 }
 
 .layout-wrapper {
@@ -13,7 +19,7 @@ body {
 }
 
 .contacts {
-    width: 50%;
+    width: 32%;
     height: 100%;
     overflow-y: auto;
     display: flex;
@@ -22,25 +28,66 @@ body {
     padding: 0 12px 0 12px;
 }
 
-.content {
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.content-section {
     flex: 1;
-    height: 100%;
+    height: 100vh;
+    padding: 0 24px 0 24px;
+}
+
+.detailed_Content {
+    width: 100%;
+    height: auto;
+    padding: 24px 12px 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .addContact {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 32px 0 12px 0;
 }
 
 .addContactButton {
     background-color: rgb(9, 25, 49);
     color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: larger;
+    padding: 8px 12px 8px 12px;
+}
+
+.addContactButton img {
+    height: 24px;
+    width: 24px;
 }
 
 .addContactButton:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .bg-popUp {
@@ -58,8 +105,8 @@ body {
 }
 
 .popUp {
-    height: 70vh;
-    width: 70vw;
+    height: 50vh;
+    width: 60vw;
     border-radius: 24px;
     z-index: 2;
     display: flex;
@@ -80,4 +127,205 @@ body {
     background-color: white;
     flex: 1;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-button {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0 24px 0 0;
+}
+
+.close-button img {
+    object-fit: cover;
+    height: 32px;
+    width: 32px;
+}
+
+.close-button img:hover {
+    cursor: pointer;
+}
+
+.pic_inputs {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.pic_inputs img {
+    height: 120px;
+    width: 120px;
+}
+
+.contact_input {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 320px;
+}
+
+.contact_input input {
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgb(203, 203, 203);
+}
+
+.h2-span {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.contact_button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 0 0 0;
+}
+
+.contact_button button {
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 12px;
+    gap: 4px;
+    font-size: larger
+}
+
+.contact_button img {
+    object-fit: cover;
+    height: 24px;
+    width: 24px;
+}
+
+.cancel-Button {
+    background-color: white;
+}
+
+.letter {
+    border-bottom: 0.5px solid grey;
+    margin: 0;
+    padding: 12px 0 12px 0;
+}
+
+.contactCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 12px 12px 12px;
+}
+
+.single_letter {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: larger;
+}
+
+.single_letter:hover {
+    cursor: pointer;
+}
+
+.fullName-email {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.email {
+    text-decoration: none;
+    color: rgb(0, 124, 238);
+}
+
+.single-letter {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 48px;
+    background-color: orange;
+    color: white;
+    border: white 1px solid;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+h4 {
+    margin: 0;
+    font-size: 36px;
+}
+
+.contact-profile {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    padding: 24px 0 24px 0;
+}
+
+.h4_edit-delete {
+    display: flex;
+    align-items: self-start;
+    flex-direction: column;
+}
+
+.edit-delete {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding: 12px 0 0 0;
+}
+
+.edit-delete :first-child:hover {
+    color: rgb(65, 157, 241);
+    filter: sepia(1) saturate(10) hue-rotate(190deg);
+    cursor: pointer;
+}
+
+.edit-delete :nth-child(2):hover {
+    color: rgb(65, 157, 241);
+    filter: sepia(1) saturate(10) hue-rotate(190deg);
+    cursor: pointer;
+}
+
+.edit-delete img {
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+}
+
+.edit-delete img:hover {
+    cursor: pointer;
+    filter: sepia(1) saturate(10) hue-rotate(190deg);
+}
+
+.edit-delete span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.pers-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pers-info a {
+    color: rgb(65, 157, 241);
+    text-decoration: none;
 }
