@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <!--Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../../assets/img/logo_coloured.svg"
+    />
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="../../css/header.css" />
+    <link rel="stylesheet" href="../../css/font.css" />
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <script src="../../js/init.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <img
+        src="/assets/img/logo_coloured.svg"
+        alt="Join logo"
+        class="logo-mobile"
+      />
+      <p class="header-text d-none-mobile">Kanban Project Management Tool</p>
+      <div class="header-right">
+        <a href="../../help.html" class="help-img-link cp"
+          ><img
+            src="/assets/img/icon_help.svg"
+            alt="help"
+            class="d-none-mobile"
+        /></a>
+        <div
+          onclick="showDropdownMenu()"
+          class="header-right-user dflex-c-c cp"
+          id="userInitials"
+        ></div>
+      </div>
+    </header>
+    <section id="container-header-dropdown-menu" class="d-noneHead">
+      <div class="header-dropdown-menu">
+        <a href="../../legal_notice.html">Legal Notice</a>
+        <a href="../../privacy-police.html">Privacy Policy</a>
+        <a href="../../index.html">Log out</a>
+      </div>
+    </section>
+  </body>
+</html>

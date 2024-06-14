@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <!--Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/img/logo_coloured.svg"
+    />
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="css/side_menu.css" />
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/login-signup.css" />
+    <!--JS-->
+    <script src="./js/remotestaorage.js"></script>
+    <script src="./js/signup.js"></script>
+  </head>
+
+  <body>
+    <img
+      class="logo-end"
+      src="./assets/img/logo_coloured.svg"
+      alt="join-logo"
+    />
+    <section class="container-login-signup dflex-c-c">
+      <div class="signup-mask dflex-c-c column">
+        <div class="dflex-c-c column">
+          <a href="./index.html" class="arrow-back">
+            <img src="assets/img/icon_back.svg" alt="arrow-left" />
+          </a>
+          <h1>Sign up</h1>
+          <div class="text-line"></div>
+        </div>
+        <form
+          onsubmit="return closeBtnSignUpSuccesfully(event)"
+          class="input-container dflex-c-c column"
+        >
+          <input
+            id="inputSignUpName"
+            class="inputfield"
+            type="text"
+            placeholder="Name"
+            required
+          />
+          <input
+            id="inputSignUpMail"
+            class="inputfield"
+            type="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            id="inputSignUpPassword1"
+            class="inputfield"
+            type="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            id="inputSignUpPassword2"
+            class="inputfield"
+            type="password"
+            placeholder="Password"
+            required
+          />
+          <div id="passwordIncorrect" class="d-none"></div>
+          <div class="checkbox-signup">
+            <input
+              id="checkboxAccept"
+              type="checkbox"
+              name="remember-me"
+              class="cp"
+              required
+            />
+            <span
+              >I accept the
+              <a href="/privacy-police.html">Privacy policy</a></span
+            >
+          </div>
+          <button type="submit" class="btn-small cp">Sign up</button>
+        </form>
+      </div>
+      <div id="bgSignupSuccesfully" class="d-none dflex-c-c">
+        <div class=" btn-signup-succesfully dflex-c-c">
+          You Signed Up successfully
+        </div>
+      </div>
+    </section>
+    <section class="login-footer dflex-c-c">
+      <a href="/privacy-police.html">Privacy Policy</a>
+      <a href="/legal_notice.html">Legal Notice</a>
+    </section>
+  </body>
+</html>

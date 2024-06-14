@@ -1,132 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <!--Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/img/logo_coloured.svg"
+    />
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="./css/legal-Help_privacy.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="./css/board.css" />
+    <link rel="stylesheet" href="./css/font.css" />
+    <link rel="stylesheet" href="./css/side_menu.css" />
+    <!--JS-->
+    <script src="./js/board.js"></script>
+    <script src="/js/header.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join</title>
-  <!--Favicon-->
-  <link rel="icon" type="image/x-icon" href="./assets/img/logo_coloured.svg" />
-  <!--Stylesheets-->
-  <link rel="stylesheet" href="./css/addTask.css" />
-  <link rel="stylesheet" href="./css/board.css" />
-  <link rel="stylesheet" href="./css/font.css" />
-  <link rel="stylesheet" href="./css/addTask_input.css" />
-  <!--JS-->
-  <script src="script.js"></script>
-  <script src="./js/board.js"></script>
-  <link rel="stylesheet" href="./assets/templates/side_menu.html" />
-</head>
-
-<body onload="includeHTML()">
-  <div w3-include-html="./assets/templates/side_menu.html"></div>
-  <main>
-    <div class="board-top">
-      <div class="board-top-content">
-        <div class="board-top-cont-left">
-          <h2>Board</h2>
-          <div class="board-top-add"></div>
-        </div>
-        <div class="board-top-cont-right">
-          <div class="board-search-form">
-            <form class="board-top-form">
-              <input type="text" id="board-search-task" placeholder="Find Task" autocomplete="off" />
+  <body onload="init()">
+    <div w3-include-html="./assets/templates/side_menu.html"></div>
+    <main>
+      <div
+        w3-include-html="./assets/templates/header.html"
+        class="header-sticky"
+      ></div>
+      <div class="board-top">
+        <div class="board-top-content">
+          <div class="board-top-cont-left">
+            <h2>Board</h2>
+            <div class="board-top-add"></div>
+          </div>
+          <div class="board-top-cont-right">
+            <div class="board-search-form">
+              <form class="board-top-form">
+                <input
+                  type="text"
+                  id="board-search-task"
+                  placeholder="Find Task"
+                  autocomplete="off"
+                />
+                <div>
+                  <img
+                    src="./assets/img/searchButton.svg"
+                    alt="search-button"
+                  />
+                </div>
+              </form>
+              <div id="searchInfo"></div>
+            </div>
+            <div class="board-add-button">
               <div>
-                <img src="./assets/img/searchButton.svg" alt="search-button" />
+                <img
+                  src="./assets/img/addTaskButton.svg"
+                  alt="add"
+                  onclick="openAddTask()"
+                />
               </div>
-            </form>
-            <div id="searchInfo"></div>
-          </div>
-          <div class="board-add-button">
-            <div><img src="./assets/img/addTaskButton.svg" alt="add" onclick="openAddTask()" /></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div id="add-task" class="add-task-board hidden">
-      <div w3-include-html="./assets/templates/task_form.html"></div>
-    </div>
-    <div class="board-main">
-      <div class="board-card-section">
-        <div class="board-title-content" id="title-todo">
-          <div>
-            <span>To do</span>
+      <div id="add-task" class="add-task-board hidden">
+        <div w3-include-html="./assets/templates/task_form.html"></div>
+      </div>
+      <div class="board-main">
+        <div class="board-card-section">
+          <div class="board-title-content" id="title-todo">
+            <div>
+              <span>To do</span>
+            </div>
+            <div class="add-svg">
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="1.5"
+                  width="22"
+                  height="22"
+                  rx="7"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 8.5V16.5"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M16 12.5754L8 12.5754"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
           </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
+          <div>
+            <div class="board-no-task">
+              <span>No tasks To do</span>
+            </div>
           </div>
         </div>
-        <div>
+
+        <div class="board-card-section">
+          <div class="board-title-content" id="title-inprogress">
+            <div>
+              <span>In Progress</span>
+            </div>
+            <div class="add-svg">
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="1.5"
+                  width="22"
+                  height="22"
+                  rx="7"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 8.5V16.5"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M16 12.5754L8 12.5754"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div class="board-no-task">
+              <span>No tasks To do</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="board-card-section">
+          <div class="board-title-content" id="">
+            <div>
+              <span>Await feedback</span>
+            </div>
+            <div class="add-svg">
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="1.5"
+                  width="22"
+                  height="22"
+                  rx="7"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 8.5V16.5"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M16 12.5754L8 12.5754"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div class="board-no-task">
+              <span>No tasks To do</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="board-card-section">
+          <div class="board-title-content" id="title-boardtitle">
+            <div>
+              <span>Done</span>
+            </div>
+            <div class="add-svg">
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="1.5"
+                  width="22"
+                  height="22"
+                  rx="7"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 8.5V16.5"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M16 12.5754L8 12.5754"
+                  stroke="#2A3647"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+          </div>
           <div class="board-no-task">
             <span>No tasks To do</span>
           </div>
         </div>
       </div>
-
-      <div class="board-card-section">
-        <div class="board-title-content" id="title-inprogress">
-          <div>
-            <span>In Progress</span>
-          </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div class="board-no-task">
-            <span>No tasks To do</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="board-card-section">
-        <div class="board-title-content" id="">
-          <div>
-            <span>Await feedback</span>
-          </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div class="board-no-task">
-            <span>No tasks To do</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="board-card-section">
-        <div class="board-title-content" id="title-boardtitle">
-          <div>
-            <span>Done</span>
-          </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-        </div>
-        <div class="board-no-task">
-          <span>No tasks To do</span>
-        </div>
-      </div>
-    </div>
-  </main>
-  <div class="overlay hidden" onclick="closeMe()"></div>
-</body>
-
+    </main>
+    <div class="overlay hidden" onclick="closeMe()"></div>
+    <script src="/js/init.js"></script>
+  </body>
 </html>
