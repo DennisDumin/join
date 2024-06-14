@@ -1,6 +1,7 @@
 const BASE_URL = 'https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/';
 let array = [];
 let material = [];
+let keyForEdit;
 
 
 async function loadData() {
@@ -8,7 +9,6 @@ async function loadData() {
     let responseAsJson = await response.json();
     let info = responseAsJson.contact;
     material.push(responseAsJson.contact);
-    console.log(responseAsJson.contact)
     renderData(info);
 }
 
@@ -57,10 +57,7 @@ function renderData(info) {
 
 function renderDetailedContact(contact) {
     let source = material[0][contact];
-    console.log(source['Email']);
-    console.log(source['Telefonnummer']);
-    console.log(source['Name']);
-    console.log(contact);
+    keyForEdit = contact;
     let target = document.getElementById('content');
     target.innerHTML = '';
     target.innerHTML = 
@@ -70,7 +67,7 @@ function renderDetailedContact(contact) {
         <div class="h4_edit-delete">
           <h4>${source['Name']}</h4>
           <div class="edit-delete">
-            <span><img src="contact-assets/img/edit.png"></img>Edit</span>
+            <span onclick="openClosePopUp('open', key = true)"><img src="contact-assets/img/edit.png"></img>Edit</span>
             <span onclick="deleteContact(path='contact', '${contact}')"><img src="contact-assets/img/delete.png"></img>Delete</span>
           </div>
         </div>
@@ -103,7 +100,7 @@ function addContact() {
 }
 
 
-async function postNewContact(path) {
+async function postNewContact(path, id) {
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
         console.log(element);
@@ -114,7 +111,35 @@ async function postNewContact(path) {
             },
             body: JSON.stringify(element),
         });
+        window.location.reload();
     }
+}
+
+async function UpdateContact(path) {
+    array.length = 0;
+    array.push(editContact());
+        let response = await fetch(BASE_URL + path + keyForEdit + '.json', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(array[0]),
+        });
+        window.location.reload();
+}
+
+
+function editContact() {
+    let email = document.getElementById('editEmail');
+    let name = document.getElementById('editNname');
+    let tel = document.getElementById('editTel');
+    let data =
+    {
+        'Email': email.value,
+        'Name': name.value,
+        'Telefonnummer': tel.value
+    };
+    return data;
 }
 
 async function deleteContact(path = 'contact', id) {
@@ -130,19 +155,31 @@ async function deleteContact(path = 'contact', id) {
             throw new Error('Fehler beim Löschen des Kontakts');
         }
         console.log('Kontakt erfolgreich gelöscht');
+        window.location.reload();
     } catch (error) {
         console.error('Fehler beim Löschen des Kontakts:', error.message);
     }
 }
 
 
-function openClosePopUp(param) {
+function openClosePopUp(param, key) {
+
+    let target = validatePopUp(key);
+
     if (param === 'open') {
-        document.getElementById('backgroundPopUp').classList.remove('displayNone');
+        document.getElementById(target).classList.remove('displayNone');
     } else if (param === 'close') {
-        document.getElementById('backgroundPopUp').classList.add('displayNone');
+        document.getElementById(target).classList.add('displayNone');
     } else {
         param.stopPropagation();
+    }
+}
+
+function validatePopUp() {
+    if(key == true) {
+        return 'backgroundPopUpEdit';
+    } else {
+        return 'backgroundPopUp';
     }
 }
 

@@ -22,7 +22,7 @@
   <div class="layout-wrapper" id="layout-wrapper">
     <section class="contacts">
       <div class="addContact">
-        <button onclick="openClosePopUp('open')" class="addContactButton">Add new Contact <img src="contact-assets/img/addPerson.png" alt=""></button>
+        <button onclick="openClosePopUp('open', key = false)" class="addContactButton">Add new Contact <img src="contact-assets/img/addPerson.png" alt=""></button>
       </div>
       <div class="list" id="contacts"></div>
     </section>
@@ -68,12 +68,12 @@
               <img src="contact-assets/img/empty-profil.png" alt="">
             </div>
             <div class="contact_input">
-              <input id="email" placeholder="Email" type="email">
-              <input id="tel" placeholder="Phone" type="number">
-              <input id="name" placeholder="Name" type="text">
+              <input id="editEmail" placeholder="Email" type="email">
+              <input id="editTel" placeholder="Phone" type="number">
+              <input id="editName" placeholder="Name" type="text">
               <div class="contact_button">
-                <button class="cancel-Button">Cancel <img src="contact-assets/img/close.png" alt=""></button>
-                <button onclick="addContact()" class="addContactButton">Create Contact <img class="check" src="contact-assets/img/check.png" alt=""></button>
+                <button class="cancel-Button">Delete <img src="contact-assets/img/close.png" alt=""></button>
+                <button onclick="UpdateContact(path='contact')" class="addContactButton">Save<img class="check" src="contact-assets/img/check.png" alt=""></button>
               </div>
             </div>
           </div>
