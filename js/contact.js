@@ -166,21 +166,29 @@ function openClosePopUp(param, key) {
 
     let target = validatePopUp(key);
 
+    let bgPopUp = document.getElementById(target);
+    let popUp = bgPopUp.querySelector('.popUp');
+
     if (param === 'open') {
-        document.getElementById(target).classList.remove('displayNone');
+        bgPopUp.classList.remove('displayNone', 'hide');
+        bgPopUp.classList.add('show');
+        popUp.classList.remove('slide-out');
+        popUp.classList.add('slide-in');
     } else if (param === 'close') {
-        document.getElementById(target).classList.add('displayNone');
+        popUp.classList.remove('slide-in');
+        popUp.classList.add('slide-out');
+        bgPopUp.classList.remove('show');
+        bgPopUp.classList.add('hide');
+        setTimeout(() => {
+            bgPopUp.classList.add('displayNone');
+        }, 500); 
     } else {
         param.stopPropagation();
     }
 }
 
 function validatePopUp() {
-    if(key == true) {
-        return 'backgroundPopUpEdit';
-    } else {
-        return 'backgroundPopUp';
-    }
+    return key ? 'backgroundPopUpEdit' : 'backgroundPopUp';
 }
 
 function getRandomColor() {
