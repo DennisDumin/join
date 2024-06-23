@@ -115,11 +115,11 @@ async function postNewContact(path, id) {
     }
 }
 
-async function UpdateContact(path) {
+async function UpdateContact() {
     array.length = 0;
     array.push(editContact());
-        let response = await fetch(BASE_URL + path + keyForEdit + '.json', {
-            method: "POST",
+    const response = await fetch(`${BASE_URL}contact/${keyForEdit}.json`, {
+        method: "PATCH",
             headers: {
                 "content-type": "application/json",
             },
@@ -131,7 +131,7 @@ async function UpdateContact(path) {
 
 function editContact() {
     let email = document.getElementById('editEmail');
-    let name = document.getElementById('editNname');
+    let name = document.getElementById('editName');
     let tel = document.getElementById('editTel');
     let data =
     {
@@ -192,5 +192,15 @@ function getRandomColor() {
     console.log(color);
     return color;
 }
+
+
+async function testFetch() {
+    let response = await fetch(BASE_URL + 'contact' + '-O-5fQkP0Xg1m4qHkE21' + '.json');
+    let responseAsJson = await response.json();
+    console.log(responseAsJson);    
+}
+
+
+
 
 

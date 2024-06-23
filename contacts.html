@@ -68,7 +68,10 @@
     </div>
     <div id="backgroundPopUpEdit" onclick="openClosePopUp('close')" class="displayNone bg-popUp">
       <div onclick="openClosePopUp(event)" class="popUp">
-        <div class="popUp-logo"></div>
+        <div class="popUp-logo">
+          <div class="logo"><img src="contact-assets/img/logo.png" alt=""></div>
+          <div class="edit-logo"><img src="contact-assets/img/edit-contact.png" alt=""></div>
+        </div>
         <div class="popUp-content">
           <div class="close-button"><img onclick="openClosePopUp('close')" src="contact-assets/img/close.png" alt="">
           </div>
@@ -82,7 +85,7 @@
               <input id="editName" placeholder="Name" type="text">
               <div class="contact_button">
                 <button class="cancel-Button">Delete <img src="contact-assets/img/close.png" alt=""></button>
-                <button onclick="UpdateContact(path='contact')" class="addContactButton">Save<img class="check" src="contact-assets/img/check.png" alt=""></button>
+                <button onclick="UpdateContact()" class="addContactButton">Save<img class="check" src="contact-assets/img/check.png" alt=""></button>
               </div>
             </div>
           </div>

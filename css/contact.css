@@ -116,6 +116,21 @@ h2 {
   background-color: rgb(9, 25, 49);
   width: 40%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.logo {
+  object-fit: cover;
+  height: 12px;
+  width: 12px;
+}
+
+.edit-logo {
+  object-fit: cover;
+  height: 12px;
+  width: 12px;
 }
 
 .popUp-content {
