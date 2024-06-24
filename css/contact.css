@@ -181,6 +181,14 @@ h2 {
 padding: 0 12px 12px 12px;
 }
 
+.edit-logo-box {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0 12px;
+}
+
 .popUp-content {
   background-color: white;
   flex: 1;

@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="./assets/img/logo_coloured.svg" />
     <!--Stylesheets-->
    
-    <link rel="stylesheet" href="./css/legal-Help_privacy.css" />
+    <!-- <link rel="stylesheet" href="./css/legal-Help_privacy.css" /> -->
     <link rel="stylesheet" href="./css/font.css" />
     <link rel="stylesheet" href="./css/side_menu.css" />
     <link rel="stylesheet" href="/css/style.css" />
@@ -57,13 +57,15 @@
               <img src="contact-assets/img/empty-profil.png" alt="">
             </div>
             <div class="contact_input">
-              <input id="email" placeholder="Email" type="email">
-              <input id="tel" placeholder="Phone" type="number">
-              <input id="name" placeholder="Name" type="text">
+              <form id="addContactForm" onsubmit="addContact()">
+              <input required id="email" placeholder="Email" type="email">
+              <input required id="tel" placeholder="Phone" type="number">
+              <input required id="name" placeholder="Name" type="text">
               <div class="contact_button">
-                <button class="cancel-Button">Cancel <img src="contact-assets/img/close.png" alt=""></button>
-                <button onclick="addContact()" class="addContactButton">Create Contact <img class="check" src="contact-assets/img/check.png" alt=""></button>
+                <button type="button" onclick="openClosePopUp('close')" class="cancel-Button">Cancel <img src="contact-assets/img/close.png" alt=""></button>
+                <button type="submit" class="addContactButton">Create Contact <img class="check" src="contact-assets/img/check.png" alt=""></button>
               </div>
+            </form>
             </div>
           </div>
         </div>

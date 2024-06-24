@@ -86,6 +86,8 @@ function renderDetailedContact(contact) {
 
 
 function addContact() {
+    stopWindowReload();
+
     let email = document.getElementById('email');
     let name = document.getElementById('name');
     let tel = document.getElementById('tel');
@@ -140,6 +142,12 @@ function editContact() {
         'Telefonnummer': tel.value
     };
     return data;
+}
+
+function stopWindowReload() {
+    document.getElementById('addContactForm'),addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
 }
 
 async function deleteContact(path = 'contact', id) {
