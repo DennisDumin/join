@@ -15,7 +15,7 @@ h2 {
 }
 
 .contacts {
-  width: 32%;
+  width: 35%;
   height: 100%;
   overflow-y: auto;
   display: flex;
@@ -230,14 +230,14 @@ padding: 0 12px 12px 12px;
   width: 120px;
 }
 
-.contact_input {
+.form {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 320px;
 }
 
-.contact_input input {
+.form input {
   height: 32px;
   border-radius: 8px;
   border: 1px solid rgb(203, 203, 203);
@@ -277,6 +277,10 @@ padding: 0 12px 12px 12px;
   background-color: white;
 }
 
+.cancel-Button:hover {
+  cursor: pointer;
+}
+
 .letter {
   border-bottom: 0.5px solid grey;
   margin: 0;
@@ -314,6 +318,7 @@ padding: 0 12px 12px 12px;
 .email {
   text-decoration: none;
   color: rgb(0, 124, 238);
+  font-size: smaller;
 }
 
 .single-letter {

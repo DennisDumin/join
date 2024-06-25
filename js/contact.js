@@ -2,6 +2,7 @@ const BASE_URL = 'https://contacts-881f2-default-rtdb.europe-west1.firebasedatab
 let array = [];
 let material = [];
 let keyForEdit;
+let highlightKey;
 
 
 async function loadData() {
@@ -81,12 +82,11 @@ function renderDetailedContact(contact) {
       <span>${source['Telefonnummer']}</span>
     </div>
     `;
-
 }
 
 
 function addContact() {
-    stopWindowReload();
+    stopWindowReload('new');
 
     let email = document.getElementById('email');
     let name = document.getElementById('name');
@@ -117,7 +117,9 @@ async function postNewContact(path, id) {
     }
 }
 
+
 async function UpdateContact() {
+    stopWindowReload('update');
     array.length = 0;
     array.push(editContact());
     const response = await fetch(`${BASE_URL}contact/${keyForEdit}.json`, {
@@ -144,11 +146,19 @@ function editContact() {
     return data;
 }
 
-function stopWindowReload() {
-    document.getElementById('addContactForm'),addEventListener('submit', function(event) {
+
+function stopWindowReload(key) {
+    let target;
+    if(key == 'new') {
+        target = 'addContactForm';
+    } else if(key == 'update') {
+        target = 'editContactForm';
+    }
+    document.getElementById(target),addEventListener('submit', function(event) {
         event.preventDefault();
     });
 }
+
 
 async function deleteContact(path = 'contact', id) {
     try {
@@ -162,7 +172,6 @@ async function deleteContact(path = 'contact', id) {
         if (!response.ok) {
             throw new Error('Fehler beim Löschen des Kontakts');
         }
-        console.log('Kontakt erfolgreich gelöscht');
         window.location.reload();
     } catch (error) {
         console.error('Fehler beim Löschen des Kontakts:', error.message);
@@ -171,7 +180,6 @@ async function deleteContact(path = 'contact', id) {
 
 
 function openClosePopUp(param, key) {
-
     let target = validatePopUp(key);
 
     let bgPopUp = document.getElementById(target);
