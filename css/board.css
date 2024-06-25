@@ -32,7 +32,9 @@ body {
   gap: 32px;
   padding-right: 32px;
 }
-
+.board-search-form {
+  display: flex;
+}
 .board-search-form form {
   display: flex;
   flex-direction: row;
@@ -403,7 +405,7 @@ board-title {
 .add-task-board {
   height: 660px;
   width: 976.25px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -446,7 +448,7 @@ board-title {
 }
 
 .close-btn {
-  color: #2A3647;
+  color: #2a3647;
   font-size: 30px !important;
   font-weight: 100;
   cursor: pointer;
@@ -455,7 +457,7 @@ board-title {
 }
 
 .close-btn:hover {
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
   border-radius: 20px;
 }
 
@@ -470,12 +472,17 @@ board-title {
   z-index: 100;
 }
 
-#add-task-title, #add-task-description, #add-task-due-date, #add-task-category, #add-task-subtasks, #add-task-assigned {
-  outline-color:#29ABE2;
+#add-task-title,
+#add-task-description,
+#add-task-due-date,
+#add-task-category,
+#add-task-subtasks,
+#add-task-assigned {
+  outline-color: #29abe2;
 }
 
 .input {
-  border: 1px solid #D1D1D1;
+  border: 1px solid #d1d1d1;
   border-radius: 10px;
   padding: 12px 21px 12px 21px;
   background-color: white;
@@ -485,31 +492,35 @@ board-title {
 }
 
 .input::placeholder {
-  color: #D1D1D1;
+  color: #d1d1d1;
 }
-
 
 .prio-buttons button:hover {
   box-shadow: 0px 4px 2px 0 rgba(17, 3, 3, 0.24);
 }
 
-.urgent-button:focus, .urgent-button.active {
-  background-color: #FF3d00;
-  color: #FFFFFF;
+.urgent-button:focus,
+.urgent-button.active {
+  background-color: #ff3d00;
+  color: #ffffff;
 }
 
-.medium-button:focus, .medium-button.active {
-  background-color: #FFA800;
-  color: #FFFFFF;
+.medium-button:focus,
+.medium-button.active {
+  background-color: #ffa800;
+  color: #ffffff;
 }
 
-.low-button:focus, .low-button.active {
-  background-color: #7AE229;
-  color: #FFFFFF;
+.low-button:focus,
+.low-button.active {
+  background-color: #7ae229;
+  color: #ffffff;
 }
 
-.urgent-button img, .medium-button img, .low-button img {
-  background-color: #FFFFFF;
+.urgent-button img,
+.medium-button img,
+.low-button img {
+  background-color: #ffffff;
   border: none;
   padding: 2px;
 }
@@ -523,5 +534,5 @@ board-title {
   font-size: 12px;
   font-weight: 400;
   line-height: 14.4px;
-  color: #FF8190;
+  color: #ff8190;
 }
