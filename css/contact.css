@@ -4,6 +4,11 @@ h2 {
   padding-right: 48px;
 }
 
+.blueBackground {
+  background-color: rgb(42,54,71);
+  color: white;
+}
+
 .displayNone {
   display: none !important;
 }
@@ -292,6 +297,7 @@ padding: 0 12px 12px 12px;
   align-items: center;
   gap: 12px;
   padding: 12px 12px 12px 12px;
+  border-radius: 12px;
 }
 
 .single_letter {
@@ -303,6 +309,7 @@ padding: 0 12px 12px 12px;
   justify-content: center;
   overflow: hidden;
   font-size: larger;
+  text-transform: uppercase;
 }
 
 .single_letter:hover {

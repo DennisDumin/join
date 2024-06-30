@@ -1,7 +1,7 @@
 const BASE_URL = 'https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/';
 let array = [];
 let material = [];
-let keyForEdit;
+let keyForEdit = null;
 let highlightKey;
 
 
@@ -53,16 +53,21 @@ function renderData(info) {
             document.getElementById(`letter${contact.id}`).style.backgroundColor = getRandomColor();
         });
     }
+    newContactBgHighlight()
 }
 
 
 function renderDetailedContact(contact) {
     let source = material[0][contact];
+    if (keyForEdit !== null) {
+        document.getElementById(keyForEdit).classList.remove('blueBackground');
+    }
     keyForEdit = contact;
+    document.getElementById(keyForEdit).classList.add('blueBackground');
     let target = document.getElementById('content');
     target.innerHTML = '';
-    target.innerHTML = 
-    `
+    target.innerHTML =
+        `
     <div class="contact-profile">
         <div class="single-letter">${source['Name'][0]}</div>
         <div class="h4_edit-delete">
@@ -105,7 +110,8 @@ function addContact() {
 async function postNewContact(path, id) {
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
-        console.log(element);
+        highlightKey = element;
+        saveForBackground();
         let response = await fetch(BASE_URL + path + '.json', {
             method: "POST",
             headers: {
@@ -117,6 +123,43 @@ async function postNewContact(path, id) {
     }
 }
 
+function saveForBackground() {
+    let asTexthighlightKey = JSON.stringify(highlightKey);
+    localStorage.setItem('highlightKey', asTexthighlightKey);
+}
+
+
+function newContactBgHighlight() {
+    let asTexthighlightKey = localStorage.getItem('highlightKey')
+
+    if (asTexthighlightKey) {
+        highlightKey = JSON.parse(asTexthighlightKey)
+        console.log(highlightKey)
+    }
+    keyForEdit = searchNameInMaterialArray();
+    renderDetailedContact(keyForEdit);
+    localStorage.clear();
+    scrollToNewDiv();
+}
+
+
+function searchNameInMaterialArray() {
+    let nameData = material[0]
+
+    for (const key in nameData) {
+        if (nameData[key].Name === highlightKey['Name']) {
+            return key;
+        }
+    }
+}
+
+function scrollToNewDiv() {
+    document.getElementById(keyForEdit).scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+}
+
 
 async function UpdateContact() {
     stopWindowReload('update');
@@ -124,12 +167,12 @@ async function UpdateContact() {
     array.push(editContact());
     const response = await fetch(`${BASE_URL}contact/${keyForEdit}.json`, {
         method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(array[0]),
-        });
-        window.location.reload();
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify(array[0]),
+    });
+    window.location.reload();
 }
 
 
@@ -149,12 +192,12 @@ function editContact() {
 
 function stopWindowReload(key) {
     let target;
-    if(key == 'new') {
+    if (key == 'new') {
         target = 'addContactForm';
-    } else if(key == 'update') {
+    } else if (key == 'update') {
         target = 'editContactForm';
     }
-    document.getElementById(target),addEventListener('submit', function(event) {
+    document.getElementById(target), addEventListener('submit', function (event) {
         event.preventDefault();
     });
 }
@@ -197,7 +240,7 @@ function openClosePopUp(param, key) {
         bgPopUp.classList.add('hide');
         setTimeout(() => {
             bgPopUp.classList.add('displayNone');
-        }, 500); 
+        }, 500);
     } else {
         param.stopPropagation();
     }
@@ -208,7 +251,7 @@ function validatePopUp() {
 }
 
 function getRandomColor() {
-    const letters = '89ABCDEF'; 
+    const letters = '89ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * letters.length)];
@@ -221,7 +264,7 @@ function getRandomColor() {
 async function testFetch() {
     let response = await fetch(BASE_URL + 'contact' + '-O-5fQkP0Xg1m4qHkE21' + '.json');
     let responseAsJson = await response.json();
-    console.log(responseAsJson);    
+    console.log(responseAsJson);
 }
 
 
