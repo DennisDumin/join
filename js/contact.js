@@ -78,6 +78,7 @@ function renderDetailedContact(contact) {
           </div>
         </div>
     </div>
+    <h3>Contact Information</h3>
     <div class="pers-info">
       <b>Email</b>
       <a href="#">${source['Email']}</a>

@@ -5,7 +5,7 @@ h2 {
 }
 
 .blueBackground {
-  background-color: rgb(42,54,71);
+  background-color: rgb(42, 54, 71);
   color: white;
 }
 
@@ -80,6 +80,7 @@ h2 {
   border-radius: 12px;
   font-size: larger;
   padding: 8px 12px 8px 12px;
+  border: none;
 }
 
 .addContactButton img {
@@ -95,6 +96,7 @@ h2 {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -105,6 +107,7 @@ h2 {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(100%);
   }
@@ -152,8 +155,8 @@ h2 {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transform: translateX(100%); 
-  transition: transform 0.5s ease-in-out; 
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out;
 }
 
 .popUp-logo {
@@ -183,7 +186,7 @@ h2 {
 .edit-logo {
   object-fit: cover;
   width: 100%;
-padding: 0 12px 12px 12px;
+  padding: 0 12px 12px 12px;
 }
 
 .edit-logo-box {
@@ -272,11 +275,22 @@ padding: 0 12px 12px 12px;
   font-size: larger;
 }
 
+.contact_button button:last-child {
+  border: none;
+}
+
+.addContactButton:hover {
+  background-color: rgb(41, 171, 226);
+  transition: 150ms;
+  color: white;
+}
+
 .contact_button img {
   object-fit: cover;
   height: 24px;
   width: 24px;
 }
+
 
 .cancel-Button {
   background-color: white;
@@ -284,6 +298,12 @@ padding: 0 12px 12px 12px;
 
 .cancel-Button:hover {
   cursor: pointer;
+  border: 2.5px solid rgb(41, 171, 226);
+  color: rgb(41, 171, 226);
+}
+
+.cancel-Button:hover img {
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
 }
 
 .letter {
@@ -370,13 +390,13 @@ h4 {
 
 .edit-delete :first-child:hover {
   color: rgb(65, 157, 241);
-  filter: sepia(1) saturate(10) hue-rotate(190deg);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
   cursor: pointer;
 }
 
 .edit-delete :nth-child(2):hover {
   color: rgb(65, 157, 241);
-  filter: sepia(1) saturate(10) hue-rotate(190deg);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
   cursor: pointer;
 }
 
@@ -388,7 +408,7 @@ h4 {
 
 .edit-delete img:hover {
   cursor: pointer;
-  filter: sepia(1) saturate(10) hue-rotate(190deg);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
 }
 
 .edit-delete span {
