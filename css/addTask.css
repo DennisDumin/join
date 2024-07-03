@@ -26,7 +26,7 @@ body {
 /*  LAYOUT  */
 
 .add-task-page {
-    margin-left: 20px;
+    margin-left: 32px;
     padding-inline: 64px;
 }
 
@@ -37,7 +37,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     color: #2A3647;
-    padding-top: 160px;
+    padding-top: 110px;
     padding-bottom: 50px;
     gap: 80px;
 }
@@ -285,4 +285,10 @@ body {
     to {
         bottom: 50%;
     }
+}
+
+.bg-focus {
+    background-color: #091931;
+    pointer-events: none;
+    width: 192px;
 }
