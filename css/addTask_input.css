@@ -203,6 +203,7 @@
 
     .medium-img {
         background-image: url(../assets/img/icon_PrioMediaWhite.svg);
+        width: 40px;
     }
 }
 
