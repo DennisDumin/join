@@ -1,19 +1,16 @@
 <div class="content">
   <div class="add-task">
-
     <div class="add-task-top">
-
       <h2 class="add-task-title">Add Task</h2>
-
       <div class="input-section">
-
         <div class="input-section-left">
           <!-- TITLE -->
           <div class="input-section-element">
             <label for="add-task-title">Title<span style="color: #FF8190">*</span></label>
             <div class="input-container-required">
-              <div id="add-task-title" onclick="" class="input-container" tabindex="1">
-                <input id="task-title" class="inputfield" type="text" placeholder="Enter a title" required="">
+              <div id="add-task-title" onclick="hideRequiredInfo('add-task-title', 'required-title')"
+                class="input-container" tabindex="1">
+                <input id="task-title" class="inputfield" type="text" placeholder="Enter a title" required="" />
               </div>
               <span id="required-title" class="required-text transparent">This field is required</span>
             </div>
@@ -24,33 +21,36 @@
             <div id="input-container-description" class="input-container input-container-description">
               <textarea id="add-task-description" class="textarea-description"
                 placeholder="Enter a Description"></textarea>
-              <img src="./assets/img/icon_textarea.svg" alt="">
+              <img src="./assets/img/icon_textarea.svg" alt="" />
             </div>
           </div>
           <!-- ASSIGNED TO -->
           <div id="input-section-element" class="input-section-element">
             <label for="add-task-assigned">Assigned to</label>
-            <div id="contacts-input-container" onclick="" class="input-container input-container-select" tabindex="1">
-              <input id="add-task-assigned" onkeyup="" class="inputfield" type="text"
+            <div id="contacts-input-container" onclick="openContacts()" class="input-container input-container-select"
+              tabindex="1">
+              <input id="add-task-assigned" onkeyup="searchContacts()" class="inputfield" type="text"
                 placeholder="Select contacts to assign" onfocus="this.placeholder = ''"
-                onblur="this.placeholder = 'Select contacts to assign'">
-              <img id="dropdown-img-contacts" onclick="" class="dropdown-img"
-                src="./assets/img/icon_arrow_drop_down.svg">
+                onblur="this.placeholder = 'Select contacts to assign'" />
+              <img id="dropdown-img-contacts" onclick="openCloseContacts(event)" class="dropdown-img"
+                src="./assets/img/icon_arrow_drop_down.svg" />
             </div>
-            <div id="selected-contacts" class="contact-circles"></div>
-            <div id="add-task-contacts-container" class="add-task-contacts-container d-none">
-            </div>
+            <div id="selected-contacts" class="contact-circles d-none"></div>
+            <div id="add-task-contacts-container" class="add-task-contacts-container d-none"></div>
           </div>
         </div>
+
         <div class="parting-line line-page"></div>
+
         <div class="input-section-right">
           <!-- DUE DATE -->
           <div class="input-section-element">
             <label for="add-task-due-date">Due Date<span style="color: #FF8190">*</span></label>
             <div class="input-container-required">
-              <div id="add-task-due-date" onclick="" class="input-container">
-                <input id="task-date" class="inputfield" type="date" placeholder="dd/mm/yyyy" required="">
-                <img src="./assets/img/icon_event.svg">
+              <div id="add-task-due-date" onclick="hideRequiredInfo('add-task-due-date', 'required-date')"
+                class="input-container">
+                <input id="task-date" class="inputfield" type="date" placeholder="dd/mm/yyyy" required="" />
+                <img src="./assets/img/icon_event.svg" />
               </div>
               <span id="required-date" class="required-text transparent">This field is required</span>
             </div>
@@ -59,15 +59,15 @@
           <div class="input-section-element">
             <span>Prio</span>
             <div class="prio-buttons">
-              <button id="urgent-button" onclick="" class="urgentButton">
+              <button id="urgent-button" onclick="selectUrgent()" class="urgent-button">
                 <span>Urgent</span>
                 <div class="urgent-img"></div>
               </button>
-              <button id="medium-button" onclick="" class="mediumButton">
+              <button id="medium-button" onclick="selectMedium()" class="medium-button">
                 <span>Medium</span>
                 <div class="medium-img"></div>
               </button>
-              <button id="low-button" onclick="" class="lowButton">
+              <button id="low-button" onclick="selectLow()" class="low-button">
                 <span>Low</span>
                 <div class="low-img"></div>
               </button>
@@ -76,16 +76,16 @@
           <!-- CATEGORY -->
           <div class="input-section-element">
             <label for="add-task-category">Category<span style="color: #FF8190">*</span></label>
-            <div id="add-task-category-section" onclick="" class="add-task-category-section">
+            <div id="add-task-category-section" onclick="openCategoriesWindow()" class="add-task-category-section">
               <div id="add-task-category" class="input-container input-container-category input-container-select">
                 <span id="select-task-text" class="inputfield">Select task category</span>
-                <img id="dropdown-img-category" onclick="" class="dropdown-img"
-                  src="./assets/img/icon_arrow_drop_down.svg">
+                <img id="dropdown-img-category" onclick="openCategories(event)" class="dropdown-img"
+                  src="./assets/img/icon_arrow_drop_down.svg" />
               </div>
               <div id="add-task-category-container" class="d-none">
-                <span id="technical-task" onclick="" class="single-category">Technical
+                <span id="technicalTask" onclick="selectCategory('technicalTask')" class="single-category">Technical
                   Task</span>
-                <span id="user-story" onclick="" class="single-category">User
+                <span id="userStory" onclick="selectCategory('userStory')" class="single-category">User
                   Story</span>
               </div>
             </div>
@@ -94,47 +94,43 @@
           <div class="input-section-element">
             <label for="add-task-subtasks">Subtasks</label>
             <div id="add-task-subtasks-container" class="input-container">
-              <input id="add-task-subtasks" onkeypress="" onclick="" class="inputfield" type="text"
-                placeholder="Add new subtask">
+              <input id="add-task-subtasks" onkeypress="addSubtaskEnter()" onclick="openIcons()" class="inputfield"
+                type="text" placeholder="Add new subtask" />
               <div id="add-task-subtasks-icons" class="subtasks-icon d-none">
-                <img onclick="" src="./assets/img/icon_closeVectorBlack.svg" alt="Löschen">
+                <img onclick="emptySubtaskInput()" src="./assets/img/icon_closeVectorBlack.svg" alt="Löschen" />
                 <div class="parting-line subtasks-icon-line"></div>
-                <img id="add-subtask-button" onclick="" src="./assets/img/icon_done.svg" alt="Bestätigen">
+                <img id="add-subtask-button" onclick="addSubtask()" src="./assets/img/icon_done.svg" alt="Bestätigen" />
               </div>
-              <img id="dropdown-img-plus" onclick="" class="dropdown-img dropdown-img-plus"
-                src="./assets/img/icon_subtasks.svg">
+              <img id="dropdown-img-plus" onclick="addSubtask()" class="dropdown-img dropdown-img-plus"
+                src="./assets/img/icon_subtasks.svg" />
             </div>
-            <div id="subtasks-list" class="subtasks-list d-none"></div>
+            <div id="subtasks-list" class="subtasks-list"></div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="add-task-bottom">
-      <span class="required-bottom"><span style="color: #FF8190">*</span>This field is required</span>
+      <span class="required-bottom"><span style="color: #FF8190">*</span>This field is
+        required</span>
       <div class="add-task-bottom-buttons">
-
-        <button id="clear-button" onclick="">
+        <button id="clear-button" onclick="clearAddTask()">
           <span>Clear</span>
           <div class="close-img"></div>
         </button>
 
-        <button id="create-task-button" onclick="">
+        <button id="create-task-button" onclick="createTask()">
           <span>Create Task</span>
-          <img src="./assets/img/icon_check-white.svg" alt="Bestätigen">
+          <img src="./assets/img/icon_check-white.svg" alt="Bestätigen" />
         </button>
       </div>
     </div>
   </div>
-
   <div id="added-container" class="added-container d-none">
     <div id="task-added">
       Task added to board
-      <img src="./assets/img/icon_board.svg" alt="">
+      <img src="./assets/img/icon_board.svg" alt="" />
     </div>
   </div>
-</div>
-</div>
-</div>
 </div>
 </div>

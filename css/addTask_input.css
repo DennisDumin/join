@@ -74,7 +74,7 @@
     position: relative;
     border-radius: 10px;
     box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-    overflow-y: scroll;
+   /* overflow-y: scroll; */
 }
 
 .contact-container {
@@ -268,7 +268,7 @@
 
 .subtasks-list {
     height: 100px;
-    overflow: scroll;
+    /*overflow: scroll; */
 }
 
 .input-container:focus-within {
