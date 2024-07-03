@@ -154,6 +154,7 @@ function searchNameInMaterialArray() {
     }
 }
 
+
 function scrollToNewDiv() {
     document.getElementById(keyForEdit).scrollIntoView({
         behavior: 'smooth',
@@ -246,6 +247,7 @@ function openClosePopUp(param, key) {
         param.stopPropagation();
     }
 }
+
 
 function validatePopUp() {
     return key ? 'backgroundPopUpEdit' : 'backgroundPopUp';
