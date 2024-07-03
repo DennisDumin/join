@@ -76,7 +76,7 @@
           <!-- CATEGORY -->
           <div class="input-section-element">
             <label for="add-task-category">Category<span style="color: #FF8190">*</span></label>
-            <div id="add-task-category-section" onclick="openCategoriesWindow()" class="add-task-category-section">
+            <div id="add-task-category-section" onclick="openCategoriesWindow(), hideRequiredInfo('add-task-category', '')" class="add-task-category-section">
               <div id="add-task-category" class="input-container input-container-category input-container-select">
                 <span id="select-task-text" class="inputfield">Select task category</span>
                 <img id="dropdown-img-category" onclick="openCategories(event)" class="dropdown-img"
