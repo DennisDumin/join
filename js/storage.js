@@ -14,7 +14,7 @@ async function onloadTasks() {
 }
 
 
-const BASE_URL = "https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/contact";
+const BASE_URL = "https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function loadDataLogin() {
     let response = await fetch(BASE_URL + "users.json");
