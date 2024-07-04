@@ -1,10 +1,27 @@
 let prioBtn = "";
 
+// addTask.js
+
 async function init() {
+    console.log("init function called");
+
+    // Warten auf das vollständige Laden von w3-include-html
     await initInclude(); // from include.js
-    loadTasks(); // from storage.js
-    renderContacts('add-task-contacts-container');
-    chooseMedium();
+
+    // Vergewissern Sie sich, dass das DOM vollständig geladen ist
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log("DOM fully loaded and parsed");
+
+        // Überprüfen, ob das Element jetzt existiert
+        const container = document.getElementById('add-task-contacts-container');
+        if (container) {
+            console.log("Element with ID 'add-task-contacts-container' found.");
+            renderContacts('add-task-contacts-container');
+            chooseMedium();
+        } else {
+            console.error("Element with ID 'add-task-contacts-container' not found after DOMContentLoaded.");
+        }
+    });
 }
 
 function chooseMedium(){
@@ -143,10 +160,10 @@ function getPrio() {
     if (document.getElementById('urgent-button').classList.contains('urgent-button-focus')) {
         prio = 'Urgent'
         prioBtn = './assets/img/icon_PrioAltaRed.svg'
-    } else if (document.getElementById('mediumButton').classList.contains('medium-button-focus')) {
+    } else if (document.getElementById('medium-Button').classList.contains('medium-button-focus')) {
         prio = 'Medium'
         prioBtn= './assets/img/icon_PrioMediaOrange.svg'
-    } else if (document.getElementById('lowButton').classList.contains('low-button-focus')) {
+    } else if (document.getElementById('low-Button').classList.contains('low-button-focus')) {
         prio = 'Low'
         prioBtn = './assets/img/icon_PrioBajaGreen.svg'
     } else {

@@ -2,17 +2,29 @@ let selectedContacts = [];
 let contactsSearch = [];
 
 function renderContacts(contactContainer) {
-    let container = document.getElementById(`${contactContainer}`);
+    console.log(`Looking for element with ID: ${contactContainer}`);
+    let container = document.getElementById(contactContainer);
+    if (!container) {
+        console.error(`Element with ID '${contactContainer}' not found.`);
+        return;
+    }
+    
+    console.log(`Element with ID '${contactContainer}' found.`);
     container.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
         let name = contacts[i]['name'];
         let initials = getInitials(name); // from contacts.js
         let color = contacts[i]['color'];
         container.innerHTML += templateContact(i, name, initials, color);
-        if (contacts[i]['selected'] === true) {
-            document.getElementById(`contact-container${i}`).classList.add('contact-container-focus');
+        let contactElement = document.getElementById(`contact-container${i}`);
+        if (contactElement) {
+            if (contacts[i]['selected'] === true) {
+                contactElement.classList.add('contact-container-focus');
+            } else {
+                contactElement.classList.remove('contact-container-focus');
+            }
         } else {
-            document.getElementById(`contact-container${i}`).classList.remove('contact-container-focus');
+            console.error(`Element with ID 'contact-container${i}' not found.`);
         }
     }
 }

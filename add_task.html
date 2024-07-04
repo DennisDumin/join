@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Join</title>
   <!--Favicon-->
-  <link rel="icon" type="image/x-icon" href="./assets/img/logo_coloured.svg" />
+  <link rel="icon" type="image/x-icon" href="./assets/img/logo_coloured.svg">
   <!--Stylesheets-->
-  <link rel="stylesheet" href="/css/font.css" />
-  <link rel="stylesheet" href="/css/side_menu.css" />
-  <link rel="stylesheet" href="/css/addTask.css" />
-  <link rel="stylesheet" href="/css/addTask_input.css" />
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/font.css">
+  <link rel="stylesheet" href="/css/side_menu.css">
+  <link rel="stylesheet" href="/css/addTask.css">
+  <link rel="stylesheet" href="/css/addTask_input.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Side menu -->
+  <div w3-include-html="./assets/templates/side_menu.html"></div>
+
+  <main>
+    <!-- Header -->
+    <div w3-include-html="./assets/templates/header.html" class="header-sticky"></div>
+
+    <!-- Main content -->
+    <div class="add-task-page" w3-include-html="./assets/templates/task_form.html"></div>
+  </main>
+
   <!--JS-->
   <script src="/js/storage.js"></script>
   <script src="/js/include.js"></script>
@@ -20,15 +32,6 @@
   <script src="/js/header.js"></script>
   <script src="/js/addTask.js"></script>
   <script src="/js/addTaskSubtask.js"></script>
-</head>
-
-<body onload="init()">
-  <div w3-include-html="./assets/templates/side_menu.html"></div>
-  <main>
-    <div w3-include-html="./assets/templates/header.html" class="header-sticky"></div>
-    <div class="add-task-page" w3-include-html="./assets/templates/task_form.html"> </div>
-  </main>
   <script src="/js/init.js"></script>
 </body>
-
 </html>
