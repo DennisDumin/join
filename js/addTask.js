@@ -134,15 +134,18 @@ async function createTask() {
     let title = document.getElementById('task-title').value;
     let date = document.getElementById('task-date').value;
     let category = document.getElementById('select-task-text').innerHTML;
+
     if (title !== '' && date !== '' && category !== `Select task category`) {
         document.getElementById('create-task-button').disabled = true;
         getValues();
-        await safeTask();
-        showTaskAdded();
-        setTimeout(redirectToBoard(), 2000); // from include.js
+        await saveTask();
+        showTaskAdded(); 
+        setTimeout(() => {
+            redirectToBoard(); 
+        }, 2000); 
         clearAddTask();
     } else {
-        checkInput(title, date, category)
+        checkInput(title, date, category);
     }
 }
 
@@ -190,7 +193,7 @@ function pushTaskElements(title, description, date, prio, category, prioBtn) {
     })
 }
 
-async function safeTask() {
+async function saveTask() {
     if (tasks === '') {
         tasks.push({
             'ID': 0,
@@ -200,6 +203,7 @@ async function safeTask() {
         await putData("/tasks", tasks) // from storage.js
     }
 }
+
 
 function showTaskAdded(){
     document.getElementById('added-container').classList.remove('d-none');
