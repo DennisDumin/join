@@ -5,11 +5,6 @@
 
 async function initInclude() {
     await loadData();
-    return new Promise((resolve, reject) => {
-        w3.includeHTML(() => {
-            resolve();
-        });
-    });
 }
 
 function toggleMenu() {

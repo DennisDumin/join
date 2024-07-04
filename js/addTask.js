@@ -160,10 +160,10 @@ function getPrio() {
     if (document.getElementById('urgent-button').classList.contains('urgent-button-focus')) {
         prio = 'Urgent'
         prioBtn = './assets/img/icon_PrioAltaRed.svg'
-    } else if (document.getElementById('medium-Button').classList.contains('medium-button-focus')) {
+    } else if (document.getElementById('medium-button').classList.contains('medium-button-focus')) {
         prio = 'Medium'
         prioBtn= './assets/img/icon_PrioMediaOrange.svg'
-    } else if (document.getElementById('low-Button').classList.contains('low-button-focus')) {
+    } else if (document.getElementById('low-button').classList.contains('low-button-focus')) {
         prio = 'Low'
         prioBtn = './assets/img/icon_PrioBajaGreen.svg'
     } else {
