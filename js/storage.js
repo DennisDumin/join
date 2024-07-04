@@ -1,5 +1,6 @@
 let contacts = [];
 let tasks = [];
+let users = [];
 
 async function onloadFunc() {
     await loadDataLogin();
@@ -13,7 +14,7 @@ async function onloadTasks() {
 }
 
 
-const BASE_URL = "https://remotestorage-3ee23-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL = "https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/contact";
 
 async function loadDataLogin() {
     let response = await fetch(BASE_URL + "users.json");
