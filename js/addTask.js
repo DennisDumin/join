@@ -141,7 +141,7 @@ async function createTask() {
         await saveTask();
         showTaskAdded(); 
         setTimeout(() => {
-            redirectToBoard(); 
+            redirectToBoard();
         }, 2000); 
         clearAddTask();
     } else {
