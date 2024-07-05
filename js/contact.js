@@ -2,7 +2,7 @@ const BASE_URL = 'https://contacts-881f2-default-rtdb.europe-west1.firebasedatab
 let array = [];
 let material = [];
 let keyForEdit = null;
-let highlightKey;
+let highlightKey = null;
 
 
 async function loadData() {
@@ -132,10 +132,11 @@ function saveForBackground() {
 function newContactBgHighlight() {
     let asTexthighlightKey = localStorage.getItem('highlightKey')
 
-    if (asTexthighlightKey) {
-        highlightKey = JSON.parse(asTexthighlightKey)
-        console.log(highlightKey)
-    }
+    if (asTexthighlightKey === null) {
+        return
+    } else
+    highlightKey = JSON.parse(asTexthighlightKey)
+    console.log(highlightKey)
     keyForEdit = searchNameInMaterialArray();
     renderDetailedContact(keyForEdit);
     localStorage.clear();
