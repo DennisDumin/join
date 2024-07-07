@@ -18,7 +18,7 @@ async function loadDataLogin() {
 }
 
 async function loadData() {
-    let response = await fetch(BASE_URL + "contacts.json");
+    let response = await fetch(BASE_URL + "contact.json");
     let contactsData = await response.json();
 
     if (contactsData) {
@@ -64,7 +64,7 @@ async function loadTasksBoard(){
 
 async function getNextContactId() {
     try {
-        const response = await fetch(`${BASE_URL}contacts.json`);
+        const response = await fetch(`${BASE_URL}contact.json`);
         const data = await response.json();
 
         if (!data) {
@@ -77,7 +77,7 @@ async function getNextContactId() {
     }
 }
 
-async function loadContacts(path = "/contacts") {
+async function loadContacts(path = "contact") {
     resetInputs();
     const contactsData = await fetchContactsData(path);
 
@@ -92,10 +92,15 @@ async function loadContacts(path = "/contacts") {
 
 }
 
+async function fetchContactsData(path) {
+    const response = await fetch(BASE_URL + path + ".json");
+    return await response.json();
+}
+
 async function createNewContactInFirebase(name, email, phoneNumber, nextColor) {
         const nextContactId = await getNextContactId();
 
-        const response = await fetch(`${BASE_URL}/contacts/${nextContactId}.json`, {
+        const response = await fetch(`${BASE_URL}contact/${nextContactId}.json`, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json'
@@ -110,7 +115,7 @@ async function createNewContactInFirebase(name, email, phoneNumber, nextColor) {
 }
 
 async function updateContactInFirebase(id, name, mail, phone, color) {
-    const response = await fetch(`${BASE_URL}/contacts/${id}.json`, {
+    const response = await fetch(`${BASE_URL}contact/${id}.json`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
