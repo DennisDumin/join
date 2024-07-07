@@ -64,7 +64,7 @@ async function loadTasksBoard(){
 
 async function getNextContactId() {
     try {
-        const response = await fetch(`${BASE_URL}/contacts.json`);
+        const response = await fetch(`${BASE_URL}contacts.json`);
         const data = await response.json();
 
         if (!data) {
