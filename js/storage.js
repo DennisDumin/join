@@ -1,8 +1,8 @@
 let contacts = [];
 let tasks = [];
 let users = [];
+const BASE_URL = 'https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/';
 
-const BASE_URL = "https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function loadDataLogin() {
     let response = await fetch(BASE_URL + "users.json");

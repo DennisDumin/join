@@ -1,4 +1,3 @@
-const BASE_URL = 'https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/';
 let array = [];
 let material = [];
 let keyForEdit = null;

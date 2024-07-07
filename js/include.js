@@ -1,6 +1,5 @@
 async function initInclude() {
     await loadData();
-    displayUserInitials();
 }
 
 function toggleMenu() {

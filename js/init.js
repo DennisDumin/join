@@ -1,3 +1,4 @@
+
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
@@ -26,4 +27,20 @@ function showUser() {
   let userAsText = localStorage.getItem("user");
   let user = JSON.parse(userAsText);
   userInitials.innerHTML = `<div>${user.initials}</div>`;
+}
+
+function contactsBgMenu() {
+  document.getElementById('link-contact').classList.add('bg-focus');
+}
+
+function summaryBgMenu() {
+  document.getElementById('link-summary').classList.add('bg-focus');
+}
+
+function addTaskBgMenu() {
+  document.getElementById('link-task').classList.add('bg-focus');
+}
+
+function boardBgMenu() {
+  document.getElementById('link-board').classList.add('bg-focus');
 }

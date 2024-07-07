@@ -288,6 +288,4 @@ body {
 
 .bg-focus {
     background-color: #091931;
-    pointer-events: none;
-    width: 192px;
 }

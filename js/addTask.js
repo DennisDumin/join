@@ -2,33 +2,19 @@ let prioBtn = "";
 
 // addTask.js
 
-async function init() {
-    console.log("init function called");
-
-    // Warten auf das vollständige Laden von w3-include-html
+async function initTask() {
     await initInclude(); // from include.js
-
-    // Vergewissern Sie sich, dass das DOM vollständig geladen ist
-    document.addEventListener('DOMContentLoaded', (event) => {
-        console.log("DOM fully loaded and parsed");
-
-        // Überprüfen, ob das Element jetzt existiert
-        const container = document.getElementById('add-task-contacts-container');
-        if (container) {
-            console.log("Element with ID 'add-task-contacts-container' found.");
-            renderContacts('add-task-contacts-container');
-            chooseMedium();
-        } else {
-            console.error("Element with ID 'add-task-contacts-container' not found after DOMContentLoaded.");
-        }
-    });
+    displayUserInitials(); // from summary.js
+    addTaskBgMenu();
+    loadTasks(); // from storage.js
+    renderContacts('add-task-contacts-container');
+    chooseMedium();
 }
 
 function chooseMedium(){
     let button = document.getElementById('medium-button')
     button.classList.add('medium-button-focus');
 }
-
 
 function hideRequiredInfo(borderId, textId) {
     let border = document.getElementById(`${borderId}`);
