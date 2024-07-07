@@ -80,6 +80,17 @@ function selectContact(i) {
     }
 }
 
+function displayUserInitials() {
+    let username = sessionStorage.getItem('loggedInUser');
+    let userInitials = document.getElementById('userInitials');
+
+    if (username) {
+        let initials = username.charAt(0).toUpperCase();
+        userInitials.innerText = initials;
+    } else {
+        userInitials.innerText = "G";
+    }
+}
 
 function showSelectedContacts() {
     let container = document.getElementById('selected-contacts');

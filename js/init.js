@@ -14,7 +14,7 @@ async function includeHTML() {
 
 (async function () {
   await includeHTML();
-  showUser();
+//  showUser();
 })();
 
 function showUser() {
