@@ -6,12 +6,12 @@ async function initTask() {
     await initInclude(); // from include.js
     displayUserInitials(); // from summary.js
     addTaskBgMenu();
-    loadTasks(); // from storage.js
+    await loadTasks(); // from storage.js
     renderContacts('add-task-contacts-container');
     chooseMedium();
 }
 
-function chooseMedium(){
+function chooseMedium() {
     let button = document.getElementById('medium-button')
     button.classList.add('medium-button-focus');
 }
@@ -125,10 +125,10 @@ async function createTask() {
         document.getElementById('create-task-button').disabled = true;
         getValues();
         await saveTask();
-        showTaskAdded(); 
+        showTaskAdded();
         setTimeout(() => {
             redirectToBoard();
-        }, 2000); 
+        }, 2000);
         clearAddTask();
     } else {
         checkInput(title, date, category);
@@ -151,7 +151,7 @@ function getPrio() {
         prioBtn = './assets/img/icon_PrioAltaRed.svg'
     } else if (document.getElementById('medium-button').classList.contains('medium-button-focus')) {
         prio = 'Medium'
-        prioBtn= './assets/img/icon_PrioMediaOrange.svg'
+        prioBtn = './assets/img/icon_PrioMediaOrange.svg'
     } else if (document.getElementById('low-button').classList.contains('low-button-focus')) {
         prio = 'Low'
         prioBtn = './assets/img/icon_PrioBajaGreen.svg'
@@ -191,11 +191,11 @@ async function saveTask() {
 }
 
 
-function showTaskAdded(){
+function showTaskAdded() {
     document.getElementById('added-container').classList.remove('d-none');
 }
 
-function checkInput(title, date, category){
+function checkInput(title, date, category) {
     checkTitle(title);
     checkDate(date);
     checkCategory(category);

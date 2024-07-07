@@ -1,4 +1,5 @@
 async function initInclude() {
+    await includeHTML();
     await loadData();
 }
 
