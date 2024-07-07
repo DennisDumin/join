@@ -17,7 +17,6 @@ async function loadDataLogin() {
     }
 }
 
-// Beispiel für die Initialisierung des contacts-Arrays nach dem Laden der Daten
 async function loadData() {
     let response = await fetch(BASE_URL + "contacts.json");
     let contactsData = await response.json();
@@ -27,26 +26,18 @@ async function loadData() {
             contacts.push(contactsData[key]);
         });
     }
+}
 
-    // Event-Listener nach dem Laden der Daten hinzufügen
-    initializeEventListeners();
+async function onloadTasks() {
+    await loadData();
+    await loadTasks();
 }
 
 async function onloadFunc() {
     await loadDataLogin();
-   // fillRemembereInputs(); eigene Register
-   // changeImage();
-    await loadData(); // Sicherstellen, dass Kontakte geladen sind
-    initializeEventListeners(); // Event-Listener initialisieren
+    fillRemembereInputs();
+    changeImage();
 }
-
-function initializeEventListeners() {
-    document.querySelectorAll('.contact-container').forEach((container, index) => {
-        container.addEventListener('click', () => selectContact(index));
-    });
-}
-
-onloadFunc();
 
 async function loadTasks(){
     let response = await fetch(BASE_URL + "tasks.json");
