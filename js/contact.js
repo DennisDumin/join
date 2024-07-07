@@ -56,6 +56,9 @@ function renderData(info) {
     newContactBgHighlight()
 }
 
+function getInitials(name) {
+    return name.split(' ').map(word => word.charAt(0).toUpperCase()).join(' ');
+}
 
 function renderDetailedContact(contact) {
     let source = material[0][contact];

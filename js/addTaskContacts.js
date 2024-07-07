@@ -2,29 +2,17 @@ let selectedContacts = [];
 let contactsSearch = [];
 
 function renderContacts(contactContainer) {
-    console.log(`Looking for element with ID: ${contactContainer}`);
-    let container = document.getElementById(contactContainer);
-    if (!container) {
-        console.error(`Element with ID '${contactContainer}' not found.`);
-        return;
-    }
-    
-    console.log(`Element with ID '${contactContainer}' found.`);
+    let container = document.getElementById(`${contactContainer}`);
     container.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
         let name = contacts[i]['name'];
         let initials = getInitials(name); // from contacts.js
         let color = contacts[i]['color'];
         container.innerHTML += templateContact(i, name, initials, color);
-        let contactElement = document.getElementById(`contact-container${i}`);
-        if (contactElement) {
-            if (contacts[i]['selected'] === true) {
-                contactElement.classList.add('contact-container-focus');
-            } else {
-                contactElement.classList.remove('contact-container-focus');
-            }
+        if (contacts[i]['selected'] === true) {
+            document.getElementById(`contact-container${i}`).classList.add('contact-container-focus');
         } else {
-            console.error(`Element with ID 'contact-container${i}' not found.`);
+            document.getElementById(`contact-container${i}`).classList.remove('contact-container-focus');
         }
     }
 }
@@ -33,8 +21,8 @@ function templateContact(i, name, initials, color) {
     return `
     <div id="contact-container${i}" onclick="selectContact(${i})" class="contact-container" tabindex="1">
         <div class="contact-container-name">
-            <span style="background-color: ${color}" id="contactInitals${i}" class="circle-name">${initials}</span>
-            <span id="contactName${i}">${name}</span>
+            <span style="background-color: ${color}" id="contact-initals${i}" class="circle-name">${initials}</span>
+            <span id="contact-name${i}">${name}</span>
         </div>
         <div class="contact-container-check"></div>
     </div> 
@@ -156,8 +144,8 @@ function templateContactSearch(i, name, initials, color) {
     return `
     <div id="contact-container${i}" onclick="selectContactSearch(${i})" class="contact-container" tabindex="1">
         <div class="contact-container-name">
-            <span style="background-color: ${color}" id="contactInitals${i}" class="circle-name">${initials}</span>
-            <span id="contact-name${i}">${name}</span>
+            <span style="background-color: ${color}" id="contact-initals${i}" class="circle-name">${initials}</span>
+            <span id="contactName${i}">${name}</span>
         </div>
         <div class="contact-container-check"></div>
     </div> 

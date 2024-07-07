@@ -2,18 +2,6 @@ let contacts = [];
 let tasks = [];
 let users = [];
 
-async function onloadFunc() {
-    await loadDataLogin();
-    fillRemembereInputs();
-    changeImage();
-}
-
-async function onloadTasks() {
-    await loadData();
-    await loadTasks();
-}
-
-
 const BASE_URL = "https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function loadDataLogin() {
