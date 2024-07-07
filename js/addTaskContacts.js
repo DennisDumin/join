@@ -17,6 +17,19 @@ function renderContacts(contactContainer) {
     }
 }
 
+function displayUserInitials() {
+    let username = sessionStorage.getItem('loggedInUser');
+    let userInitials = document.getElementById('userInitials');
+
+    if (username) {
+        let initials = username.charAt(0).toUpperCase();
+        userInitials.innerText = initials;
+    } else {
+        userInitials.innerText = "G";
+    }
+}
+
+
 function templateContact(i, name, initials, color) {
     return `
     <div id="contact-container${i}" onclick="selectContact(${i})" class="contact-container" tabindex="1">
