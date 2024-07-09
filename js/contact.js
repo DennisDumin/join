@@ -3,15 +3,39 @@ let material = [];
 let keyForEdit = null;
 let highlightKey = null;
 
+let colorIndex = 0;
+let loadedColors = [];
+
+const colors = [
+    "#3380FF",
+    "#1d6331",
+    "#FFEA33",
+    "#FF5733",
+    "#7A33FF",
+    "#FF33C1",
+    "#33E6FF",
+    "#FF33A2",
+    "#33FFF1"
+];
 
 async function loadData() {
-    let response = await fetch(BASE_URL + '.json');
-    let responseAsJson = await response.json();
-    let info = responseAsJson.contact;
-    material.push(responseAsJson.contact);
-    renderData(info);
-}
+    try {
+        let response = await fetch(BASE_URL + '.json');
+        let responseAsJson = await response.json();
+        let info = responseAsJson.contact;
+        material.push(responseAsJson.contact);
+        renderData(info);
 
+        // Lade den colorIndex aus Firebase, falls verfügbar
+        let colorIndexResponse = await fetch(BASE_URL + 'colorIndex.json');
+        let colorIndexData = await colorIndexResponse.json();
+        if (colorIndexData !== null) {
+            colorIndex = colorIndexData;
+        }
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
+}
 
 function renderData(info) {
     let content = document.getElementById('contacts');
@@ -49,7 +73,7 @@ function renderData(info) {
                      </div>
                 </div>
             `;
-            document.getElementById(`letter${contact.id}`).style.backgroundColor = getRandomColor();
+            document.getElementById(`letter${contact.id}`).style.backgroundColor = contact.color;
         });
     }
     newContactBgHighlight()
@@ -91,25 +115,31 @@ function renderDetailedContact(contact) {
     `;
 }
 
-
 function addContact() {
     stopWindowReload('new');
 
     let email = document.getElementById('email');
     let name = document.getElementById('name');
     let tel = document.getElementById('tel');
-    let data =
-    {
+    const nextColor = getNextColor();
+    let data = {
         'Email': email.value,
         'Name': name.value,
-        'Telefonnummer': tel.value
+        'Telefonnummer': tel.value,
+        'color': nextColor
     };
     array.push(data);
-    postNewContact(path = 'contact');
+    postNewContact('contact');
 }
 
+function getNextColor() {
+    const color = colors[colorIndex % colors.length];
+    colorIndex++;
+    saveColorIndex();
+    return color;
+}
 
-async function postNewContact(path, id) {
+async function postNewContact(path) {
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
         highlightKey = element;
@@ -117,19 +147,43 @@ async function postNewContact(path, id) {
         let response = await fetch(BASE_URL + path + '.json', {
             method: "POST",
             headers: {
-                "content-type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(element),
+            body: JSON.stringify(element)
         });
-        window.location.reload();
+        if (response.ok) {
+            console.log('Contact saved successfully');
+            
+            // Änderung hier: Speichern des aktuellen colorIndex in Firebase nach erfolgreicher Speicherung des Kontakts
+            saveColorIndex();
+        } else {
+            console.error('Failed to save contact');
+        }
     }
+    window.location.reload();
+}
+
+function saveColorIndex() {
+    fetch(BASE_URL + 'colorIndex.json', {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(colorIndex)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update color index');
+        }
+        console.log('Color index updated successfully');
+    })
+    .catch(error => console.error('Error updating color index:', error));
 }
 
 function saveForBackground() {
     let asTexthighlightKey = JSON.stringify(highlightKey);
     localStorage.setItem('highlightKey', asTexthighlightKey);
 }
-
 
 function newContactBgHighlight() {
     let asTexthighlightKey = localStorage.getItem('highlightKey')
@@ -145,7 +199,6 @@ function newContactBgHighlight() {
     scrollToNewDiv();
 }
 
-
 function searchNameInMaterialArray() {
     let nameData = material[0]
 
@@ -156,14 +209,12 @@ function searchNameInMaterialArray() {
     }
 }
 
-
 function scrollToNewDiv() {
     document.getElementById(keyForEdit).scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
 }
-
 
 async function UpdateContact() {
     stopWindowReload('update');
@@ -179,7 +230,6 @@ async function UpdateContact() {
     window.location.reload();
 }
 
-
 function editContact() {
     let email = document.getElementById('editEmail');
     let name = document.getElementById('editName');
@@ -193,7 +243,6 @@ function editContact() {
     return data;
 }
 
-
 function stopWindowReload(key) {
     let target;
     if (key == 'new') {
@@ -205,7 +254,6 @@ function stopWindowReload(key) {
         event.preventDefault();
     });
 }
-
 
 async function deleteContact(path = 'contact', id) {
     try {
@@ -224,7 +272,6 @@ async function deleteContact(path = 'contact', id) {
         console.error('Fehler beim Löschen des Kontakts:', error.message);
     }
 }
-
 
 function openClosePopUp(param, key) {
     let target = validatePopUp(key);
@@ -250,28 +297,9 @@ function openClosePopUp(param, key) {
     }
 }
 
-
 function validatePopUp() {
     return key ? 'backgroundPopUpEdit' : 'backgroundPopUp';
 }
-
-function getRandomColor() {
-    const letters = '89ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * letters.length)];
-    }
-    console.log(color);
-    return color;
-}
-
-
-async function testFetch() {
-    let response = await fetch(BASE_URL + 'contact' + '-O-5fQkP0Xg1m4qHkE21' + '.json');
-    let responseAsJson = await response.json();
-    console.log(responseAsJson);
-}
-
 
 
 
