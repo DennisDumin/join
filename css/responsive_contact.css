@@ -1,0 +1,45 @@
+
+@media (max-width: 1980px) {
+    .bg-popUp {
+        padding-left: 16vw;
+    }
+}
+
+@media (max-width: 1160px) {
+    .contacts {
+        width: 40%;
+    }
+
+    h4 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 36px;
+    }
+
+    .bg-popUp {
+        padding-left: 16vw;
+    }
+}
+
+@media (max-width: 800px) {
+    .content-section {
+        display: none;
+    }
+
+    .contacts {
+        width: 100%;
+    }
+
+    .position-fixed {
+        position: fixed;
+        top: 12vh;
+    }
+}
+
+@media (max-width: 350px) {
+    .contactCard {
+        font-size: smaller;
+    }
+}
