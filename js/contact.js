@@ -55,55 +55,74 @@ function renderData(info) {
             const nameB = b.Name.toUpperCase();
             return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
         }).forEach(contact => {
+            const contactColor = contact.color || getRandomColor(); // Falls Kontakt keine Farbe hat, generiere zufällige Farbe
             content.innerHTML += `
                 <div id="${contact.id}" class="contactCard">
-                     <div onclick="renderDetailedContact('${contact.id}')" id="letter${contact.id}" class="single_letter">${contact.Name[0]}</div>
+                     <div onclick="renderDetailedContact('${contact.id}')" id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${contact.Name[0]}</div>
                      <div class ="fullName-email">
                        <span>${contact.Name}</span>
                        <a class="email" href="#">${contact.Email}</a href="${contact.Email}">
                      </div>
                 </div>
             `;
-            document.getElementById(`letter${contact.id}`).style.backgroundColor = contact.color;
         });
     }
-    newContactBgHighlight()
+    newContactBgHighlight();
 }
 
 function getInitials(name) {
     return name.split(' ').map(word => word.charAt(0).toUpperCase()).join(' ');
 }
 
-function renderDetailedContact(contact) {
-    let source = material[0][contact];
+function renderDetailedContact(contactId) {
+    let source = material[0][contactId];
+    
+    // Entferne die blaue Hintergrundklasse vom vorherigen bearbeiteten Kontakt
     if (keyForEdit !== null) {
         document.getElementById(keyForEdit).classList.remove('blueBackground');
     }
-    keyForEdit = contact;
+    
+    // Setze den neuen bearbeiteten Kontakt als aktuellen
+    keyForEdit = contactId;
+    
+    // Füge die blaue Hintergrundklasse zum aktuellen bearbeiteten Kontakt hinzu
     document.getElementById(keyForEdit).classList.add('blueBackground');
+    
+    // Render das Kontakt-Detailprofil
     let target = document.getElementById('content');
-    target.innerHTML = '';
-    target.innerHTML =
-        `
-    <div class="contact-profile">
-        <div class="single-letter">${source['Name'][0]}</div>
-        <div class="h4_edit-delete">
-          <h4>${source['Name']}</h4>
-          <div class="edit-delete">
-            <span onclick="openClosePopUp('open', key = true)"><img src="contact-assets/img/edit.png"></img>Edit</span>
-            <span onclick="deleteContact(path='contact', '${contact}')"><img src="contact-assets/img/delete.png"></img>Delete</span>
-          </div>
+    target.innerHTML = `
+        <div class="contact-profile">
+            <div id="singleLetterProfile" class="single-letter">${source['Name'][0]}</div>
+            <div class="h4_edit-delete">
+                <h4>${source['Name']}</h4>
+                <div class="edit-delete">
+                    <span onclick="openClosePopUp('open', true)"><img src="contact-assets/img/edit.png" />Edit</span>
+                    <span onclick="deleteContact('contact', '${contactId}')"><img src="contact-assets/img/delete.png" />Delete</span>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="pers-info">
-      <b>Email</b>
-      <a href="#">${source['Email']}</a>
-    </div>
-    <div class="pers-info">
-      <span><b>Phone</b></span>
-      <span>${source['Telefonnummer']}</span>
-    </div>
+        <div class="pers-info">
+            <b>Email</b>
+            <a href="#">${source['Email']}</a>
+        </div>
+        <div class="pers-info">
+            <span><b>Phone</b></span>
+            <span>${source['Telefonnummer']}</span>
+        </div>
     `;
+    
+    // Setze die Hintergrundfarbe des single-letter Profils
+    setSingleLetterBackgroundColor(contactId);
+}
+
+function setSingleLetterBackgroundColor(contactId) {
+    let source = material[0][contactId];
+    
+    let singleLetterElement = document.getElementById('singleLetterProfile');
+    if (singleLetterElement) {
+        let contactColor = source.color || getRandomColor(); // Verwende die vorhandene Farbe oder generiere eine neue
+        singleLetterElement.style.backgroundColor = contactColor;
+    }
 }
 
 function addContact() {
