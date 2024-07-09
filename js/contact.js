@@ -342,6 +342,8 @@ function validatePopUp() {
     return key ? 'backgroundPopUpEdit' : 'backgroundPopUp';
 }
 
-
+function contactsBgMenu() {
+    document.getElementById('link-contact').classList.add('bg-focus');
+  }
 
 

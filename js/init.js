@@ -29,10 +29,6 @@ function showUser() {
   userInitials.innerHTML = `<div>${user.initials}</div>`;
 }
 
-function contactsBgMenu() {
-  document.getElementById('link-contact').classList.add('bg-focus');
-}
-
 function summaryBgMenu() {
   document.getElementById('link-summary').classList.add('bg-focus');
 }
