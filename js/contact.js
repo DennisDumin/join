@@ -6,17 +6,7 @@ let highlightKey = null;
 let colorIndex = 0;
 let loadedColors = [];
 
-const colors = [
-    "#3380FF",
-    "#1d6331",
-    "#FFEA33",
-    "#FF5733",
-    "#7A33FF",
-    "#FF33C1",
-    "#33E6FF",
-    "#FF33A2",
-    "#33FFF1"
-];
+const colors = generateColors(20);
 
 async function loadData() {
     try {
@@ -36,6 +26,7 @@ async function loadData() {
         console.error('Error loading data:', error);
     }
 }
+
 
 function renderData(info) {
     let content = document.getElementById('contacts');
@@ -130,6 +121,37 @@ function addContact() {
     };
     array.push(data);
     postNewContact('contact');
+}
+
+function generateColors(numColors) {
+    const colors = [];
+    const letters = '0123456789ABCDEF'; // Hexadezimal-Ziffern für Farbcodes
+    const brightnessThreshold = 128; // Helligkeitsschwelle für den Text
+
+    for (let i = 0; i < numColors; i++) {
+        let color;
+        do {
+            color = '#';
+            for (let j = 0; j < 6; j++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+        } while (getColorBrightness(color) < brightnessThreshold);
+
+        colors.push(color);
+    }
+
+    return colors;
+}
+
+function getColorBrightness(color) {
+    // Entferne das führende '#' und parse die Farbkomponenten
+    let hex = color.substring(1);
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    // Helligkeit berechnen (Luminanzmethode)
+    return (0.2126 * r + 0.7152 * g + 0.0722 * b);
 }
 
 function getNextColor() {
