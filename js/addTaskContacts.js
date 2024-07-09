@@ -5,7 +5,7 @@ function renderContacts(contactContainer) {
     let container = document.getElementById(`${contactContainer}`);
     container.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
-        let name = contacts[i]['name'];
+        let name = contacts[i]['Name'];
         let initials = getInitials(name); // from contacts.js
         let color = contacts[i]['color'];
         container.innerHTML += templateContact(i, name, initials, color);
@@ -75,7 +75,7 @@ function selectContact(i) {
     // Überprüfen, ob der Index i gültig ist
     if (i >= 0 && i < contacts.length) {
         let container = document.getElementById(`contact-container${i}`);
-        let contactName = contacts[i]['name'];
+        let contactName = contacts[i]['Name'];
         let contactColor = contacts[i]['color'];
         let indexSelected = selectedContacts.findIndex(contact => contact.name === contactName);
 
@@ -98,8 +98,8 @@ function showSelectedContacts() {
     container.classList.remove('d-none');
     container.innerHTML = '';
     for (let i = 0; i < selectedContacts.length; i++) {
-        let contact = selectedContacts[i];
-        let name = contact['name'];
+        let contacts = selectedContacts[i];
+        let name = contacts['name'];
         let initials = getInitials(name); // from contacts.js
         let color = selectedContacts[i]['color'];
         container.innerHTML += `
