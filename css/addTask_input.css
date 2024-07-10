@@ -74,7 +74,22 @@
     position: relative;
     border-radius: 10px;
     box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-   /* overflow-y: scroll; */
+    overflow-y: scroll;
+}
+
+.circle-name {
+    width: 42px;
+    height: 42px;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.4px;
+    color: white;
 }
 
 .contact-container {
@@ -325,18 +340,18 @@
     height: 22px;
 }
 
-.subtask-edit-container{
+.subtask-edit-container {
     background-color: white;
     border-bottom: 1px solid #005DFF;
     border-radius: 0;
     padding: 4px 16px 4px 16px;
 }
 
-.subtask-edit-container:hover{
+.subtask-edit-container:hover {
     background-color: white;
 }
 
-.subtask-edit-input{
+.subtask-edit-input {
     font-size: 16px;
     line-height: 19.2px;
 }

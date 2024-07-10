@@ -2,39 +2,40 @@ let selectedContacts = [];
 let contactsSearch = [];
 
 function renderContacts(contactContainer) {
-    console.log(`Looking for element with ID: ${contactContainer}`);
-    let container = document.getElementById(contactContainer);
-    if (!container) {
-        console.error(`Element with ID '${contactContainer}' not found.`);
-        return;
-    }
-    
-    console.log(`Element with ID '${contactContainer}' found.`);
+    let container = document.getElementById(`${contactContainer}`);
     container.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
-        let name = contacts[i]['name'];
+        let name = contacts[i]['Name'];
         let initials = getInitials(name); // from contacts.js
         let color = contacts[i]['color'];
         container.innerHTML += templateContact(i, name, initials, color);
-        let contactElement = document.getElementById(`contact-container${i}`);
-        if (contactElement) {
-            if (contacts[i]['selected'] === true) {
-                contactElement.classList.add('contact-container-focus');
-            } else {
-                contactElement.classList.remove('contact-container-focus');
-            }
+        if (contacts[i]['selected'] === true) {
+            document.getElementById(`contact-container${i}`).classList.add('contact-container-focus');
         } else {
-            console.error(`Element with ID 'contact-container${i}' not found.`);
+            document.getElementById(`contact-container${i}`).classList.remove('contact-container-focus');
         }
     }
 }
+
+function displayUserInitials() {
+    let username = sessionStorage.getItem('loggedInUser');
+    let userInitials = document.getElementById('userInitials');
+
+    if (username) {
+        let initials = username.charAt(0).toUpperCase();
+        userInitials.innerText = initials;
+    } else {
+        userInitials.innerText = "G";
+    }
+}
+
 
 function templateContact(i, name, initials, color) {
     return `
     <div id="contact-container${i}" onclick="selectContact(${i})" class="contact-container" tabindex="1">
         <div class="contact-container-name">
-            <span style="background-color: ${color}" id="contactInitals${i}" class="circle-name">${initials}</span>
-            <span id="contactName${i}">${name}</span>
+            <span style="background-color: ${color}" id="contact-initals${i}" class="circle-name">${initials}</span>
+            <span id="contact-name${i}">${name}</span>
         </div>
         <div class="contact-container-check"></div>
     </div> 
@@ -74,7 +75,7 @@ function selectContact(i) {
     // Überprüfen, ob der Index i gültig ist
     if (i >= 0 && i < contacts.length) {
         let container = document.getElementById(`contact-container${i}`);
-        let contactName = contacts[i]['name'];
+        let contactName = contacts[i]['Name'];
         let contactColor = contacts[i]['color'];
         let indexSelected = selectedContacts.findIndex(contact => contact.name === contactName);
 
@@ -92,14 +93,13 @@ function selectContact(i) {
     }
 }
 
-
 function showSelectedContacts() {
     let container = document.getElementById('selected-contacts');
     container.classList.remove('d-none');
     container.innerHTML = '';
     for (let i = 0; i < selectedContacts.length; i++) {
-        let contact = selectedContacts[i];
-        let name = contact['name'];
+        let contacts = selectedContacts[i];
+        let name = contacts['name'];
         let initials = getInitials(name); // from contacts.js
         let color = selectedContacts[i]['color'];
         container.innerHTML += `
@@ -156,8 +156,8 @@ function templateContactSearch(i, name, initials, color) {
     return `
     <div id="contact-container${i}" onclick="selectContactSearch(${i})" class="contact-container" tabindex="1">
         <div class="contact-container-name">
-            <span style="background-color: ${color}" id="contactInitals${i}" class="circle-name">${initials}</span>
-            <span id="contact-name${i}">${name}</span>
+            <span style="background-color: ${color}" id="contact-initals${i}" class="circle-name">${initials}</span>
+            <span id="contactName${i}">${name}</span>
         </div>
         <div class="contact-container-check"></div>
     </div> 

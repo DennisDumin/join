@@ -1,9 +1,5 @@
-//async function initInclude() {
-  //  await loadData();
-    //displayUserInitials();
-//}
-
 async function initInclude() {
+    await includeHTML();
     await loadData();
 }
 

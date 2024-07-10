@@ -2,18 +2,6 @@ let contacts = [];
 let tasks = [];
 let users = [];
 
-async function onloadFunc() {
-    await loadDataLogin();
-    fillRemembereInputs();
-    changeImage();
-}
-
-async function onloadTasks() {
-    await loadData();
-    await loadTasks();
-}
-
-
 const BASE_URL = "https://contacts-881f2-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function loadDataLogin() {
@@ -29,9 +17,8 @@ async function loadDataLogin() {
     }
 }
 
-// Beispiel für die Initialisierung des contacts-Arrays nach dem Laden der Daten
 async function loadData() {
-    let response = await fetch(BASE_URL + "contacts.json");
+    let response = await fetch(BASE_URL + "contact.json");
     let contactsData = await response.json();
 
     if (contactsData) {
@@ -39,26 +26,18 @@ async function loadData() {
             contacts.push(contactsData[key]);
         });
     }
+}
 
-    // Event-Listener nach dem Laden der Daten hinzufügen
-    initializeEventListeners();
+async function onloadTasks() {
+    await loadData();
+    await loadTasks();
 }
 
 async function onloadFunc() {
     await loadDataLogin();
-   // fillRemembereInputs(); eigene Register
-   // changeImage();
-    await loadData(); // Sicherstellen, dass Kontakte geladen sind
-    initializeEventListeners(); // Event-Listener initialisieren
+    fillRemembereInputs();
+    changeImage();
 }
-
-function initializeEventListeners() {
-    document.querySelectorAll('.contact-container').forEach((container, index) => {
-        container.addEventListener('click', () => selectContact(index));
-    });
-}
-
-onloadFunc();
 
 async function loadTasks(){
     let response = await fetch(BASE_URL + "tasks.json");
@@ -85,7 +64,7 @@ async function loadTasksBoard(){
 
 async function getNextContactId() {
     try {
-        const response = await fetch(`${BASE_URL}/contacts.json`);
+        const response = await fetch(`${BASE_URL}contact.json`);
         const data = await response.json();
 
         if (!data) {
@@ -98,7 +77,7 @@ async function getNextContactId() {
     }
 }
 
-async function loadContacts(path = "/contacts") {
+async function loadContacts(path = "contact") {
     resetInputs();
     const contactsData = await fetchContactsData(path);
 
@@ -113,10 +92,15 @@ async function loadContacts(path = "/contacts") {
 
 }
 
+async function fetchContactsData(path) {
+    const response = await fetch(BASE_URL + path + ".json");
+    return await response.json();
+}
+
 async function createNewContactInFirebase(name, email, phoneNumber, nextColor) {
         const nextContactId = await getNextContactId();
 
-        const response = await fetch(`${BASE_URL}/contacts/${nextContactId}.json`, {
+        const response = await fetch(`${BASE_URL}contact/${nextContactId}.json`, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json'
@@ -131,7 +115,7 @@ async function createNewContactInFirebase(name, email, phoneNumber, nextColor) {
 }
 
 async function updateContactInFirebase(id, name, mail, phone, color) {
-    const response = await fetch(`${BASE_URL}/contacts/${id}.json`, {
+    const response = await fetch(`${BASE_URL}contact/${id}.json`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

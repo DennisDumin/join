@@ -2,33 +2,19 @@ let prioBtn = "";
 
 // addTask.js
 
-async function init() {
-    console.log("init function called");
-
-    // Warten auf das vollständige Laden von w3-include-html
+async function initTask() {
     await initInclude(); // from include.js
-
-    // Vergewissern Sie sich, dass das DOM vollständig geladen ist
-    document.addEventListener('DOMContentLoaded', (event) => {
-        console.log("DOM fully loaded and parsed");
-
-        // Überprüfen, ob das Element jetzt existiert
-        const container = document.getElementById('add-task-contacts-container');
-        if (container) {
-            console.log("Element with ID 'add-task-contacts-container' found.");
-            renderContacts('add-task-contacts-container');
-            chooseMedium();
-        } else {
-            console.error("Element with ID 'add-task-contacts-container' not found after DOMContentLoaded.");
-        }
-    });
+    displayUserInitials(); // from summary.js
+    addTaskBgMenu();
+    await loadTasks(); // from storage.js
+    renderContacts('add-task-contacts-container');
+    chooseMedium();
 }
 
-function chooseMedium(){
+function chooseMedium() {
     let button = document.getElementById('medium-button')
     button.classList.add('medium-button-focus');
 }
-
 
 function hideRequiredInfo(borderId, textId) {
     let border = document.getElementById(`${borderId}`);
@@ -139,10 +125,10 @@ async function createTask() {
         document.getElementById('create-task-button').disabled = true;
         getValues();
         await saveTask();
-        showTaskAdded(); 
+        showTaskAdded();
         setTimeout(() => {
             redirectToBoard();
-        }, 2000); 
+        }, 2000);
         clearAddTask();
     } else {
         checkInput(title, date, category);
@@ -165,7 +151,7 @@ function getPrio() {
         prioBtn = './assets/img/icon_PrioAltaRed.svg'
     } else if (document.getElementById('medium-button').classList.contains('medium-button-focus')) {
         prio = 'Medium'
-        prioBtn= './assets/img/icon_PrioMediaOrange.svg'
+        prioBtn = './assets/img/icon_PrioMediaOrange.svg'
     } else if (document.getElementById('low-button').classList.contains('low-button-focus')) {
         prio = 'Low'
         prioBtn = './assets/img/icon_PrioBajaGreen.svg'
@@ -205,11 +191,11 @@ async function saveTask() {
 }
 
 
-function showTaskAdded(){
+function showTaskAdded() {
     document.getElementById('added-container').classList.remove('d-none');
 }
 
-function checkInput(title, date, category){
+function checkInput(title, date, category) {
     checkTitle(title);
     checkDate(date);
     checkCategory(category);

@@ -25,6 +25,10 @@ nav a:hover {
   background-color: var(--secundary-color);
 }
 
+.bg-focus {
+  background-color: #091931;
+}
+
 h1 {
   font-size: 61px;
   font-weight: 700;
