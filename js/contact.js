@@ -87,6 +87,7 @@ function renderDetailedContact(contact) {
       <span>${source['Telefonnummer']}</span>
     </div>
     `;
+    checkUserMaxWidth();
 }
 
 
@@ -268,6 +269,26 @@ async function testFetch() {
     let response = await fetch(BASE_URL + 'contact' + '-O-5fQkP0Xg1m4qHkE21' + '.json');
     let responseAsJson = await response.json();
     console.log(responseAsJson);
+}
+
+
+function checkUserMaxWidth() {
+    const mobileWidth = 800;
+
+    if (window.matchMedia(`(max-width: ${mobileWidth}px)`).matches) {
+        document.getElementById('mobileContactReturn').classList.remove('displayNone');
+        document.getElementById('contactList').classList.add('displayNone');
+        document.getElementById('contentSection').classList.remove('dNone');
+    } else {
+        console.log('DesktopVersion')
+    }
+}
+
+
+function showContactMobile() {
+    document.getElementById('contentSection').classList.add('dNone');
+    document.getElementById('contactList').classList.remove('displayNone');
+
 }
 
 
