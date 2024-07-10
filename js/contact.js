@@ -296,6 +296,7 @@ function stopWindowReload(key) {
     });
 }
 
+
 async function deleteContact(path = 'contact', id) {
     try {
         const url = `${BASE_URL}${path}/${id}.json`;
