@@ -321,12 +321,15 @@ function openClosePopUp(param, key) {
 
     let bgPopUp = document.getElementById(target);
     let popUp = bgPopUp.querySelector('.popUp');
+    let sideBar = document.getElementById('containerSidebar');
 
     if (param === 'open') {
         bgPopUp.classList.remove('displayNone', 'hide');
         bgPopUp.classList.add('show');
         popUp.classList.remove('slide-out');
         popUp.classList.add('slide-in');
+        sideBar.classList.add('displayNone')
+
     } else if (param === 'close') {
         popUp.classList.remove('slide-in');
         popUp.classList.add('slide-out');
@@ -335,12 +338,13 @@ function openClosePopUp(param, key) {
         setTimeout(() => {
             bgPopUp.classList.add('displayNone');
         }, 500);
+        sideBar.classList.remove('displayNone')
     } else {
         param.stopPropagation();
     }
 }
 
-function validatePopUp() {
+function validatePopUp(key) {
     return key ? 'backgroundPopUpEdit' : 'backgroundPopUp';
 }
 
@@ -386,5 +390,8 @@ function showContactMobile() {
 function contactsBgMenu() {
     document.getElementById('link-contact').classList.add('bg-focus');
   }
+
+
+
 
 

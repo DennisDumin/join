@@ -1,4 +1,3 @@
-
 @media (max-width: 1980px) {
     .bg-popUp {
         padding-left: 16vw;
@@ -8,6 +7,16 @@
 @media (max-width: 1160px) {
     .contacts {
         width: 40%;
+    }
+
+    .contact_button {
+        gap: 12px;
+    }
+
+    .popUp {
+        width: 70vw;
+        height: 65vh;
+
     }
 
     h4 {
@@ -20,6 +29,31 @@
 
     .bg-popUp {
         padding-left: 16vw;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: 320px
+    }
+
+    .form input {
+        width: 280px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .popUp {
+        width: 90vw;
+        height: 80vh;
+
+    }
+
+
+    .bg-popUp {
+        padding-left: 0;
     }
 }
 
@@ -49,4 +83,12 @@
     align-items: center;
     justify-content: end;
     padding: 24px 0px 24px 12px;
+}
+
+.closeMobile {
+    object-fit: cover;
+}
+
+.closeMobile:hover {
+    cursor: pointer;
 }
