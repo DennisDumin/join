@@ -15,19 +15,10 @@
   <link rel="stylesheet" href="./css/side_menu.css" />
   <link rel="stylesheet" href="./css/addTask.css" />
   <link rel="stylesheet" href="./css/addTask_input.css" />
-  <!--JS-->
-  <script src="./js/board.js"></script>
-  <script src="./js/header.js"></script>
-  <script src="./js/storage.js"></script>
-  <script src="./js/include.js"></script>
-  <script src="./js/addTaskContacts.js"></script>
-  <script src="./js/header.js"></script>
-  <script src="./js/addTask.js"></script>
-  <script src="./js/addTaskSubtask.js"></script>
 </head>
 </head>
 
-<body onload="init()">
+<body onload="initTask()">
   <div w3-include-html="./assets/templates/side_menu.html"></div>
   <main>
     <div w3-include-html="./assets/templates/header.html" class="header-sticky"></div>
@@ -139,7 +130,17 @@
     </div>
   </main>
   <div class="overlay hidden" onclick="closeMe()"></div>
-  <script src="./js/init.js"></script>
+     <!--JS-->
+   <script src="./js/contact.js"></script>
+   <script src="./js/init.js"></script>
+   <script src="./js/board.js"></script>
+   <script src="./js/header.js"></script>
+   <script src="./js/storage.js"></script>
+   <script src="./js/include.js"></script>
+   <script src="./js/addTaskContacts.js"></script>
+   <script src="./js/header.js"></script>
+   <script src="./js/addTask.js"></script>
+   <script src="./js/addTaskSubtask.js"></script>
 </body>
 
 </html>
