@@ -8,7 +8,7 @@
   <!--Favicon-->
   <link rel="icon" type="image/x-icon" href="./assets/img/logo_coloured.svg" />
   <!--Stylesheets-->
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="./css/board.css" />
   <link rel="stylesheet" href="./css/font.css" />
@@ -18,129 +18,106 @@
 </head>
 </head>
 
-<body onload="initTask()">
+<body onload="initBoard()">
   <div w3-include-html="./assets/templates/side_menu.html"></div>
   <main>
     <div w3-include-html="./assets/templates/header.html" class="header-sticky"></div>
-    <div class="board-top">
-      <div class="board-top-content">
-        <div class="board-top-cont-left">
-          <h2>Board</h2>
-          <div class="board-top-add"></div>
-        </div>
-        <div class="board-top-cont-right">
-          <div class="board-search-form">
-            <form class="board-top-form">
-              <input type="text" id="board-search-task" placeholder="Find Task" autocomplete="off" />
-              <div>
-                <img src="./assets/img/searchButton.svg" alt="search-button" />
+    <section class="board-section">
+      <div class="board-content">
+        <div class="board-header">
+          <h1>Board</h1>
+          <div class="add-task-content">
+            <div class="search-content">
+              <input type="text" placeholder="Find Task" id="search-input" autocomplete="off" onkeyup="searchTask()" />
+              <div class="search-line-content">
+                <div class="line-content"></div>
+                <button class="search-btn" onclick="searchTask()">
+                  <i class="fa fa-search" id="search-icon"></i>
+                </button>
               </div>
-            </form>
-            <div id="searchInfo"></div>
+            </div>
+            <div class="add-task-button" onclick="openAddTask()">
+              Add task
+              <i class="fa fa-plus" style="font-size: 24px"></i>
+            </div>
+            <div class="add-task-button-responsive" onclick="checkwidthForAddTask()"><i class="fa fa-plus"
+                style="font-size: 24px"></i></div>
           </div>
-          <div class="board-add-button">
-            <div>
-              <img src="./assets/img/addTaskButton.svg" alt="add" onclick="openAddTask()" />
+        </div>
+
+        <div id="add-task" class="add-task-board slide-in hidden">
+          <div w3-include-html="./assets/templates/task_form.html"></div>
+        </div>
+        <div w3-include-html="./assets/templates/edit.html"></div>
+
+        <div class="board-management-content">
+          <div class="inner-management-content">
+            <div class="title-m-content">
+              <p class="title-m">To do</p>
+              <button onclick="updateButtonOnClick()" class="plus-btn">
+                <i class="fa fa-plus" style="font-size: 12px"></i>
+              </button>
+            </div>
+            <div id="no-task-to-do">
+              <p>No tasks to do</p>
+            </div>
+            <div id="new-task-to-do" ondrop="moveTo('To Do')" ondragover="allowDrop(event)">
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div id="add-task" class="add-task-board hidden">
-      <div w3-include-html="./assets/templates/task_form.html"></div>
-    </div>
-    <div class="board-main">
-      <div class="board-card-section">
-        <div class="board-title-content" id="title-todo">
-          <div>
-            <span>To do</span>
+          <div class="inner-management-content">
+            <div class="title-m-content">
+              <p class="title-m">In progress</p>
+              <button onclick="updateButtonOnClick()" class="plus-btn">
+                <i class="fa fa-plus" style="font-size: 12px"></i>
+              </button>
+            </div>
+            <div id="no-task-in-progress">
+              <p id="in-progress-text">No tasks to do</p>
+            </div>
+            <div id="new-task-in-progress" ondrop="moveTo('In progress')" ondragover="allowDrop(event);"></div>
           </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
+          <div class="inner-management-content">
+            <div class="title-m-content">
+              <p class="title-m">Await feedback</p>
+              <button onclick="updateButtonOnClick()" class="plus-btn">
+                <i class="fa fa-plus" style="font-size: 12px"></i>
+              </button>
+            </div>
+            <div id="no-task-await">
+              <p>No tasks to do</p>
+            </div>
+            <div id="new-task-await" ondrop="moveTo('Await feedback')" ondragover="allowDrop(event);"></div>
           </div>
-        </div>
-        <div>
-          <div class="board-no-task">
-            <span>No tasks To do</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="board-card-section">
-        <div class="board-title-content" id="title-inprogress">
-          <div>
-            <span>In Progress</span>
-          </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div class="board-no-task">
-            <span>No tasks To do</span>
+          <div class="inner-management-content">
+            <div class="title-m-content">
+              <p class="title-m">Done</p>
+            </div>
+            <div id="no-task-done">
+              <p>No tasks to do</p>
+            </div>
+            <div id="new-task-done" ondrop="moveTo('Done')" ondragover="allowDrop(event)"></div>
           </div>
         </div>
       </div>
 
-      <div class="board-card-section">
-        <div class="board-title-content" id="">
-          <div>
-            <span>Await feedback</span>
-          </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-        </div>
-        <div>
-          <div class="board-no-task">
-            <span>No tasks To do</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="board-card-section">
-        <div class="board-title-content" id="title-boardtitle">
-          <div>
-            <span>Done</span>
-          </div>
-          <div class="add-svg">
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
-              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-        </div>
-        <div class="board-no-task">
-          <span>No tasks To do</span>
-        </div>
-      </div>
-    </div>
+      <div id="show-task" class="show-task slide-in hidden"></div>
+    </section>
+    <div class="overlay hidden" onclick="closeMe()"></div>
   </main>
-  <div class="overlay hidden" onclick="closeMe()"></div>
-     <!--JS-->
-   <script src="./js/contact.js"></script>
-   <script src="./js/init.js"></script>
-   <script src="./js/board.js"></script>
-   <script src="./js/header.js"></script>
-   <script src="./js/storage.js"></script>
-   <script src="./js/include.js"></script>
-   <script src="./js/addTaskContacts.js"></script>
-   <script src="./js/header.js"></script>
-   <script src="./js/addTask.js"></script>
-   <script src="./js/addTaskSubtask.js"></script>
+  <!--JS-->
+  <script src="./js/contact.js"></script>
+  <script src="./js/board.js"></script>
+  <script src="./js/boardEditContacts.js"></script>
+  <script src="./js/init.js"></script>
+  <script src="./js/storage.js"></script>
+  <script src="./js/openTaskBoard.js"></script>
+  <script src="./js/openEditTaskBoard.js"></script>
+  <script src="./js/header.js"></script>
+  <script src="./js/include.js"></script>
+  <script src="./js/addTaskContacts.js"></script>
+  <script src="./js/header.js"></script>
+  <script src="./js/addTask.js"></script>
+  <script src="./js/addTaskSubtask.js"></script>
 </body>
 
 </html>

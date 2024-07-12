@@ -58,7 +58,7 @@ async function loadTasksBoard(){
         Object.keys(tasksData).forEach(key => {
             tasks.push(tasksData[key]);
         });
-        updateHTML(); //form Board.js
+        updateHTML();
     }
 }
 

@@ -1,0 +1,378 @@
+/*Responsive*/
+
+@media (max-width: 1250px) {
+  .add-task-top {
+    gap: 0 !important;
+    height: 600px;
+  }
+
+  .add-task-board {
+    background-color: #f7f8f9;
+  }
+
+  .add-task-bottom {
+    padding-left: 0 !important;
+  }
+}
+
+@media (max-width: 1075px) {
+  .add-task-button-responsive {
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2a3647;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    width: 20px;
+    height: 36px;
+    font-size: 21px;
+    transition: background-color 0.1s;
+  }
+
+  .add-task-board {
+    display: none;
+  }
+
+  .add-task-button-responsive:hover {
+    background-color: #29abe2;
+    box-shadow: 0px 4px 4px 0 rgba(17, 3, 3, 0.24);
+  }
+
+  .add-task-button {
+    display: none;
+  }
+
+  .add-task-content {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+}
+
+.board-header {
+  position: relative;
+  height: 250px;
+}
+
+.search-content {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  justify-content: space-between;
+}
+
+.board-content {
+  height: 90%;
+}
+
+@media(max-width:1005px) {
+  .inner-management-content {
+    width: 100%;
+  }
+
+  #new-task,
+  #no-task-to-do,
+  #no-task-in-progress,
+  #no-task-await,
+  #no-task-done {
+    width: 99%;
+  }
+
+  #new-task-to-do,
+  #new-task-in-progress,
+  #new-task-await,
+  #new-task-done {
+    min-height: 10vh;
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+  }
+
+  .card {
+    width: 275px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    height: 280px;
+    padding: 20px;
+  }
+
+  .board-content {
+    margin-right: 20px;
+    width: 100%;
+    height: 90%;
+    overflow-x: hidden;
+  }
+
+  .card-user-content {
+    position: absolute;
+    bottom: 15px;
+    width: 85%;
+  }
+}
+
+@media(max-width: 850px) {
+
+  .board-content {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 100%;
+    height: 90%;
+    overflow-x: hidden;
+  }
+
+  .board-header {
+    position: relative;
+    height: 250px;
+  }
+
+  .search-content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    justify-content: space-between;
+  }
+
+  .border-management-content {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .inner-management-content {
+    width: 100%;
+  }
+
+  #new-task-to-do,
+  #new-task-in-progress,
+  #new-task-await,
+  #new-task-done {
+    min-height: 10vh;
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+  }
+
+  .card {
+    width: 275px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    height: 280px;
+    padding: 20px;
+  }
+
+  #add-task {
+    width: 500px;
+    padding: 30px;
+  }
+
+  .show-task {
+    top: 50%;
+  }
+
+  .add-task-bottom {
+    bottom: 0 !important;
+    /* wird nicht überschrieben da schon important ist */
+  }
+
+  .add-task-board {
+    top: 50%;
+  }
+}
+
+  @media(max-width:550px) {
+
+    .show-task {
+      width: 300px;
+      padding: 30px 25px 30px 20px;
+    }
+
+    #add-task-edit {
+      width: 350px !important;
+    }
+
+    .input-edit {
+      width: 310px;
+    }
+
+    .input-edit-subtask {
+      width: 302px;
+    }
+
+    .input-container-edit,
+    .input-section-element,
+    .input-section-left-edit,
+    .input-section-element-edit {
+      width: 335px !important;
+    }
+
+    .save-button {
+      height: 45px !important;
+      width: 70px !important;
+    }
+
+    .prio-buttons {
+      gap: 0px !important;
+    }
+
+    .add-task-edit-top {
+      overflow-x: none !important;
+    }
+
+    .prio-buttons button {
+      width: 28% !important;
+    }
+
+    .show-card-title {
+      font-size: 41px;
+      width: 330px;
+    }
+
+    .show-card-description {
+      font-size: 14px;
+    }
+
+    .user-task-content-show {
+      padding: 8px;
+    }
+
+    #user-show-name {
+      gap: 27px;
+    }
+
+    .subtask-show-text {
+      font-size: 14px;
+    }
+
+  }
+
+
+  @media(max-width:408px) {
+
+    h1 {
+      font-size: 41px;
+    }
+
+    #search-input {
+      font-size: 16px;
+    }
+
+    .add-task-button-responsive {
+      height: 20px;
+      width: 20px;
+      padding: 10px;
+    }
+
+    .card {
+      width: 220px;
+      padding: 15px;
+    }
+
+    .progress-bar-content {
+      gap: 5px;
+    }
+
+    progress {
+      width: 140px;
+    }
+
+    .progress-bar-content p {
+      font-size: 12px;
+    }
+
+    .card-category-title {
+      width: 80px;
+      font-size: 12px;
+    }
+
+    .card-title {
+      width: 180px;
+      font-size: 14px;
+    }
+
+    .card-description {
+      width: 180px;
+      font-size: 14px;
+    }
+
+    .user-task-content {
+      padding: 7px;
+    }
+
+    .show-task {
+      width: 270px;
+      padding: 30px 25px 30px 20px;
+    }
+
+    .show-card-title {
+      font-size: 37px;
+      width: 300px;
+    }
+
+    .show-card-description {
+      font-size: 13px;
+      width: 280px;
+    }
+
+    .user-task-content-show {
+      padding: 6px;
+    }
+
+    #user-show-name {
+      gap: 25px;
+    }
+
+    .blue {
+      width: 90px;
+    }
+
+    .card-user-content {
+      position: absolute;
+      bottom: 15px;
+      width: 85%;
+    }
+  }
+
+  @media(max-width:400px) {
+
+    #add-task-edit {
+      width: 300px !important;
+      height: 500px;
+    }
+
+    .input-edit {
+      width: 260px;
+      font-size: 15px !important;
+    }
+
+    .input-edit-subtask {
+      width: 250px;
+    }
+
+    .input-container-edit,
+    .input-section-element,
+    .input-section-left-edit,
+    .input-section-element-edit {
+      width: 285px !important;
+    }
+
+    .prio-buttons {
+      flex-direction: row !important;
+    }
+
+    .prio-buttons button {
+      width: 33% !important;
+    }
+
+    .subtask-show-text {
+      font-size: 12px;
+    }
+
+    input[type="checkbox"]::before {
+      width: 10px;
+      height: 10px;
+      font-size: 16px;
+    }
+  }

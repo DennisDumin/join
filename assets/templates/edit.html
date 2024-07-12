@@ -1,0 +1,139 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AddTaskEdit</title>
+  </head>
+  <body>
+    <div id="add-task-edit" class="hidden">
+      <div class="add-task-edit-top">
+        <div class="add-task-title-content">
+          <h2 class="add-task-edit-title">Edit Task</h2>
+          <i onclick="closeMe()" class="fa fa-close close-edit-btn"></i>
+        </div>
+        <div class="input-section-edit">
+          <div class="input-section-left-edit">
+            <div class="input-container-edit">
+              <label for="add-task-edit-title">Title</label>
+              <div class="input-container-required">
+                <div class="input-container-edit" tabindex="1">
+                  <input
+                    id="add-task-edit-title"
+                    class="input-edit"
+                    type="text"
+                    placeholder="Enter a title"
+                    autocomplete="off"
+                    required
+                  />
+                  <input type="text" class="hidden" id="hidden-input" />
+                </div>
+              </div>
+            </div>
+            <div class="input-container-edit">
+              <label for="add-task-edit-description">Description</label>
+              <textarea
+                id="add-task-edit-description"
+                class="input-edit"
+                placeholder="Enter a Description"
+                style="resize: none"
+                autocomplete="off"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="input-section-right-edit">
+            <div class="input-section-element">
+              <label for="add-task-edit-due-date">Due Date</label>
+              <div class="input-container-required">
+                <div
+                  id="add-task-due-date"
+                  onclick="hideRequiredInfo('add-task-due-date', 'required-date')"
+                  class="input-container"
+                >
+                  <input
+                    id="task-edit-date"
+                    class="inputfield"
+                    type="date"
+                    placeholder="dd/mm/yyyy"
+                    required
+                  />
+                  <img src="./assets/img/icon_event.svg" />
+                </div>
+              </div>
+            </div>
+            <div class="input-section-element-edit">
+              <span class="priority-title">Priority</span>
+              <div class="prio-buttons">
+                <button
+                  id="urgent-edit-button"
+                  onclick="activeEditButton()"
+                  class="urgent-edit-button"
+                >
+                  <span>Urgent</span>
+                  <div class="urgent-edit-img"><img id="urgent-img" src="./assets/img/icon_PrioAltaRed.svg" alt="UrgentIcon"></div>
+                </button>
+                <button
+                  id="medium-edit-button"
+                  onclick="activeEditButton()"
+                  class="medium-edit-button"
+                >
+                  <span>Medium</span>
+                  <div class="medium-edit-img"><img id="medium-img" src="./assets/img/icon_PrioMediaOrange.svg" alt="MediumIcon"></div>
+                </button>
+                <button
+                  id="low-edit-button"
+                  onclick="activeEditButton()"
+                  class="low-edit-button"
+                >
+                  <span>Low</span>
+                  <div class="low-edit-img"><img id="low-img" src="./assets/img/icon_PrioBajaGreen.svg" alt="LowIcon"></div>
+                </button>
+              </div>
+            </div>
+
+            <div id="input-assigned-edit-section" class="input-section-element">
+              <label for="add-task-edit-assigned">Assigned to</label>
+              <div
+                id="contacts-input-container"
+                onclick="openEditContacts()"
+                class="input-container input-container-select"
+                tabindex="1"
+              >
+                <input
+                  id="add-task-edit-assigned"
+                  onkeyup="searchEditContacts()"
+                  class="inputfield"
+                  type="text"
+                  placeholder="Select contacts to assign"
+                  onfocus="this.placeholder = ''"
+                  onblur="this.placeholder = 'Select contacts to assign'"
+                />
+                <img
+                  id="dropdown-img-contacts-edit"
+                  onclick="openCloseEditContacts(event)"
+                  class="dropdown-edit-img"
+                  src="./assets/img/icon_arrow_drop_down.svg"
+                />
+              </div>
+              <div id="user-content-edit-letter" class="user-content-edit-letter"></div>
+              <div id="selected-contacts-edit" class="contact-circles d-none"></div>
+              <div id="add-task-contacts-container-edit" class="d-none"></div>
+            </div>
+
+            <div class="input-section-element">
+              <label for="add-task-edit-subtasks">Subtasks</label>
+              <div class="input-edit-subtask"></div>
+              <ul id="new-subtask"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="add-task-edit-bottom">
+        <button class="save-button" onclick="saveEditTask()">
+          <span>OK</span>
+          <i class="fa fa-check" style="font-size: 20px"></i>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
