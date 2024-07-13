@@ -597,7 +597,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]::before {
-  content: "âœ“";
+  content: "✓";
   width: 14px;
   height: 14px;
   transform: scale(0);

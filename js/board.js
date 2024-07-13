@@ -76,9 +76,9 @@ function changeColorOfCategoryTitle() {
   for (let i = 0; i < tasks.length; i++) {
     let content = document.getElementById(`card-category-title${i}`);
     let category = tasks[i]["category"];
-    if (category.includes("User Story")) {
+    if (category.includes("User")) {
       content.classList.add("blue");
-    } else if (category.includes("Technical Task")) {
+    } else if (category.includes("Technical")) {
       content.classList.add("green");
     }
   }
@@ -273,7 +273,7 @@ function styleOfNoTaskDone(){
 }
 
 function checkwidthForAddTask(){
-    window.location.href = '../addTask.html';
+    window.location.href = './add_task.html';
 }
 
 function updateButtonOnClick(){
@@ -281,7 +281,7 @@ function updateButtonOnClick(){
   if(plusbutton.length > 0){
     if(window.innerWidth <= 1075){
       for(let i = 0; i < plusbutton.length; i++){
-        plusbutton[i].setAttribute('onclick', "window.location.href = './addTask.html'");
+        plusbutton[i].setAttribute('onclick', "window.location.href = './add_task.html'");
       }
     }else{
       for(let i = 0; i < plusbutton.length; i++){
