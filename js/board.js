@@ -200,30 +200,27 @@ function contactsRender() {
 }
 
 function generateAllTasksHTML(element) {
-  const numberOfSubtasks = element["subtasks"].length;
-  return `
-    <div id="card-id${element["ID"]}" draggable="true" ondragstart="startDragging(${element["ID"]})" onclick="showTask(${element["ID"]})">
-      <div class="card">
-        <div id="card-category-title${element["ID"]}" class="card-category-title">${element["category"]}</div>
-        <div class="title-description-content">
-          <h2 class="card-title">${element["title"]}</h2>
-          <p class="card-description">${element["description"]}</p>
-        </div>
-        <div class="progress-bar-content">
-          <progress value="${valueOfProgressBar(element["ID"])}" max="100" id="progress-bar${element["ID"]}"></progress>
-          <p class="card-subtasks-text"><span id="number-of-subtask${element["ID"]}" class="number-of-subtask">${numberOfSubtasks}/${numberOfSubtasks}</span> Subtasks</p>
-        </div>
-        <div class="card-user-content">
-          <div class="user-container-board">
-            <div class="user-inner-container" id="new-div${element['ID']}"></div>
-            <div class="number-of-contacts" id="plus-number-contacts${element['ID']}"></div>
-          </div>
-          <img src="${element["prio-icon"]}" alt="">
-        </div>
+  return ` <div id="card-id${element["ID"]}" draggable="true" ondragstart="startDragging(${element["ID"]})" onclick="showTask(${element["ID"]})">
+  <div class="card">
+   <div id="card-category-title${element["ID"]}" class="card-category-title">${element["category"]}</div>
+   <div class="title-description-content">
+     <h2 class="card-title">${element["title"]}</h2>
+     <p class="card-description">${element["description"]}</p>
+   </div>
+   <div class="progress-bar-content">
+     <progress value="${valueOfProgressBar(element["ID"])}" max="100" id="progress-bar${element["ID"]}"></progress>
+     <p class="card-subtasks-text"><span id="number-of-subtask${element["ID"]}" class="number-of-subtask">${element["subtasks"].length}/${element["subtasks"].length}</span> Subtasks</p>
+    </div>
+    <div class="card-user-content">
+      <div class="user-container-board">
+        <div class="user-inner-container" id="new-div${element['ID']}"></div>
+        <div class="number-of-contacts" id="plus-number-contacts${element['ID']}"></div>
       </div>
-    </div>`;
+      <img src="${element["prio-icon"]}" alt="">
+    </div>
+  </div>
+  </div>`;
 }
-
 
 function allowDrop(ev) {
   ev.preventDefault();

@@ -1,8 +1,8 @@
 function openEdit(taskIndex) {
   let showContent = document.getElementById("show-task");
   showContent.classList.add("hidden");
-  let editContent = document.getElementById("add-task-edit");
-  editContent.classList.remove("hidden");
+  let editConten = document.getElementById("add-task-edit");
+  editConten.classList.remove("hidden");
   let overlay = document.getElementsByClassName("overlay")[0];
   overlay.classList.remove("hidden");
   let title = document.getElementById("add-task-edit-title");
@@ -20,7 +20,7 @@ function openEdit(taskIndex) {
   generateEditTask(taskIndex);
 }
 
-function showSelectedContactsEdit(selected) {
+function showSelectedContactsEdit(selected){
   for (let i = 0; i < selected.length; i++) {
     const selectedContact = selected[i];
     let contactColor = selectedContact['color'];
@@ -31,7 +31,7 @@ function showSelectedContactsEdit(selected) {
   }
 }
 
-function generateEditTask(taskIndex) {
+function generateEditTask(taskIndex){
   activeEditButton();
   activeButton(taskIndex);
   subtasksEditRender(taskIndex);
@@ -41,22 +41,22 @@ function generateEditTask(taskIndex) {
 
 }
 
-function contactsEditRender(taskIndex) {
+function contactsEditRender(taskIndex){
   let content = document.getElementsByClassName('user-content-edit-letter')[0];
-  content.innerHTML = '';
-  for (let j = 0; j < selectedEditContacts.length; j++) {
-    let letter = selectedEditContacts[j]['name'].split(" ");
-    let result = "";
-    for (let name = 0; name < letter.length; name++) {
-      result += letter[name].charAt(0).toUpperCase();
+  content.innerHTML ='';
+    for(let j = 0; j < selectedEditContacts.length; j++){
+      let letter = selectedEditContacts[j]['name'].split(" ");
+      let result = "";
+      for(let name = 0; name < letter.length; name++){
+        result += letter[name].charAt(0).toUpperCase();
+      }
+      content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[taskIndex]['contacts'][j]['color']};">${result}</div>`;
     }
-    content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[taskIndex]['contacts'][j]['color']};">${result}</div>`;
-  }
 }
 
-function generateInputEditSubtask(taskIndex) {
+function generateInputEditSubtask(taskIndex){
   let content = document.getElementsByClassName(`input-edit-subtask`)[0];
-  content.innerHTML = `      
+  content.innerHTML =`      
   <input id="add-task-edit-subtasks${taskIndex}" class="inputfield" type="text"
   placeholder="Add new subtask" maxlength="26" autocomplete="off" onclick="openEditSubtaskIcons()"/>
   <div id="add-task-subtasks-edit-icons" class="subtasks-icon d-none">
@@ -67,10 +67,10 @@ function generateInputEditSubtask(taskIndex) {
   <img src="./assets/img/icon_subtasks.svg" class="plus-icon-edit-subtasks" id="plus-edit-icon" onclick="openEditSubtaskIcons()"/>`;
 }
 
-function subtasksEditRender(taskIndex) {
+function subtasksEditRender(taskIndex){
   let content = document.getElementById('new-subtask');
-  content.innerHTML = '';
-  for (let j = 0; j < tasks[taskIndex]['subtasks'].length; j++) {
+  content.innerHTML ='';
+  for(let j = 0;  j < tasks[taskIndex]['subtasks'].length; j++){
     content.innerHTML += `
   <div class="checkbox-edit-content">
     <div id="checkbox-edit-content${j}" class="checkbox-show-content">
@@ -93,23 +93,23 @@ function subtasksEditRender(taskIndex) {
       <img onclick="deleteEditBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_delete.svg" alt="delete">
     </div>
   </div> `
-      ;
+    ;
   }
 }
 
-function confirmEdit(taskIndex, subtaskIndex) {
+function confirmEdit(taskIndex, subtaskIndex){
   let inputSubtask = document.getElementById(`edit-input-board${subtaskIndex}`).value;
   deleteEditBoardSubtask(taskIndex, subtaskIndex);
-  if (!Array.isArray(tasks[taskIndex].subtasks)) {
+  if(!Array.isArray(tasks[taskIndex].subtasks)){
     tasks[taskIndex].subtasks = [];
   }
   tasks[taskIndex]["subtasks"].push(inputSubtask);
   subtasksEditRender(taskIndex);
   putData("/tasks", tasks);
-  inputSubtask = "";
+  inputSubtask ="";
 }
 
-function editBoardSubtask(taskIndex) {
+function editBoardSubtask(taskIndex){
   document.getElementById(`edit-input-board-content${taskIndex}`).classList.remove('hidden');
   document.getElementById(`checkbox-edit-content${taskIndex}`).classList.add('hidden');
   document.getElementById(`subtasks-icon${taskIndex}`).classList.add('hidden');
@@ -118,13 +118,13 @@ function editBoardSubtask(taskIndex) {
   labelOfSubtask.innerHTML = subtaskInput;
 }
 
-function deleteEditBoardSubtask(taskIndex, subtaskIndex) {
-  if (tasks[taskIndex]["subtasks"].length === 1) {
-    if (Array.isArray(tasks[taskIndex].subtasks)) {
+function deleteEditBoardSubtask(taskIndex, subtaskIndex){
+  if(tasks[taskIndex]["subtasks"].length === 1){
+    if(Array.isArray(tasks[taskIndex].subtasks)){
       tasks[taskIndex].subtasks = "";
     }
     subtasksEditRender(taskIndex);
-  } else {
+  }else{
     tasks[taskIndex]["subtasks"].splice(subtaskIndex, 1);
     subtasksEditRender(taskIndex);
   }
@@ -132,39 +132,41 @@ function deleteEditBoardSubtask(taskIndex, subtaskIndex) {
 }
 
 
-function openEditSubtaskIcons() {
+function openEditSubtaskIcons(){
   document.getElementById('add-task-subtasks-edit-icons').classList.remove('d-none');
   document.getElementById('plus-edit-icon').classList.add('d-none');
 }
 
-function closeEditSubtaskIcons() {
+function closeEditSubtaskIcons(){
   document.getElementById('add-task-subtasks-edit-icons').classList.add('d-none');
   document.getElementById('plus-edit-icon').classList.remove('d-none');
 }
 
-function addEditSubtasks(taskIndex) {
+function addEditSubtasks(taskIndex){
   let inputSubtask = document.getElementById(`add-task-edit-subtasks${taskIndex}`).value;
-  if (inputSubtask.trim() === "") {
-    return;
-  } else {
-    if (!Array.isArray(tasks[taskIndex].subtasks)) {
-      tasks[taskIndex].subtasks = [];
-    }
-    if (tasks[taskIndex]["subtasks"].length === 2) {
-      tasks[taskIndex]["subtasks"].pop();
-    }
-    tasks[taskIndex]["subtasks"].push({ name: inputSubtask, completed: false }); // Hinzufügen mit "completed: false"
-    generateEditSubtask(taskIndex);
-    putData("/tasks", tasks);
-    inputSubtask = "";
-  }
-  subtasksEditRender(taskIndex);
+      if(inputSubtask.trim() === ""){
+        return;
+      }else{
+        if(!Array.isArray(tasks[taskIndex].subtasks)){
+          tasks[taskIndex].subtasks = [];
+        }
+        if(tasks[taskIndex]["subtasks"].length === 2){
+          tasks[taskIndex]["subtasks"].pop();
+          tasks[taskIndex]["subtasks"].push(inputSubtask);
+        }else{
+          tasks[taskIndex]["subtasks"].push(inputSubtask);
+        }
+        generateEditSubtask(taskIndex);
+        putData("/tasks", tasks);
+        inputSubtask ="";
+      }
+      subtasksEditRender(taskIndex);
 }
 
-function generateEditSubtask(taskIndex) {
+function generateEditSubtask(taskIndex){
   let list = document.getElementById('newSubtask');
   list.innerHTML = '';
-  for (let i = 0; i < tasks[taskIndex]["subtasks"].length; i++) {
+  for(let i= 0; i < tasks[taskIndex]["subtasks"].length; i++){
     list.innerHTML += `
     <div class="checkbox-edit-content">
       <div class="checkbox-show-content">
@@ -195,7 +197,7 @@ async function saveEditTask() {
         tasks[i].date = date;
         tasks[i].prioIcon = prioBtn;
         tasks[i].prio = prioText;
-        if (selectedEditContacts.length > 0) {
+        if(selectedEditContacts.length > 0){
           tasks[i]["contacts"].splice(0, tasks[i]["contacts"].length);
           tasks[i]["contacts"].push(...selectedEditContacts);
         }
@@ -204,25 +206,25 @@ async function saveEditTask() {
       }
     }
   }
-  await putData("/tasks", tasks);
+  await  putData("/tasks", tasks);
   await updateHTML();
   await closeMe();
 }
 
-function keepPrioButton(taskIndex) {
+function keepPrioButton(taskIndex){
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
-  if (/(\s|^)active(\s|$)/.test(urgentEditbutton.className)) {
-    tasks[taskIndex]["prio"] = 'Urgent';
-    tasks[taskIndex]["prioIcon"] = "./assets/img/icon_PrioAltaRed.svg";
-  } else if (/(\s|^)active(\s|$)/.test(mediumEditbutton.className)) {
+  if(/(\s|^)active(\s|$)/.test(urgentEditbutton.className)) {
+   tasks[taskIndex]["prio"] = 'Urgent';
+   tasks[taskIndex]["prioIcon"] = "./assets/img/icon_PrioAltaRed.svg";
+  }else if(/(\s|^)active(\s|$)/.test(mediumEditbutton.className)){
     tasks[taskIndex]["prio"] = 'Medium';
     tasks[taskIndex]["prioIcon"] = "./assets/img/icon_PrioMediaOrange.svg";
-  } else if (/(\s|^)active(\s|$)/.test(lowEditbutton.className)) {
+  }else if(/(\s|^)active(\s|$)/.test(lowEditbutton.className)){
     tasks[taskIndex]["prio"] = 'Low';
     tasks[taskIndex]["prioIcon"] = './assets/img/icon_PrioBajaGreen.svg';
-  } else {
+  }else{
     tasks[taskIndex]["prio"] = '';
     tasks[taskIndex]["prioIcon"] = '';
   }
@@ -235,7 +237,7 @@ function activeEditButton() {
   lowButtonEdit(lastClick);
 }
 
-function urgentButtenEdit(lastClick) {
+function urgentButtenEdit(lastClick){
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
@@ -247,14 +249,14 @@ function urgentButtenEdit(lastClick) {
     mediumEditbutton.classList.remove("active");
     lowEditbutton.classList.remove("active");
     lastClick = urgentEditbutton;
-    prioText = 'Urgent'
-    prioIcon = './assets/img/icon_PrioAltaWhite.svg';
-    prioBtn = "./assets/img/icon_PrioAltaRed.svg";
+    prioText ='Urgent'
+    prioIcon ='./assets/img/icon_PrioAltaWhite.svg';
+    prioBtn ="./assets/img/icon_PrioAltaRed.svg";
     changeIconOfUrgent();
   });
 }
 
-function mediumButtonEdit(lastClick) {
+function mediumButtonEdit(lastClick){
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
@@ -273,7 +275,7 @@ function mediumButtonEdit(lastClick) {
   });
 }
 
-function lowButtonEdit(lastClick) {
+function lowButtonEdit(lastClick){
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
@@ -292,7 +294,7 @@ function lowButtonEdit(lastClick) {
   });
 }
 
-function activeButton(taskIndex) {
+function activeButton(taskIndex){
   if (tasks[taskIndex]["prio"] === "Low") {
     document.getElementsByClassName("low-edit-button")[0].classList.add("active");
     prioIcon = './assets/img/icon_PrioBajaWhite.svg';
@@ -301,23 +303,23 @@ function activeButton(taskIndex) {
     document.getElementsByClassName("medium-edit-button")[0].classList.remove("active");
   } else if (tasks[taskIndex]["prio"] === "Urgent") {
     document.getElementsByClassName("urgent-edit-button")[0].classList.add("active");
-    prioIcon = './assets/img/icon_PrioAltaWhite.svg';
+    prioIcon ='./assets/img/icon_PrioAltaWhite.svg';
     changeIconOfUrgent();
     document.getElementsByClassName("low-edit-button")[0].classList.remove("active");
     document.getElementsByClassName("medium-edit-button")[0].classList.remove("active");
-  } else if (tasks[taskIndex]["prio"] === "Medium") {
+  } else if(tasks[taskIndex]["prio"] === "Medium") {
     document.getElementsByClassName("medium-edit-button")[0].classList.add("active");
     prioIcon = './assets/img/icon_PrioMediaWhite.svg';
     changeIconOfMedium();
     document.getElementsByClassName("low-edit-button")[0].classList.remove("active");
     document.getElementsByClassName("urgent-edit-button")[0].classList.remove("active");
-  } else {
-    prio = '';
-    prioBtn = '';
+  }else{
+    prio ='';
+    prioBtn ='';
   }
 }
 
-function changeIconOfUrgent() {
+function changeIconOfUrgent(){
   let urgent = document.getElementById('urgent-img');
   urgent.src = prioIcon;
   let medium = document.getElementById('medium-img');
@@ -326,7 +328,7 @@ function changeIconOfUrgent() {
   low.src = './assets/img/icon_PrioBajaGreen.svg';
 }
 
-function changeIconOfMedium() {
+function changeIconOfMedium(){
   let medium = document.getElementById('medium-img');
   medium.src = prioIcon;
   let urgent = document.getElementById('urgent-img');
@@ -335,7 +337,7 @@ function changeIconOfMedium() {
   low.src = './assets/img/icon_PrioBajaGreen.svg';
 }
 
-function changeIconOfLow() {
+function changeIconOfLow(){
   let low = document.getElementById('low-img');
   low.src = prioIcon;
   let medium = document.getElementById('medium-img');

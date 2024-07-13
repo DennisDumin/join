@@ -81,24 +81,24 @@ function showTask(taskIndex) {
   
   function UpdateProgress(taskIndex){
     let checkedCount = 0;
-    for(let j = 0; j < tasks[taskIndex]["subtasks"].length; j++){
+    let totalSubtasks = tasks[taskIndex]["subtasks"].length; // Gesamtanzahl der Subtasks
+    for(let j = 0; j < totalSubtasks; j++){
       let checkbox  = document.getElementById(`checkbox${j}`);
       if (checkbox.checked){
         checkedCount++;
       }
-      let progress = document.getElementById(`progress-bar${taskIndex}`);
-      let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
-      numberOfSubtask.innerHTML ='';
-      if(checkedCount > 1){
-        progress.value = 100;
-        numberOfSubtask.textContent = '2/2';
-      }else if(checkedCount === 1){
-        progress.value = 50;
-        numberOfSubtask.textContent = '1/2';
-      }else{
-        progress.value = 0;
-        numberOfSubtask.textContent = '0/2';
-      }
+    }
+    
+    let progress = document.getElementById(`progress-bar${taskIndex}`);
+    let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
+    
+    if(checkedCount > 0){
+      let progressValue = (checkedCount / totalSubtasks) * 100;
+      progress.value = progressValue;
+      numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks}`;
+    } else {
+      progress.value = 0;
+      numberOfSubtask.textContent = `0/${totalSubtasks}`;
     }
   }
   
