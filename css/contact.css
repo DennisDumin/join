@@ -237,9 +237,19 @@ h2 {
   width: 100%;
 }
 
-.pic_inputs img {
+.profile-pic {
   height: 120px;
   width: 120px;
+}
+
+.return-mobilePopUp {
+display: flex;
+justify-content: end;
+}
+
+.return-mobilePopUp img {
+  filter: brightness(1000%) saturate(0%);
+  object-fit: cover;
 }
 
 .form {
