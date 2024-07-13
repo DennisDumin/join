@@ -124,9 +124,9 @@ function showTask(taskIndex) {
   function changeColorOfCategoryTitleShow(taskIndex){
     let content = document.getElementById(`card-category-title-show${taskIndex}`);
     let category = tasks[taskIndex]["category"];
-    if (category.includes("User Story")) {
+    if (category.includes("User")) {
       content.classList.add("blue");
-    } else if (category.includes("Technical Task")){
+    } else if (category.includes("Technical")){
       content.classList.add("green");
     }
   }

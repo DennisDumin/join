@@ -2,7 +2,7 @@ let subtask = [];
 let user = [];
 tasks = [];
 prioBtn = "";
-let prioIcon = "";
+let prioIcon ="";
 let prioText = "";
 
 
@@ -21,15 +21,15 @@ function renderEditContacts(contactContainer) {
   let container = document.getElementById(`${contactContainer}`);
   container.innerHTML = '';
   for (let i = 0; i < contacts.length; i++) {
-    let name = contacts[i]['Name'];
-    let initials = getInitials(name); // from contact.js
-    let color = contacts[i]['color'];
-    container.innerHTML += templateEditContact(i, name, initials, color);
-    if (contacts[i]['selected'] === true) {
-      document.getElementById(`contact-edit-container${i}`).classList.add('contact-container-edit-focus');
-    } else {
-      document.getElementById(`contact-edit-container${i}`).classList.remove('contact-container-edit-focus');
-    }
+      let name = contacts[i]['Name'];
+      let initials = getInitials(name); // from contact.js
+      let color = contacts[i]['color'];
+      container.innerHTML += templateEditContact(i, name, initials, color);
+      if (contacts[i]['selected'] === true) {
+          document.getElementById(`contact-edit-container${i}`).classList.add('contact-container-edit-focus');
+      } else {
+          document.getElementById(`contact-edit-container${i}`).classList.remove('contact-container-edit-focus');
+      }
   }
 }
 
@@ -51,9 +51,9 @@ function openAddTask() {
   let overlay = document.getElementsByClassName("overlay")[0];
   overlay.classList.remove("hidden");
   let dialog = document.querySelector('.add-task-board');
-  dialog.classList.remove('slide-in');
+  dialog.classList.remove('slide-in'); 
   setTimeout(() => {
-    dialog.classList.add('slide-in');
+      dialog.classList.add('slide-in');
   }, 50);
 }
 
@@ -85,8 +85,8 @@ function changeColorOfCategoryTitle() {
 }
 
 function deleteTask(taskIndex) {
-  tasks.splice(taskIndex, 1);
-  for (let j = 0; j < tasks.length; j++) {
+  tasks.splice(taskIndex,1);
+  for (let j = 0; j < tasks.length; j++){
     tasks[j].ID = j;
   }
   putData("/tasks", tasks);
@@ -123,78 +123,78 @@ function convertDate(date) {
 
 let currentDraggedElement;
 
-function updateHTML() {
+ function updateHTML() {
   let toDo = tasks.filter((t) => t["phases"] == "To Do");
   let toDoConetnt = document.getElementById("new-task-to-do");
   toDoConetnt.innerHTML = "";
 
-  for (let index = 0; index < toDo.length; index++) {
-    const element = toDo[index];
-    document.getElementById("new-task-to-do").innerHTML += generateAllTasksHTML(element);
-    styleOfNoTaskToDo();
-  }
+    for (let index = 0; index < toDo.length; index++) {
+      const element = toDo[index];
+      document.getElementById("new-task-to-do").innerHTML += generateAllTasksHTML(element);
+      styleOfNoTaskToDo();
+    }
 
-  let inProgress = tasks.filter((t) => t["phases"] == "In progress");
-  let inProgressContent = document.getElementById("new-task-in-progress");
-  inProgressContent.innerHTML = "";
+    let inProgress = tasks.filter((t) => t["phases"] == "In progress");
+    let inProgressContent = document.getElementById("new-task-in-progress");
+    inProgressContent.innerHTML = "";
 
-  for (let index = 0; index < inProgress.length; index++) {
-    const element = inProgress[index];
-    document.getElementById("new-task-in-progress").innerHTML += generateAllTasksHTML(element);
-    styleOfNoTaskInProgress();
-  }
+    for (let index = 0; index < inProgress.length; index++) {
+      const element = inProgress[index];
+      document.getElementById("new-task-in-progress").innerHTML += generateAllTasksHTML(element);
+      styleOfNoTaskInProgress();
+    }
 
-  let await = tasks.filter((t) => t["phases"] == "Await feedback");
-  document.getElementById("new-task-await").innerHTML = "";
-  for (let index = 0; index < await.length; index++) {
-    const element = await[index];
-    document.getElementById("new-task-await").innerHTML += generateAllTasksHTML(element);
-    styleOfNoTaskAwaitFeedback();
-  }
-  let done = tasks.filter((t) => t["phases"] == "Done");
-  document.getElementById("new-task-done").innerHTML = "";
-  for (let index = 0; index < done.length; index++) {
-    const element = done[index];
-    document.getElementById("new-task-done").innerHTML += generateAllTasksHTML(element);
-    styleOfNoTaskDone();
-  }
-  changeColorOfCategoryTitle();
-  contactsRender();
+    let await = tasks.filter((t) => t["phases"] == "Await feedback");
+    document.getElementById("new-task-await").innerHTML = "";
+    for (let index = 0; index < await.length; index++) {
+      const element = await[index];
+      document.getElementById("new-task-await").innerHTML += generateAllTasksHTML(element);
+      styleOfNoTaskAwaitFeedback(); 
+    }
+    let done = tasks.filter((t) => t["phases"] == "Done");
+    document.getElementById("new-task-done").innerHTML = "";
+    for (let index = 0; index < done.length; index++) {
+      const element = done[index];
+      document.getElementById("new-task-done").innerHTML += generateAllTasksHTML(element);
+      styleOfNoTaskDone(); 
+    }
+    changeColorOfCategoryTitle();
+    contactsRender();
 }
 
 function startDragging(id) {
   currentDraggedElement = id;
 }
 
-function valueOfProgressBar(taskIndex) {
+function valueOfProgressBar(taskIndex){
   let value;
-  if (tasks[taskIndex]["subtasks"].length === 0) {
-    value = 0;
-  } else if (tasks[taskIndex]["subtasks"].length === 1) {
-    value = 50;
-  } else {
-    value = 100;
-  }
-  return value;
+    if(tasks[taskIndex]["subtasks"].length === 0){
+      value = 0;
+    }else if(tasks[taskIndex]["subtasks"].length === 1){
+      value = 50;
+    }else{
+      value = 100;
+    }
+    return value;
 }
 
-function contactsRender() {
-  for (let i = 0; i < tasks.length; i++) {
+function contactsRender(){
+  for(let i = 0; i < tasks.length; i++){
     let maxConatcts = 3;
     let content = document.getElementById(`new-div${i}`);
-    for (let j = 0; j < Math.min(tasks[i]['contacts'].length, maxConatcts); j++) {
+    for(let j = 0; j < Math.min(tasks[i]['contacts'].length, maxConatcts); j++){
       let letter = tasks[i]['contacts'][j]['name'].split(" ");
       let result = "";
-      for (let name = 0; name < letter.length; name++) {
+      for(let name = 0; name < letter.length; name++){
         result += letter[name].charAt(0).toUpperCase();
       }
       content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]['contacts'][j]['color']};">${result}</div>`;
     }
-    if (tasks[i]["contacts"].length > maxConatcts) {
+    if(tasks[i]["contacts"].length > maxConatcts){
       let additionalContacts = tasks[i]["contacts"].length - maxConatcts;
       let numberOfContacts = document.getElementById(`plus-number-contacts${i}`);
-      numberOfContacts.innerHTML = "";
-      numberOfContacts.innerHTML = `+${additionalContacts}`;
+      numberOfContacts.innerHTML ="";
+      numberOfContacts.innerHTML =`+${additionalContacts}`;
     }
   }
 }
@@ -216,7 +216,7 @@ function generateAllTasksHTML(element) {
         <div class="user-inner-container" id="new-div${element['ID']}"></div>
         <div class="number-of-contacts" id="plus-number-contacts${element['ID']}"></div>
       </div>
-      <img src="${element["prio-icon"]}" alt="">
+      <img src="${element["prioIcon"]}" alt="">
     </div>
   </div>
   </div>`;
@@ -232,66 +232,66 @@ function moveTo(phase) {
   styleOfNoTaskToDo();
   styleOfNoTaskInProgress();
   styleOfNoTaskAwaitFeedback();
-  styleOfNoTaskDone();
+  styleOfNoTaskDone(); 
   putData("/tasks", tasks);
 }
 
 function styleOfNoTaskToDo() {
   let toDoConetnt = document.getElementById("new-task-to-do");
-  if (toDoConetnt.childElementCount > 0) {
+  if(toDoConetnt.childElementCount > 0){
     document.getElementById('no-task-to-do').classList.add('hidden');
-  } else {
+  }else{
     document.getElementById('no-task-to-do').classList.remove('hidden');
   }
 }
 
-function styleOfNoTaskInProgress() {
+function styleOfNoTaskInProgress(){
   let inProgressContent = document.getElementById("new-task-in-progress");
-  if (inProgressContent.childElementCount > 0) {
+  if(inProgressContent.childElementCount > 0){
     document.getElementById('no-task-in-progress').classList.add('hidden');
-  } else {
+  }else{
     document.getElementById('no-task-in-progress').classList.remove('hidden');
   }
 }
 
-function styleOfNoTaskAwaitFeedback() {
+function styleOfNoTaskAwaitFeedback(){
   let inProgressContent = document.getElementById("new-task-await");
-  if (inProgressContent.childElementCount > 0) {
+  if(inProgressContent.childElementCount > 0){
     document.getElementById('no-task-await').classList.add('hidden');
-  } else {
+  }else{
     document.getElementById('no-task-await').classList.remove('hidden');
   }
 }
 
-function styleOfNoTaskDone() {
+function styleOfNoTaskDone(){
   let inProgressContent = document.getElementById("new-task-done");
-  if (inProgressContent.childElementCount > 0) {
+  if(inProgressContent.childElementCount > 0){
     document.getElementById('no-task-done').classList.add('hidden');
-  } else {
+  }else{
     document.getElementById('no-task-done').classList.remove('hidden');
   }
 }
 
-function checkwidthForAddTask() {
-  window.location.href = './add_task.html';
+function checkwidthForAddTask(){
+    window.location.href = './add_task.html';
 }
 
-function updateButtonOnClick() {
+function updateButtonOnClick(){
   let plusbutton = document.getElementsByClassName('plus-btn');
-  if (plusbutton.length > 0) {
-    if (window.innerWidth <= 1075) {
-      for (let i = 0; i < plusbutton.length; i++) {
+  if(plusbutton.length > 0){
+    if(window.innerWidth <= 1075){
+      for(let i = 0; i < plusbutton.length; i++){
         plusbutton[i].setAttribute('onclick', "window.location.href = './add_task.html'");
       }
-    } else {
-      for (let i = 0; i < plusbutton.length; i++) {
-        plusbutton[i].setAttribute('onclick', 'openAddTask()');
+    }else{
+      for(let i = 0; i < plusbutton.length; i++){
+      plusbutton[i].setAttribute('onclick', 'openAddTask()');
       }
     }
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () =>{
   updateButtonOnClick();
   window.addEventListener('resize', updateButtonOnClick)
 });
