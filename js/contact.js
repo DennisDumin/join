@@ -110,10 +110,18 @@ function renderDetailedContact(contactId) {
             <span>${source['telefonnummer']}</span>
         </div>
     `;
+    fillEditPopUp();
     checkUserMaxWidth();
     
     // Setze die Hintergrundfarbe des single-letter Profils
     setSingleLetterBackgroundColor(contactId);
+}
+
+function fillEditPopUp() {
+    document.getElementById('letterForPopUp').innerHTML;
+    document.getElementById('editEmail').value;
+    document.getElementById('editTel').value;
+    document.getElementById('editName').value;
 }
 
 function setSingleLetterBackgroundColor(contactId) {
