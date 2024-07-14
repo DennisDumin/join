@@ -1,7 +1,7 @@
 let userList = [];
 
 /**
- * This function generate a new User.
+ * This function generates a new user.
  */
 async function addUser() {
   let mail = document.getElementById("inputSignUpMail");
@@ -23,6 +23,7 @@ async function addUser() {
   }
   let user = createUserObject();
   if (await passwordCheck(user, password, password2)) {
+    // Optional: additional actions after successful password check
   }
 }
 
@@ -47,8 +48,10 @@ async function passwordCheck(user, password, password2) {
   const passwordValue = password.value.trim();
   const password2Value = password2.value.trim();
   if (await isPasswordEmpty(passwordValue, password2Value)) {
+    // Optional: additional actions if passwords are empty
   }
   if (await isPasswordEqual(user, passwordValue, password2Value)) {
+    // Optional: additional actions if passwords are equal
   } else {
     let passwordIncorrect = document.getElementById("passwordIncorrect");
     passwordIncorrect.innerHTML = "Ups! your passwords don't match";
