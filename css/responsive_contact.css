@@ -1,8 +1,4 @@
-@media (max-width: 1980px) {
-    .bg-popUp {
-        padding-left: 16vw;
-    }
-}
+
 
 @media (max-width: 1160px) {
     .contacts {
@@ -27,9 +23,7 @@
         font-size: 36px;
     }
 
-    .bg-popUp {
-        padding-left: 16vw;
-    }
+  
 
     .form {
         display: flex;
@@ -70,6 +64,87 @@
         position: fixed;
         top: 12vh;
     }
+
+    .popUp {
+        flex-direction: column;
+    }
+
+    .popUp-logo {
+        width: 100%;
+        height: 40%;
+        justify-content: flex-start;
+        padding-top: 12px;
+    }
+
+    .logo-box {
+        display: none;
+    }
+
+    .popUp-content {
+        height: 60%;
+        width: 100%;
+    }
+
+    .pic_inputs {
+
+        flex-direction: column;
+    }
+
+    .close-button {
+        display: none;
+    }
+
+    .pic_inputs {
+        justify-content: flex-start;
+        gap: 80px;
+        margin-top: -60px;
+    }
+
+    .profile-pic {
+        height: 180px;
+        width: 180px;
+    }
+
+    .return-mobilePopUp img {
+        height: 32px;
+        width: 32px;
+    }
+
+    .text {
+        flex-direction: column;
+        align-items: start;
+        gap: 12px;
+    }
+
+    .h2-span span {
+        border-bottom: solid 2px rgb(41, 171, 226);
+        padding-bottom: 12px;
+    }
+
+    h2 {
+        margin: 0;
+        padding-top: 12px;
+        border: none;
+    }
+
+    .closeMobile {
+        height: 48px;
+        width: 48px;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .popUp {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .pic_inputs {
+        gap: 4px;
+        height: 100%;
+    }
 }
 
 @media (max-width: 350px) {
@@ -90,5 +165,9 @@
 }
 
 .closeMobile:hover {
+    cursor: pointer;
+}
+
+.return-mobilePopUp img:hover {
     cursor: pointer;
 }
