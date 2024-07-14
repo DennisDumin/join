@@ -21,7 +21,7 @@ function redirectToSummary() {
 }
 
 function redirectToAddTask() {
-    window.location.href = "addTask.html";
+    window.location.href = "add_task.html";
 }
 
 function redirectToBoard() {
@@ -33,11 +33,11 @@ function redirectToContact() {
 }
 
 function redirectToLegalNotice() {
-    window.location.href = "legalNotice.html";
+    window.location.href = "legal_notice.html";
 }
 
 function redirectToPrivacyPolice() {
-    window.location.href = "privacyPolice.html";
+    window.location.href = "privacy-police.html";
 }
 
 function redirectToPrivacyPoliceSignup() {

@@ -9,7 +9,7 @@
 
 .board-content{
   height: 70%;
-  margin-left: 60px;
+  margin-left: 72px;
   width: 80%;
   margin-right: 60px;
 }
@@ -115,7 +115,7 @@ h1{
 }
 
 .inner-management-content{
-  width: 320px;
+  width: 260px;
 }
 
 
@@ -188,7 +188,7 @@ h1{
  margin-bottom: 10px;
  padding: 16px;
  border-radius: 24px;
- width: 282px;
+ width: 252px;
  height:auto;
  position: relative;
  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -597,7 +597,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]::before {
-  content: "âœ“";
+  content: "✓";
   width: 14px;
   height: 14px;
   transform: scale(0);

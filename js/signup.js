@@ -62,7 +62,7 @@ async function isPasswordEqual(user, passwordValue, password2Value) {
     document.getElementById("bgSignupSuccesfully").classList.remove("d-none");
     await postData("/users", user);
     setTimeout(function () {
-      window.location.href = "./log-in.html";
+      window.location.href = "./sign_up.html";
     }, 1500);
     return true;
   }
