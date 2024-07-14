@@ -14,12 +14,6 @@
   padding: 0 106px;
 }
 
-.header-sticky {
-  display: flex;
-  position: sticky;
-  top: 0;
-}
-
 .headline-section {
   display: flex;
   align-items: center;
