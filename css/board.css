@@ -151,7 +151,6 @@ h1{
 }
 
 #new-task, #no-task-to-do, #no-task-in-progress, #no-task-await, #no-task-done {
-  width: 320px;
   height: 48px;
   background-color: #e7e7e7;
   border-radius: 10px;
