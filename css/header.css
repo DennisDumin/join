@@ -117,7 +117,7 @@ header p {
   }
 
   header {
-    height: 80px;
+    height: 10vh;
     padding: 0 clamp(0.625rem, 0.0568rem + 2.8409vw, 1.875rem) 0
       clamp(0.625rem, 0.0568rem + 2.8409vw, 1.875rem);
   }

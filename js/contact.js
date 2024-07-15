@@ -325,18 +325,21 @@ async function deleteContact(path = 'contact', id) {
 }
 
 function openClosePopUp(param, key) {
+    hideMobileAssets();
     let target = validatePopUp(key);
 
     let bgPopUp = document.getElementById(target);
     let popUp = bgPopUp.querySelector('.popUp');
     let sideBar = document.getElementById('containerSidebar');
+    let header = document.getElementById('header');
 
     if (param === 'open') {
         bgPopUp.classList.remove('displayNone', 'hide');
         bgPopUp.classList.add('show');
         popUp.classList.remove('slide-out');
         popUp.classList.add('slide-in');
-        sideBar.classList.add('displayNone')
+        sideBar.classList.add('displayNone');
+        header.classList.add('stretch');
 
     } else if (param === 'close') {
         popUp.classList.remove('slide-in');
@@ -347,6 +350,7 @@ function openClosePopUp(param, key) {
             bgPopUp.classList.add('displayNone');
         }, 500);
         sideBar.classList.remove('displayNone')
+        header.classList.remove('stretch');
     } else {
         param.stopPropagation();
     }
@@ -379,9 +383,7 @@ function checkUserMaxWidth() {
         document.getElementById('mobileContactReturn').classList.remove('displayNone');
         document.getElementById('contactList').classList.add('displayNone');
         document.getElementById('contentSection').classList.remove('dNone');
-    } else {
-        console.log('DesktopVersion')
-    }
+    } 
 }
 
 window.addEventListener('resize', hideMobileAssets)
@@ -390,8 +392,10 @@ function hideMobileAssets() {
     if (window.innerWidth > 800) {
         document.getElementById('mobileContactReturn').classList.add('displayNone');
         document.getElementById('return_mobilePopUp').classList.add('displayNone');
+        document.getElementById('return_editMobilePopUp').classList.add('displayNone');
     } else if (window.innerWidth < 800) {
         document.getElementById('return_mobilePopUp').classList.remove('displayNone');
+        document.getElementById('return_editMobilePopUp').classList.remove('displayNone');
         document.getElementById('mobileContactReturn').classList.remove('displayNone');
     }
 }
@@ -404,3 +408,5 @@ function showContactMobile() {
 function contactsBgMenu() {
     document.getElementById('link-contact').classList.add('bg-focus');
   }
+
+

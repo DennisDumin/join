@@ -86,7 +86,7 @@ nav {
   .container-sidebar {
     display: flex;
     width: 100vw;
-    height: 80px;
+    height: 10vh;
     position: fixed;
     top: auto;
     bottom: 0 !important;

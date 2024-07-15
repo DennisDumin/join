@@ -52,6 +52,10 @@
 }
 
 @media (max-width: 800px) {
+    .layout-wrapper {
+        height: 80vh;
+    }
+
     .dNone {
         display: none;
     }
@@ -74,6 +78,7 @@
         height: 40%;
         justify-content: flex-start;
         padding-top: 12px;
+        gap: 40px;
     }
 
     .logo-box {
@@ -132,6 +137,10 @@
         width: 48px;
     }
 
+    .letter_For_PopUp {
+        margin-bottom: 48px;
+    }
+
 }
 
 @media (max-width: 600px) {
@@ -147,9 +156,30 @@
     }
 }
 
+@media (max-width: 450px) {
+    .contact-profile {
+        gap: 24px;
+        font-size: smaller;
+    }
+}
+
+@media (max-width: 365px) {
+    .content-section {
+        font-size: smaller;
+    }
+
+    .detailed_Content {
+        padding: 12px 0 12px 0;
+    }
+}
+
 @media (max-width: 350px) {
     .contactCard {
         font-size: smaller;
+    }
+
+    .contact-profile {
+        gap: 12px;
     }
 }
 
@@ -170,4 +200,8 @@
 
 .return-mobilePopUp img:hover {
     cursor: pointer;
+}
+
+.stretch {
+    width: 100vw;
 }
