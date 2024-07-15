@@ -110,18 +110,18 @@ function renderDetailedContact(contactId) {
             <span>${source['telefonnummer']}</span>
         </div>
     `;
-    fillEditPopUp();
+    fillEditPopUp(source);
     checkUserMaxWidth();
     
     // Setze die Hintergrundfarbe des single-letter Profils
     setSingleLetterBackgroundColor(contactId);
 }
 
-function fillEditPopUp() {
-    document.getElementById('letterForPopUp').innerHTML;
-    document.getElementById('editEmail').value;
-    document.getElementById('editTel').value;
-    document.getElementById('editName').value;
+function fillEditPopUp(source) {
+    document.getElementById('letterForPopUp').innerHTML = `${source['name'][0]}`;
+    document.getElementById('editEmail').value = source['name'];
+    document.getElementById('editTel').value = source['telefonnummer'];
+    document.getElementById('editName').value = source['email'];
 }
 
 function setSingleLetterBackgroundColor(contactId) {
