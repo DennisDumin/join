@@ -35,7 +35,7 @@ function renderData(info) {
     // Kontakte alphabetisch nach Namen sortieren und gruppieren
     let groupedContacts = Object.keys(info).reduce((groups, id) => {
         const contact = info[id];
-        const firstLetter = contact.Name[0].toUpperCase();
+        const firstLetter = contact.name[0].toUpperCase();
 
         if (!groups[firstLetter]) {
             groups[firstLetter] = [];
