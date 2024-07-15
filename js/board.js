@@ -1,9 +1,7 @@
-let subtask = []
-let user = []
-tasks = []
-prioBtn = ""
-let prioIcon = ""
-let prioText = ""
+let subtask = [];
+let user = [];
+let prioText = "";
+
 
 async function initBoard() {
   await initInclude()
@@ -20,19 +18,15 @@ function renderEditContacts(contactContainer) {
   let container = document.getElementById(`${contactContainer}`)
   container.innerHTML = ""
   for (let i = 0; i < contacts.length; i++) {
-    let name = contacts[i]["Name"]
-    let initials = getInitials(name) // from contact.js
-    let color = contacts[i]["color"]
-    container.innerHTML += templateEditContact(i, name, initials, color)
-    if (contacts[i]["selected"] === true) {
-      document
-        .getElementById(`contact-edit-container${i}`)
-        .classList.add("contact-container-edit-focus")
-    } else {
-      document
-        .getElementById(`contact-edit-container${i}`)
-        .classList.remove("contact-container-edit-focus")
-    }
+      let name = contacts[i]['name'];
+      let initials = getInitials(name); // from contact.js
+      let color = contacts[i]['color'];
+      container.innerHTML += templateEditContact(i, name, initials, color);
+      if (contacts[i]['selected'] === true) {
+          document.getElementById(`contact-edit-container${i}`).classList.add('contact-container-edit-focus');
+      } else {
+          document.getElementById(`contact-edit-container${i}`).classList.remove('contact-container-edit-focus');
+      }
   }
 }
 
@@ -126,10 +120,10 @@ function convertDate(date) {
 
 let currentDraggedElement
 
-function updateHTML() {
-  let toDo = tasks.filter((t) => t["phases"] == "To Do")
-  let toDoConetnt = document.getElementById("new-task-to-do")
-  toDoConetnt.innerHTML = ""
+ function updateHTML() {
+  let toDo = tasks.filter((t) => t["phases"] == "To Do");
+  let toDoContent = document.getElementById("new-task-to-do");
+  toDoContent.innerHTML = "";
 
   for (let index = 0; index < toDo.length; index++) {
     const element = toDo[index]
@@ -149,24 +143,22 @@ function updateHTML() {
     styleOfNoTaskInProgress()
   }
 
-  let await = tasks.filter((t) => t["phases"] == "Await feedback")
-  document.getElementById("new-task-await").innerHTML = ""
-  for (let index = 0; index < await.length; index++) {
-    const element = await[index]
-    document.getElementById("new-task-await").innerHTML +=
-      generateAllTasksHTML(element)
-    styleOfNoTaskAwaitFeedback()
-  }
-  let done = tasks.filter((t) => t["phases"] == "Done")
-  document.getElementById("new-task-done").innerHTML = ""
-  for (let index = 0; index < done.length; index++) {
-    const element = done[index]
-    document.getElementById("new-task-done").innerHTML +=
-      generateAllTasksHTML(element)
-    styleOfNoTaskDone()
-  }
-  changeColorOfCategoryTitle()
-  contactsRender()
+    let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback");
+    document.getElementById("new-task-await").innerHTML = "";
+    for (let index = 0; index < awaitFeedback.length; index++) {
+      const element = awaitFeedback[index];
+      document.getElementById("new-task-await").innerHTML += generateAllTasksHTML(element);
+      styleOfNoTaskAwaitFeedback(); 
+    }
+    let done = tasks.filter((t) => t["phases"] == "Done");
+    document.getElementById("new-task-done").innerHTML = "";
+    for (let index = 0; index < done.length; index++) {
+      const element = done[index];
+      document.getElementById("new-task-done").innerHTML += generateAllTasksHTML(element);
+      styleOfNoTaskDone(); 
+    }
+    changeColorOfCategoryTitle();
+    contactsRender();
 }
 
 function startDragging(id) {
@@ -185,27 +177,20 @@ function valueOfProgressBar(taskIndex) {
   return value
 }
 
-function contactsRender() {
-  for (let i = 0; i < tasks.length; i++) {
-    let maxConatcts = 3
-    let content = document.getElementById(`new-div${i}`)
-    for (
-      let j = 0;
-      j < Math.min(tasks[i]["contacts"].length, maxConatcts);
-      j++
-    ) {
-      let letter = tasks[i]["contacts"][j]["name"].split(" ")
-      let result = ""
-      for (let name = 0; name < letter.length; name++) {
-        result += letter[name].charAt(0).toUpperCase()
-      }
-      content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]["contacts"][j]["color"]};">${result}</div>`
+function contactsRender(){
+  for(let i = 0; i < tasks.length; i++){
+    let maxContacts = 3;
+    let content = document.getElementById(`new-div${i}`);
+    for(let j = 0; j < Math.min(tasks[i]['contacts'].length, maxContacts); j++){
+      let nameParts = tasks[i]['contacts'][j]['name'].split(" ");
+      let initials = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
+      content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]['contacts'][j]['color']};">${initials}</div>`;
     }
-    if (tasks[i]["contacts"].length > maxConatcts) {
-      let additionalContacts = tasks[i]["contacts"].length - maxConatcts
-      let numberOfContacts = document.getElementById(`plus-number-contacts${i}`)
-      numberOfContacts.innerHTML = ""
-      numberOfContacts.innerHTML = `+${additionalContacts}`
+    if(tasks[i]["contacts"].length > maxContacts){
+      let additionalContacts = tasks[i]["contacts"].length - maxContacts;
+      let numberOfContacts = document.getElementById(`plus-number-contacts${i}`);
+      numberOfContacts.innerHTML ="";
+      numberOfContacts.innerHTML =`+${additionalContacts}`;
     }
   }
 }
@@ -262,11 +247,11 @@ function moveTo(phase) {
 }
 
 function styleOfNoTaskToDo() {
-  let toDoConetnt = document.getElementById("new-task-to-do")
-  if (toDoConetnt.childElementCount > 0) {
-    document.getElementById("no-task-to-do").classList.add("hidden")
-  } else {
-    document.getElementById("no-task-to-do").classList.remove("hidden")
+  let toDoContent = document.getElementById("new-task-to-do");
+  if(toDoContent.childElementCount > 0){
+    document.getElementById('no-task-to-do').classList.add('hidden');
+  }else{
+    document.getElementById('no-task-to-do').classList.remove('hidden');
   }
 }
 
@@ -301,19 +286,16 @@ function checkwidthForAddTask() {
   window.location.href = "./add_task.html"
 }
 
-function updateButtonOnClick() {
-  let plusbutton = document.getElementsByClassName("plus-btn")
-  if (plusbutton.length > 0) {
-    if (window.innerWidth <= 1075) {
-      for (let i = 0; i < plusbutton.length; i++) {
-        plusbutton[i].setAttribute(
-          "onclick",
-          "window.location.href = './add_task.html'"
-        )
+function updateButtonOnClick(){
+  let plusButton = document.getElementsByClassName('plus-btn');
+  if(plusButton.length > 0){
+    if(window.innerWidth <= 1075){
+      for(let i = 0; i < plusButton.length; i++){
+        plusButton[i].setAttribute('onclick', "window.location.href = './add_task.html'");
       }
-    } else {
-      for (let i = 0; i < plusbutton.length; i++) {
-        plusbutton[i].setAttribute("onclick", "openAddTask()")
+    }else{
+      for(let i = 0; i < plusButton.length; i++){
+        plusButton[i].setAttribute('onclick', 'openAddTask()');
       }
     }
   }

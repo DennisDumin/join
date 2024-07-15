@@ -1,4 +1,4 @@
-#add-task-edit{
+#add-task-edit {
   width: auto;
   display: flex;
   flex-direction: column;
@@ -278,7 +278,7 @@
   color: white !important;
 
   .contact-container-check {
-      background-image: url('../img/checkedbuttonWhite.svg');
+      background-image: url('../assets/img/icon_checkedbuttonWhite.svg');
   }
 }
 

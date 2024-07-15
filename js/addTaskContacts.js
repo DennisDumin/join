@@ -5,7 +5,7 @@ function renderContacts(contactContainer) {
     let container = document.getElementById(`${contactContainer}`);
     container.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
-        let name = contacts[i]['Name'];
+        let name = contacts[i]['name'];
         let initials = getInitials(name); // from contacts.js
         let color = contacts[i]['color'];
         container.innerHTML += templateContact(i, name, initials, color);
@@ -69,13 +69,13 @@ function openCloseContacts(event) {
         closeDropdown(container, img);
         showSelectedContacts();
     }
-};
+}
 
 function selectContact(i) {
     // Überprüfen, ob der Index i gültig ist
     if (i >= 0 && i < contacts.length) {
         let container = document.getElementById(`contact-container${i}`);
-        let contactName = contacts[i]['Name'];
+        let contactName = contacts[i]['name'];
         let contactColor = contacts[i]['color'];
         let indexSelected = selectedContacts.findIndex(contact => contact.name === contactName);
 
@@ -98,8 +98,8 @@ function showSelectedContacts() {
     container.classList.remove('d-none');
     container.innerHTML = '';
     for (let i = 0; i < selectedContacts.length; i++) {
-        let contacts = selectedContacts[i];
-        let name = contacts['name'];
+        let contact = selectedContacts[i];
+        let name = contact['name'];
         let initials = getInitials(name); // from contacts.js
         let color = selectedContacts[i]['color'];
         container.innerHTML += `
@@ -194,4 +194,4 @@ function removeContactSearch(i) {
     contacts.splice(index, 1, { 'name': contactName, 'color': contactColor, 'selected': false });
     contactsSearch.splice(i, 1, { 'name': contactName, 'color': contactColor, 'selected': true });
     container.classList.remove('contact-container-focus');
-}
+} 

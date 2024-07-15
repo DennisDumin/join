@@ -15,7 +15,7 @@
   }
 }
 
-@media (max-width: 1075px) {
+@media (max-width: 1230px) {
   .add-task-button-responsive {
     display: block;
     display: flex;
@@ -50,7 +50,7 @@
     flex-direction: column-reverse;
     justify-content: flex-end;
   }
-}
+
 
 .board-header {
   position: relative;
@@ -66,7 +66,9 @@
 }
 
 .board-content {
-  height: 90%;
+  height: 100%;
+}
+
 }
 
 @media(max-width:1005px) {

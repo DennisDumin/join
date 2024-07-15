@@ -1,8 +1,8 @@
 function openEdit(taskIndex) {
   let showContent = document.getElementById("show-task");
   showContent.classList.add("hidden");
-  let editConten = document.getElementById("add-task-edit");
-  editConten.classList.remove("hidden");
+  let editContent = document.getElementById("add-task-edit");
+  editContent.classList.remove("hidden");
   let overlay = document.getElementsByClassName("overlay")[0];
   overlay.classList.remove("hidden");
   let title = document.getElementById("add-task-edit-title");
@@ -20,14 +20,19 @@ function openEdit(taskIndex) {
   generateEditTask(taskIndex);
 }
 
-function showSelectedContactsEdit(selected){
+function showSelectedContactsEdit(selected) {
+  selectedEditContacts = [];
   for (let i = 0; i < selected.length; i++) {
     const selectedContact = selected[i];
     let contactColor = selectedContact['color'];
     let contactName = selectedContact['name'];
-    let index = contacts.findIndex(contact => contact.name === contactName);
-    contacts.splice(index, 1, { 'name': contactName, 'color': contactColor, 'selected': true });
-    selectedEditContacts.push(selectedContact);
+    let index = contacts.findIndex(contacts => contacts.name === contactName);
+
+    if (index !== -1) {
+      let contact = contacts[index];
+      contacts.splice(index, 1, { ...contact, selected: true });
+      selectedEditContacts.push({ ...contact, selected: true });
+    }
   }
 }
 
@@ -186,7 +191,7 @@ async function saveEditTask() {
   let title = document.getElementById("add-task-edit-title").value;
   let hiddenInput = document.getElementById("hidden-input").value;
   let description = document.getElementById("add-task-edit-description").value;
-  let date = document.getElementById("task-edit-Date").value;
+  let date = document.getElementById("task-edit-date").value;
   if (title.trim() === "" || date.trim() === "") {
     return;
   } else {

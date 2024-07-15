@@ -132,6 +132,9 @@ h2 {
   opacity: 0;
 }
 
+.bg-focus {
+  background-color: #091931;
+}
 
 .bg-popUp {
   z-index: 1;

@@ -51,17 +51,17 @@ function renderData(info) {
     for (let letter of sortedKeys) {
         content.innerHTML += `<h3 class="letter">${letter}</h3>`;
         groupedContacts[letter].sort((a, b) => {
-            const nameA = a.Name.toUpperCase();
-            const nameB = b.Name.toUpperCase();
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
             return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
         }).forEach(contact => {
             const contactColor = contact.color || getRandomColor(); // Falls Kontakt keine Farbe hat, generiere zufällige Farbe
             content.innerHTML += `
-                <div id="${contact.id}" class="contactCard">
-                     <div onclick="renderDetailedContact('${contact.id}')" id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${contact.Name[0]}</div>
+                <div onclick="renderDetailedContact('${contact.id}')" id="${contact.id}" class="contactCard">
+                     <div id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${contact.name[0]}</div>
                      <div class ="fullName-email">
-                       <span>${contact.Name}</span>
-                       <a class="email" href="#">${contact.Email}</a href="${contact.Email}">
+                       <span>${contact.name}</span>
+                       <a class="email" href="#">${contact.email}</a href="${contact.email}">
                      </div>
                 </div>
             `;
@@ -92,9 +92,9 @@ function renderDetailedContact(contactId) {
     let target = document.getElementById('content');
     target.innerHTML = `
         <div class="contact-profile">
-            <div id="singleLetterProfile" class="single-letter">${source['Name'][0]}</div>
+            <div id="singleLetterProfile" class="single-letter">${source['name'][0]}</div>
             <div class="h4_edit-delete">
-                <h4>${source['Name']}</h4>
+                <h4>${source['name']}</h4>
                 <div class="edit-delete">
                     <span onclick="openClosePopUp('open', true)"><img src="contact-assets/img/edit.png" />Edit</span>
                     <span onclick="deleteContact('contact', '${contactId}')"><img src="contact-assets/img/delete.png" />Delete</span>
@@ -103,11 +103,11 @@ function renderDetailedContact(contactId) {
         </div>
         <div class="pers-info">
             <b>Email</b>
-            <a href="#">${source['Email']}</a>
+            <a href="#">${source['email']}</a>
         </div>
         <div class="pers-info">
             <span><b>Phone</b></span>
-            <span>${source['Telefonnummer']}</span>
+            <span>${source['telefonnummer']}</span>
         </div>
     `;
     fillEditPopUp();
@@ -142,9 +142,9 @@ function addContact() {
     let tel = document.getElementById('tel');
     const nextColor = getNextColor();
     let data = {
-        'Email': email.value,
-        'Name': name.value,
-        'Telefonnummer': tel.value,
+        'email': email.value,
+        'name': name.value,
+        'telefonnummer': tel.value,
         'color': nextColor
     };
     array.push(data);
@@ -253,7 +253,7 @@ function searchNameInMaterialArray() {
     let nameData = material[0]
 
     for (const key in nameData) {
-        if (nameData[key].Name === highlightKey['Name']) {
+        if (nameData[key].name === highlightKey['name']) {
             return key;
         }
     }
@@ -286,9 +286,9 @@ function editContact() {
     let tel = document.getElementById('editTel');
     let data =
     {
-        'Email': email.value,
-        'Name': name.value,
-        'Telefonnummer': tel.value
+        'email': email.value,
+        'name': name.value,
+        'telefonnummer': tel.value
     };
     return data;
 }
@@ -366,18 +366,17 @@ function getRandomColor() {
     return color;
 }
 
-
 async function testFetch() {
     let response = await fetch(BASE_URL + 'contact' + '-O-5fQkP0Xg1m4qHkE21' + '.json');
     let responseAsJson = await response.json();
     console.log(responseAsJson);
 }
 
-
 function checkUserMaxWidth() {
     const mobileWidth = 800;
 
     if (window.matchMedia(`(max-width: ${mobileWidth}px)`).matches) {
+        document.getElementById('mobileContactReturn').classList.remove('displayNone');
         document.getElementById('contactList').classList.add('displayNone');
         document.getElementById('contentSection').classList.remove('dNone');
     } else {
@@ -385,32 +384,12 @@ function checkUserMaxWidth() {
     }
 }
 
-window.addEventListener('resize', hideMobileAssets)
-
-function hideMobileAssets() {
-    if (window.innerWidth > 800) {
-        document.getElementById('mobileContactReturn').classList.add('displayNone');
-        document.getElementById('return_mobilePopUp').classList.add('displayNone');
-    } else if (window.innerWidth < 800) {
-        document.getElementById('return_mobilePopUp').classList.remove('displayNone');
-        document.getElementById('mobileContactReturn').classList.remove('displayNone');
-    }
-}
-
-
 function showContactMobile() {
     document.getElementById('contentSection').classList.add('dNone');
     document.getElementById('contactList').classList.remove('displayNone');
 
 }
 
-
-
 function contactsBgMenu() {
     document.getElementById('link-contact').classList.add('bg-focus');
   }
-
-
-
-
-
