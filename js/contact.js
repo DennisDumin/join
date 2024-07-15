@@ -384,10 +384,21 @@ function checkUserMaxWidth() {
     }
 }
 
+window.addEventListener('resize', hideMobileAssets)
+
+function hideMobileAssets() {
+    if (window.innerWidth > 800) {
+        document.getElementById('mobileContactReturn').classList.add('displayNone');
+        document.getElementById('return_mobilePopUp').classList.add('displayNone');
+    } else if (window.innerWidth < 800) {
+        document.getElementById('return_mobilePopUp').classList.remove('displayNone');
+        document.getElementById('mobileContactReturn').classList.remove('displayNone');
+    }
+}
+
 function showContactMobile() {
     document.getElementById('contentSection').classList.add('dNone');
     document.getElementById('contactList').classList.remove('displayNone');
-
 }
 
 function contactsBgMenu() {
