@@ -9,6 +9,11 @@
     .prio-buttons button {
         width: 100%;
     }
+
+    .add-task-bottom-buttons {
+        width: fit-content;
+    }
+
 }
 
 @media (max-width: 500px) {
@@ -23,12 +28,6 @@
     .add-task-bottom {
         font-size: 16px;
     }   
-}
-
-@media (min-width: 400px) {
-    .add-task-bottom-buttons {
-        width: fit-content;
-    }
 }
 
 @media (max-width: 1025px) {
@@ -83,7 +82,7 @@
     .added-container {
         left: 0;
     }
-    
+
     .content {
         display: flex !important;
         justify-content: center !important;
