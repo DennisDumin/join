@@ -1,4 +1,10 @@
-@media (max-width: 400px) {
+@media (max-width: 380px) {
+    .add-task-bottom-buttons button {
+        align-items: center;
+    }
+}
+
+@media (max-width: 428px) {
     .prio-buttons {
         display: flex;
         flex-direction: column;
@@ -39,7 +45,7 @@
 @media (max-width: 1025px) {
     .add-task-bottom {
         left: 16px !important;
-        bottom: 80px !important;
+        bottom: 74px !important;
     }
 }
 
