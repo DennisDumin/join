@@ -1,0 +1,43 @@
+.displayNone {
+  display: none;
+}
+
+.dNone {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  #mobileContactReturn {
+      display: block;
+  }
+
+  #contactList {
+      display: none;
+  }
+
+  #contentSection {
+      display: block;
+  }
+
+  #return_mobilePopUp {
+      display: block;
+  }
+
+  #return_editMobilePopUp {
+      display: block;
+  }
+}
+
+@media (min-width: 801px) {
+  #mobileContactReturn {
+      display: none;
+  }
+
+  #return_mobilePopUp {
+      display: none;
+  }
+
+  #return_editMobilePopUp {
+      display: none;
+  }
+}
