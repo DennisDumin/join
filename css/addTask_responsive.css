@@ -1,0 +1,23 @@
+@media (min-width: 1900px) {
+    .content {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1024px) {
+    .add-task-page {
+        margin: 0;
+    }
+
+    .add-task {
+        height: 80vh;
+        padding-top: 32px;
+        padding-bottom: 16px;
+        gap: 48px;
+        justify-content: normal;
+    }
+
+    .input-section span {
+        font-size: 10px;
+    }
+}
