@@ -318,6 +318,10 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
+.add-task-board.slide-out {
+  transform: translate(150%, -50%);
+}
+
 .show-task {
   width: 370px;
   height: 650px;
@@ -380,7 +384,7 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 998;
 }
 
 #add-task-title,
