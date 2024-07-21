@@ -1,5 +1,3 @@
-
-
 @media (max-width: 1160px) {
     .contacts {
         width: 40%;
@@ -23,7 +21,7 @@
         font-size: 36px;
     }
 
-  
+
 
     .form {
         display: flex;
@@ -35,6 +33,15 @@
 
     .form input {
         width: 280px;
+    }
+}
+
+@media (max-width: 1025px) {
+    .contacts {
+        width: 100%;
+    }
+    .layout-wrapper {
+        height: 80vh;
     }
 }
 
@@ -52,16 +59,9 @@
 }
 
 @media (max-width: 800px) {
-    .layout-wrapper {
-        height: 80vh;
-    }
 
     .dNone {
         display: none;
-    }
-
-    .contacts {
-        width: 100%;
     }
 
     .position-fixed {
@@ -204,5 +204,5 @@
 
 .stretch {
     width: 100vw;
-    padding: 0 !important; 
+    padding: 0 !important;
 }
