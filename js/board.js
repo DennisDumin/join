@@ -51,23 +51,35 @@ function openAddTask() {
   let overlay = document.getElementsByClassName("overlay")[0];
   overlay.classList.remove("hidden");
   let dialog = document.querySelector('.add-task-board');
-  dialog.classList.remove('slide-out'); 
+  dialog.classList.remove('slide-out');
   setTimeout(() => {
-      dialog.classList.add('slide-in');
+    dialog.classList.add('slide-in');
   }, 50);
 }
 
 function closeMe() {
-  let dialog = document.querySelector('.add-task-board');
-  dialog.classList.remove('slide-in'); 
+  let dialog2 = document.querySelector('.add-task-board');
+  let dialog = document.querySelector('.show-task');
+  
+  dialog2.classList.remove('slide-in');
+  dialog2.classList.add('slide-out');
+  dialog.classList.remove('slide-in');
   dialog.classList.add('slide-out');
 
   setTimeout(() => {
-      let content = document.getElementById("add-task");
-      content.classList.add("hidden");
-      let overlay = document.getElementsByClassName("overlay")[0];
-      overlay.classList.add("hidden");
-  }, 250);
+    let content = document.getElementById("add-task");
+    let showContent = document.getElementById("show-task");
+    let editContent = document.getElementById("add-task-edit");
+    let overlay = document.getElementsByClassName("overlay")[0];
+    content.classList.add("hidden");
+    showContent.classList.add("hidden");
+    editContent.classList.add("hidden");
+    overlay.classList.add("hidden");
+  }, 500);
+  updateHTML();
+  contacts = [];
+  selectedEditContacts = [];
+  loadData();
 }
 
 function changeColorOfCategoryTitle() {
