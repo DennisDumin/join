@@ -40,6 +40,7 @@
     .contacts {
         width: 100%;
     }
+
     .layout-wrapper {
         height: 80vh;
     }
@@ -71,6 +72,9 @@
 
     .popUp {
         flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
     }
 
     .popUp-logo {
@@ -101,7 +105,8 @@
 
     .pic_inputs {
         justify-content: flex-start;
-        gap: 80px;
+        gap: 4px;
+        height: 100%;
         margin-top: -60px;
     }
 
@@ -141,19 +146,6 @@
         margin-bottom: 48px;
     }
 
-}
-
-@media (max-width: 600px) {
-    .popUp {
-        width: 100vw;
-        height: 100vh;
-        border-radius: 0;
-    }
-
-    .pic_inputs {
-        gap: 4px;
-        height: 100%;
-    }
 }
 
 @media (max-width: 450px) {
