@@ -70,24 +70,18 @@ function heightOfShowTaskAdjust() {
   }
 }
 
-function subtasksShowRender(taskIndex) {
+function subtasksShowRender(taskIndex){
   let content = document.getElementById('subtask-show');
-  content.innerHTML = '';
-  for (let subtaskIndex = 0; subtaskIndex < tasks[taskIndex]['subtasks'].length; subtaskIndex++) {
+  content.innerHTML ='';
+  for(let subtaskIndex = 0;  subtaskIndex < tasks[taskIndex]['subtasks'].length; subtaskIndex++){
     content.innerHTML += `<div class="checkbox-show-content"><input type="checkbox" onclick="UpdateProgress(${taskIndex})" checked id="checkbox${subtaskIndex}">
     <label class="subtask-show-text">${tasks[taskIndex]['subtasks'][subtaskIndex]}</label></div>`;
   }
 }
 
 function UpdateProgress(taskIndex) {
-  let checkedCount = 0;
+  let checkedCount = tasks[taskIndex]['subtasks'].filter(subtask => subtask.completed).length;
   let totalSubtasks = tasks[taskIndex]["subtasks"].length; // Gesamtanzahl der Subtasks
-  for (let j = 0; j < totalSubtasks; j++) {
-    let checkbox = document.getElementById(`checkbox${j}`);
-    if (checkbox.checked) {
-      checkedCount++;
-    }
-  }
 
   let progress = document.getElementById(`progress-bar${taskIndex}`);
   let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
@@ -95,10 +89,10 @@ function UpdateProgress(taskIndex) {
   if (checkedCount > 0) {
     let progressValue = (checkedCount / totalSubtasks) * 100;
     progress.value = progressValue;
-    numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks}`;
+    numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks} Subtasks`;
   } else {
     progress.value = 0;
-    numberOfSubtask.textContent = `0/${totalSubtasks}`;
+    numberOfSubtask.textContent = `0/${totalSubtasks} Subtasks`;
   }
 }
 

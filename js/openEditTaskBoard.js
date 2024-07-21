@@ -5,18 +5,22 @@ function openEdit(taskIndex) {
   editContent.classList.remove("hidden");
   let overlay = document.getElementsByClassName("overlay")[0];
   overlay.classList.remove("hidden");
+
   let title = document.getElementById("add-task-edit-title");
   let hiddenInput = document.getElementById("hidden-input");
   let description = document.getElementById("add-task-edit-description");
   let assignedTo = document.getElementById("add-task-assigned");
   let dates = document.getElementById("task-edit-date");
+
   title.value = tasks[taskIndex]["title"];
   hiddenInput.value = tasks[taskIndex]["title"];
   description.value = tasks[taskIndex]["description"];
   assignedTo.value = tasks[taskIndex]["contacts"][taskIndex];
   dates.value = tasks[taskIndex]["date"];
+
   let selected = tasks[taskIndex]["contacts"];
   showSelectedContactsEdit(selected);
+
   generateEditTask(taskIndex);
 }
 
@@ -36,7 +40,7 @@ function showSelectedContactsEdit(selected) {
   }
 }
 
-function generateEditTask(taskIndex){
+function generateEditTask(taskIndex) {
   activeEditButton();
   activeButton(taskIndex);
   subtasksEditRender(taskIndex);
@@ -46,22 +50,22 @@ function generateEditTask(taskIndex){
 
 }
 
-function contactsEditRender(taskIndex){
+function contactsEditRender(taskIndex) {
   let content = document.getElementsByClassName('user-content-edit-letter')[0];
-  content.innerHTML ='';
-    for(let j = 0; j < selectedEditContacts.length; j++){
-      let letter = selectedEditContacts[j]['name'].split(" ");
-      let result = "";
-      for(let name = 0; name < letter.length; name++){
-        result += letter[name].charAt(0).toUpperCase();
-      }
-      content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[taskIndex]['contacts'][j]['color']};">${result}</div>`;
+  content.innerHTML = '';
+  for (let j = 0; j < selectedEditContacts.length; j++) {
+    let letter = selectedEditContacts[j]['name'].split(" ");
+    let result = "";
+    for (let name = 0; name < letter.length; name++) {
+      result += letter[name].charAt(0).toUpperCase();
     }
+    content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[taskIndex]['contacts'][j]['color']};">${result}</div>`;
+  }
 }
 
-function generateInputEditSubtask(taskIndex){
+function generateInputEditSubtask(taskIndex) {
   let content = document.getElementsByClassName(`input-edit-subtask`)[0];
-  content.innerHTML =`      
+  content.innerHTML = `      
   <input id="add-task-edit-subtasks${taskIndex}" class="inputfield" type="text"
   placeholder="Add new subtask" maxlength="26" autocomplete="off" onclick="openEditSubtaskIcons()"/>
   <div id="add-task-subtasks-edit-icons" class="subtasks-icon d-none">
@@ -79,7 +83,7 @@ function subtasksEditRender(taskIndex){
     content.innerHTML += `
   <div class="checkbox-edit-content">
     <div id="checkbox-edit-content${j}" class="checkbox-show-content">
-      <input type="checkbox" checked id="checkSub${j}">
+      <input type="checkbox" checked id="check-sub${j}">
       <label id="subtask-edit-text${j}" class="subtask-show-text">${tasks[taskIndex]['subtasks'][j]}</label>
     </div>
 
@@ -136,13 +140,12 @@ function deleteEditBoardSubtask(taskIndex, subtaskIndex){
   putData("/tasks", tasks);
 }
 
-
-function openEditSubtaskIcons(){
+function openEditSubtaskIcons() {
   document.getElementById('add-task-subtasks-edit-icons').classList.remove('d-none');
   document.getElementById('plus-edit-icon').classList.add('d-none');
 }
 
-function closeEditSubtaskIcons(){
+function closeEditSubtaskIcons() {
   document.getElementById('add-task-subtasks-edit-icons').classList.add('d-none');
   document.getElementById('plus-edit-icon').classList.remove('d-none');
 }
@@ -169,7 +172,7 @@ function addEditSubtasks(taskIndex){
 }
 
 function generateEditSubtask(taskIndex){
-  let list = document.getElementById('newSubtask');
+  let list = document.getElementById('new-subtask');
   list.innerHTML = '';
   for(let i= 0; i < tasks[taskIndex]["subtasks"].length; i++){
     list.innerHTML += `
@@ -222,14 +225,14 @@ function keepPrioButton(taskIndex){
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
   if(/(\s|^)active(\s|$)/.test(urgentEditbutton.className)) {
    tasks[taskIndex]["prio"] = 'Urgent';
-   tasks[taskIndex]["prioIcon"] = "./assets/img/icon_PrioAltaRed.svg";
-  }else if(/(\s|^)active(\s|$)/.test(mediumEditbutton.className)){
+    tasks[taskIndex]["prioIcon"] = "./assets/img/icon_PrioAltaRed.svg";
+  } else if (/(\s|^)active(\s|$)/.test(mediumEditbutton.className)) {
     tasks[taskIndex]["prio"] = 'Medium';
     tasks[taskIndex]["prioIcon"] = "./assets/img/icon_PrioMediaOrange.svg";
-  }else if(/(\s|^)active(\s|$)/.test(lowEditbutton.className)){
+  } else if (/(\s|^)active(\s|$)/.test(lowEditbutton.className)) {
     tasks[taskIndex]["prio"] = 'Low';
     tasks[taskIndex]["prioIcon"] = './assets/img/icon_PrioBajaGreen.svg';
-  }else{
+  } else {
     tasks[taskIndex]["prio"] = '';
     tasks[taskIndex]["prioIcon"] = '';
   }
@@ -242,7 +245,7 @@ function activeEditButton() {
   lowButtonEdit(lastClick);
 }
 
-function urgentButtenEdit(lastClick){
+function urgentButtenEdit(lastClick) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
@@ -254,14 +257,14 @@ function urgentButtenEdit(lastClick){
     mediumEditbutton.classList.remove("active");
     lowEditbutton.classList.remove("active");
     lastClick = urgentEditbutton;
-    prioText ='Urgent'
-    prioIcon ='./assets/img/icon_PrioAltaWhite.svg';
-    prioBtn ="./assets/img/icon_PrioAltaRed.svg";
+    prioText = 'Urgent'
+    prioIcon = './assets/img/icon_PrioAltaWhite.svg';
+    prioBtn = "./assets/img/icon_PrioAltaRed.svg";
     changeIconOfUrgent();
   });
 }
 
-function mediumButtonEdit(lastClick){
+function mediumButtonEdit(lastClick) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
@@ -280,7 +283,7 @@ function mediumButtonEdit(lastClick){
   });
 }
 
-function lowButtonEdit(lastClick){
+function lowButtonEdit(lastClick) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
@@ -299,7 +302,7 @@ function lowButtonEdit(lastClick){
   });
 }
 
-function activeButton(taskIndex){
+function activeButton(taskIndex) {
   if (tasks[taskIndex]["prio"] === "Low") {
     document.getElementsByClassName("low-edit-button")[0].classList.add("active");
     prioIcon = './assets/img/icon_PrioBajaWhite.svg';
@@ -308,23 +311,23 @@ function activeButton(taskIndex){
     document.getElementsByClassName("medium-edit-button")[0].classList.remove("active");
   } else if (tasks[taskIndex]["prio"] === "Urgent") {
     document.getElementsByClassName("urgent-edit-button")[0].classList.add("active");
-    prioIcon ='./assets/img/icon_PrioAltaWhite.svg';
+    prioIcon = './assets/img/icon_PrioAltaWhite.svg';
     changeIconOfUrgent();
     document.getElementsByClassName("low-edit-button")[0].classList.remove("active");
     document.getElementsByClassName("medium-edit-button")[0].classList.remove("active");
-  } else if(tasks[taskIndex]["prio"] === "Medium") {
+  } else if (tasks[taskIndex]["prio"] === "Medium") {
     document.getElementsByClassName("medium-edit-button")[0].classList.add("active");
     prioIcon = './assets/img/icon_PrioMediaWhite.svg';
     changeIconOfMedium();
     document.getElementsByClassName("low-edit-button")[0].classList.remove("active");
     document.getElementsByClassName("urgent-edit-button")[0].classList.remove("active");
-  }else{
-    prio ='';
-    prioBtn ='';
+  } else {
+    prio = '';
+    prioBtn = '';
   }
 }
 
-function changeIconOfUrgent(){
+function changeIconOfUrgent() {
   let urgent = document.getElementById('urgent-img');
   urgent.src = prioIcon;
   let medium = document.getElementById('medium-img');
@@ -333,7 +336,7 @@ function changeIconOfUrgent(){
   low.src = './assets/img/icon_PrioBajaGreen.svg';
 }
 
-function changeIconOfMedium(){
+function changeIconOfMedium() {
   let medium = document.getElementById('medium-img');
   medium.src = prioIcon;
   let urgent = document.getElementById('urgent-img');
@@ -342,7 +345,7 @@ function changeIconOfMedium(){
   low.src = './assets/img/icon_PrioBajaGreen.svg';
 }
 
-function changeIconOfLow(){
+function changeIconOfLow() {
   let low = document.getElementById('low-img');
   low.src = prioIcon;
   let medium = document.getElementById('medium-img');
