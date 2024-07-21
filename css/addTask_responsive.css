@@ -27,10 +27,10 @@
 
     .add-task-bottom {
         font-size: 16px;
-    }   
+    }
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1200px) {
     .content {
         display: flex !important;
         justify-content: center !important;
@@ -52,7 +52,7 @@
     .add-task-title {
         font-size: 47px;
     }
-    
+
     .input-section {
         font-size: 16px;
     }
@@ -123,13 +123,25 @@
         align-items: center;
         background-color: #f6f7f8;
         padding-block: 16px;
-        bottom: 80px !important;
-        left: 16px !important;
         right: 16px !important;
         padding-left: 0px !important;
     }
-    
+
     #clear-button {
         display: none;
+    }
+}
+
+@media (max-width: 1025px) {
+    .add-task-bottom {
+        left: 16px !important;
+        bottom: 80px !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .add-task-bottom {
+        bottom: 0px;
+        left: 240px;
     }
 }
