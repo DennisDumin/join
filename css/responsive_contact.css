@@ -204,4 +204,5 @@
 
 .stretch {
     width: 100vw;
+    padding: 0 !important; 
 }
