@@ -1,10 +1,9 @@
-let subtask = [];
-let user = [];
-tasks = [];
-prioBtn = "";
-let prioIcon = "";
-let prioText = "";
-
+let subtask = []
+let user = []
+tasks = []
+prioBtn = ""
+let prioIcon = ""
+let prioText = ""
 
 async function initBoard() {
   await initInclude()
@@ -15,20 +14,25 @@ async function initBoard() {
   renderContacts("add-task-contacts-container")
   boardBg()
   chooseMedium()
+  showUser()
 }
 
 function renderEditContacts(contactContainer) {
   let container = document.getElementById(`${contactContainer}`)
   container.innerHTML = ""
   for (let i = 0; i < contacts.length; i++) {
-    let name = contacts[i]['name'];
-    let initials = getInitials(name); // from contact.js
-    let color = contacts[i]['color'];
-    container.innerHTML += templateEditContact(i, name, initials, color);
-    if (contacts[i]['selected'] === true) {
-      document.getElementById(`contact-edit-container${i}`).classList.add('contact-container-edit-focus');
+    let name = contacts[i]["name"]
+    let initials = getInitials(name) // from contact.js
+    let color = contacts[i]["color"]
+    container.innerHTML += templateEditContact(i, name, initials, color)
+    if (contacts[i]["selected"] === true) {
+      document
+        .getElementById(`contact-edit-container${i}`)
+        .classList.add("contact-container-edit-focus")
     } else {
-      document.getElementById(`contact-edit-container${i}`).classList.remove('contact-container-edit-focus');
+      document
+        .getElementById(`contact-edit-container${i}`)
+        .classList.remove("contact-container-edit-focus")
     }
   }
 }
@@ -46,40 +50,40 @@ function templateEditContact(i, name, initials, color) {
 }
 
 function openAddTask() {
-  let content = document.getElementById("add-task");
-  content.classList.remove("hidden");
-  let overlay = document.getElementsByClassName("overlay")[0];
-  overlay.classList.remove("hidden");
-  let dialog = document.querySelector('.add-task-board');
-  dialog.classList.remove('slide-out');
+  let content = document.getElementById("add-task")
+  content.classList.remove("hidden")
+  let overlay = document.getElementsByClassName("overlay")[0]
+  overlay.classList.remove("hidden")
+  let dialog = document.querySelector(".add-task-board")
+  dialog.classList.remove("slide-out")
   setTimeout(() => {
-    dialog.classList.add('slide-in');
-  }, 50);
+    dialog.classList.add("slide-in")
+  }, 50)
 }
 
 function closeMe() {
-  let dialog2 = document.querySelector('.add-task-board');
-  let dialog = document.querySelector('.show-task');
-  
-  dialog2.classList.remove('slide-in');
-  dialog2.classList.add('slide-out');
-  dialog.classList.remove('slide-in');
-  dialog.classList.add('slide-out');
+  let dialog2 = document.querySelector(".add-task-board")
+  let dialog = document.querySelector(".show-task")
+
+  dialog2.classList.remove("slide-in")
+  dialog2.classList.add("slide-out")
+  dialog.classList.remove("slide-in")
+  dialog.classList.add("slide-out")
 
   setTimeout(() => {
-    let content = document.getElementById("add-task");
-    let showContent = document.getElementById("show-task");
-    let editContent = document.getElementById("add-task-edit");
-    let overlay = document.getElementsByClassName("overlay")[0];
-    content.classList.add("hidden");
-    showContent.classList.add("hidden");
-    editContent.classList.add("hidden");
-    overlay.classList.add("hidden");
-  }, 500);
-  updateHTML();
-  contacts = [];
-  selectedEditContacts = [];
-  loadData();
+    let content = document.getElementById("add-task")
+    let showContent = document.getElementById("show-task")
+    let editContent = document.getElementById("add-task-edit")
+    let overlay = document.getElementsByClassName("overlay")[0]
+    content.classList.add("hidden")
+    showContent.classList.add("hidden")
+    editContent.classList.add("hidden")
+    overlay.classList.add("hidden")
+  }, 500)
+  updateHTML()
+  contacts = []
+  selectedEditContacts = []
+  loadData()
 }
 
 function changeColorOfCategoryTitle() {
@@ -134,9 +138,9 @@ function convertDate(date) {
 let currentDraggedElement
 
 function updateHTML() {
-  let toDo = tasks.filter((t) => t["phases"] == "To Do");
-  let toDoContent = document.getElementById("new-task-to-do");
-  toDoContent.innerHTML = "";
+  let toDo = tasks.filter((t) => t["phases"] == "To Do")
+  let toDoContent = document.getElementById("new-task-to-do")
+  toDoContent.innerHTML = ""
 
   for (let index = 0; index < toDo.length; index++) {
     const element = toDo[index]
@@ -156,22 +160,24 @@ function updateHTML() {
     styleOfNoTaskInProgress()
   }
 
-  let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback");
-  document.getElementById("new-task-await").innerHTML = "";
+  let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback")
+  document.getElementById("new-task-await").innerHTML = ""
   for (let index = 0; index < awaitFeedback.length; index++) {
-    const element = awaitFeedback[index];
-    document.getElementById("new-task-await").innerHTML += generateAllTasksHTML(element);
-    styleOfNoTaskAwaitFeedback();
+    const element = awaitFeedback[index]
+    document.getElementById("new-task-await").innerHTML +=
+      generateAllTasksHTML(element)
+    styleOfNoTaskAwaitFeedback()
   }
-  let done = tasks.filter((t) => t["phases"] == "Done");
-  document.getElementById("new-task-done").innerHTML = "";
+  let done = tasks.filter((t) => t["phases"] == "Done")
+  document.getElementById("new-task-done").innerHTML = ""
   for (let index = 0; index < done.length; index++) {
-    const element = done[index];
-    document.getElementById("new-task-done").innerHTML += generateAllTasksHTML(element);
-    styleOfNoTaskDone();
+    const element = done[index]
+    document.getElementById("new-task-done").innerHTML +=
+      generateAllTasksHTML(element)
+    styleOfNoTaskDone()
   }
-  changeColorOfCategoryTitle();
-  contactsRender();
+  changeColorOfCategoryTitle()
+  contactsRender()
 }
 
 function startDragging(id) {
@@ -192,46 +198,58 @@ function valueOfProgressBar(taskIndex) {
 
 function contactsRender() {
   for (let i = 0; i < tasks.length; i++) {
-    let maxContacts = 3;
-    let content = document.getElementById(`new-div${i}`);
-    for (let j = 0; j < Math.min(tasks[i]['contacts'].length, maxContacts); j++) {
-      let nameParts = tasks[i]['contacts'][j]['name'].split(" ");
-      let initials = nameParts.map(part => part.charAt(0).toUpperCase()).join("");
-      content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]['contacts'][j]['color']};">${initials}</div>`;
+    let maxContacts = 3
+    let content = document.getElementById(`new-div${i}`)
+    for (
+      let j = 0;
+      j < Math.min(tasks[i]["contacts"].length, maxContacts);
+      j++
+    ) {
+      let nameParts = tasks[i]["contacts"][j]["name"].split(" ")
+      let initials = nameParts
+        .map((part) => part.charAt(0).toUpperCase())
+        .join("")
+      content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]["contacts"][j]["color"]};">${initials}</div>`
     }
     if (tasks[i]["contacts"].length > maxContacts) {
-      let additionalContacts = tasks[i]["contacts"].length - maxContacts;
-      let numberOfContacts = document.getElementById(`plus-number-contacts${i}`);
-      numberOfContacts.innerHTML = "";
-      numberOfContacts.innerHTML = `+${additionalContacts}`;
+      let additionalContacts = tasks[i]["contacts"].length - maxContacts
+      let numberOfContacts = document.getElementById(`plus-number-contacts${i}`)
+      numberOfContacts.innerHTML = ""
+      numberOfContacts.innerHTML = `+${additionalContacts}`
     }
   }
 }
 
 function generateAllTasksHTML(element) {
-  return ` <div id="card-id${element["ID"]
-    }" draggable="true" ondragstart="startDragging(${element["ID"]
-    })" onclick="showTask(${element["ID"]})">
+  return ` <div id="card-id${
+    element["ID"]
+  }" draggable="true" ondragstart="startDragging(${
+    element["ID"]
+  })" onclick="showTask(${element["ID"]})">
   <div class="card">
-   <div id="card-category-title${element["ID"]}" class="card-category-title">${element["category"]
-    }</div>
+   <div id="card-category-title${element["ID"]}" class="card-category-title">${
+    element["category"]
+  }</div>
    <div class="title-description-content">
      <h2 class="card-title">${element["title"]}</h2>
      <p class="card-description">${element["description"]}</p>
    </div>
    <div class="progress-bar-content">
      <progress value="${valueOfProgressBar(
-      element["ID"]
-    )}" max="100" id="progress-bar${element["ID"]}"></progress>
-     <p class="card-subtasks-text"><span id="number-of-subtask${element["ID"]
-    }" class="number-of-subtask">${element["subtasks"].length}/${element["subtasks"].length
-    }</span> Subtasks</p>
+       element["ID"]
+     )}" max="100" id="progress-bar${element["ID"]}"></progress>
+     <p class="card-subtasks-text"><span id="number-of-subtask${
+       element["ID"]
+     }" class="number-of-subtask">${element["subtasks"].length}/${
+    element["subtasks"].length
+  }</span> Subtasks</p>
     </div>
     <div class="card-user-content">
       <div class="user-container-board">
         <div class="user-inner-container" id="new-div${element["ID"]}"></div>
-        <div class="number-of-contacts" id="plus-number-contacts${element["ID"]
-    }"></div>
+        <div class="number-of-contacts" id="plus-number-contacts${
+          element["ID"]
+        }"></div>
       </div>
       <img src="${element["prioIcon"]}" alt="">
     </div>
@@ -254,11 +272,11 @@ function moveTo(phase) {
 }
 
 function styleOfNoTaskToDo() {
-  let toDoContent = document.getElementById("new-task-to-do");
+  let toDoContent = document.getElementById("new-task-to-do")
   if (toDoContent.childElementCount > 0) {
-    document.getElementById('no-task-to-do').classList.add('hidden');
+    document.getElementById("no-task-to-do").classList.add("hidden")
   } else {
-    document.getElementById('no-task-to-do').classList.remove('hidden');
+    document.getElementById("no-task-to-do").classList.remove("hidden")
   }
 }
 
@@ -294,15 +312,18 @@ function checkwidthForAddTask() {
 }
 
 function updateButtonOnClick() {
-  let plusButton = document.getElementsByClassName('plus-btn');
+  let plusButton = document.getElementsByClassName("plus-btn")
   if (plusButton.length > 0) {
     if (window.innerWidth <= 1075) {
       for (let i = 0; i < plusButton.length; i++) {
-        plusButton[i].setAttribute('onclick', "window.location.href = './add_task.html'");
+        plusButton[i].setAttribute(
+          "onclick",
+          "window.location.href = './add_task.html'"
+        )
       }
     } else {
       for (let i = 0; i < plusButton.length; i++) {
-        plusButton[i].setAttribute('onclick', 'openAddTask()');
+        plusButton[i].setAttribute("onclick", "openAddTask()")
       }
     }
   }

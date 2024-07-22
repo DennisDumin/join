@@ -1,54 +1,53 @@
 async function initInclude() {
-    await includeHTML();
-    await loadData();
+  await includeHTML()
+  await loadData()
 }
 
 function toggleMenu() {
-    let dropdownMenu = document.querySelector('.headerLogoutButton .dropdownMenu');
-    dropdownMenu.classList.toggle('d-none');
+  let dropdownMenu = document.querySelector(".headerLogoutButton .dropdownMenu")
+  dropdownMenu.classList.toggle("d-none")
 }
 
 function returnToHome() {
-    window.location.href = "index.html";
+  window.location.href = "index.html"
 }
 
 function redirectToHelp() {
-    window.location.href = "help.html";
+  window.location.href = "help.html"
 }
 
 function redirectToSummary() {
-    window.location.href = "summary.html";
+  window.location.href = "summary.html"
 }
 
 function redirectToAddTask() {
-    window.location.href = "add_task.html";
+  window.location.href = "add_task.html"
 }
 
 function redirectToBoard() {
-    window.location.href = "board.html";
+  window.location.href = "board.html"
 }
 
 function redirectToContact() {
-    window.location.href = "contacts.html";
+  window.location.href = "contacts.html"
 }
 
 function redirectToLegalNotice() {
-    window.location.href = "legal_notice.html";
+  window.location.href = "legal_notice.html"
 }
 
 function redirectToPrivacyPolice() {
-    window.location.href = "privacy-police.html";
+  window.location.href = "privacy-police.html"
 }
 
 function redirectToPrivacyPoliceSignup() {
-    window.open("privacyPoliceSignup.html", "_blank");
+  window.open("privacyPoliceSignup.html", "_blank")
 }
 
 function redirectToLegalNoticeSignup() {
-    window.open("legalNoticeSignup.html", "_blank");
+  window.open("legalNoticeSignup.html", "_blank")
 }
 
-
 async function initHelp() {
-    await loadData();
+  await loadData()
 }
