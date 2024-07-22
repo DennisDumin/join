@@ -12,7 +12,7 @@ async function includeHTML() {
   }
 }
 
-;(async function () {
+;(async function init() {
   await includeHTML()
   showUser()
 })()
