@@ -61,8 +61,8 @@ a {
 }
 
 .login-mask {
-  padding: 48px 115px;
-  gap: 32px;
+  padding: 16px 115px;
+  gap: 16px;
   border-radius: 30px;
   background-color: var(--white);
 }
