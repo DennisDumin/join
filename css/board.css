@@ -1,4 +1,8 @@
 /*border-header*/
+.header-sticky {
+  position: sticky;
+  top: 0;
+}
 
 .board-section {
   display: flex;
@@ -36,22 +40,22 @@ h1 {
 
 .search-content {
   display: flex;
-  border: 1px solid #A8A8A8;
+  border: 1px solid #a8a8a8;
   border-radius: 10px;
   padding: 8px 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   height: 36px;
 }
 
 .line-content {
   width: 1px;
-  background-color: #D1D1D1;
+  background-color: #d1d1d1;
   margin-right: 0px;
   height: 36px;
 }
 
 .search-btn {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: none;
 }
 
@@ -62,7 +66,7 @@ h1 {
 }
 
 #search-input::placeholder {
-  color: #D1D1D1;
+  color: #d1d1d1;
 }
 
 #search-icon {
@@ -87,8 +91,8 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: #2A3647;
-  color: #FFFFFF;
+  background-color: #2a3647;
+  color: #ffffff;
   border-radius: 10px;
   padding: 8px 16px;
   cursor: pointer;
@@ -100,7 +104,7 @@ h1 {
 }
 
 .add-task-button:hover {
-  background-color: #29ABE2;
+  background-color: #29abe2;
   box-shadow: 0px 4px 4px 0 rgba(17, 3, 3, 0.24);
 }
 
@@ -118,7 +122,6 @@ h1 {
   width: 220px;
 }
 
-
 .title-m-content {
   display: flex;
   justify-content: space-between;
@@ -128,7 +131,7 @@ h1 {
 
 .plus-btn {
   background-color: transparent;
-  border: 2px solid #2A3647;
+  border: 2px solid #2a3647;
   border-radius: 8px;
   width: 24px;
   height: 24px;
@@ -140,14 +143,14 @@ h1 {
 }
 
 .plus-btn:hover {
-  border-color: #29ABE2;
-  color: #29ABE2;
+  border-color: #29abe2;
+  color: #29abe2;
 }
 
 .title-m {
   font-size: 20px;
   line-height: 24px;
-  color: #42526E;
+  color: #42526e;
   font-weight: 700;
 }
 
@@ -195,7 +198,7 @@ h1 {
   align-items: start;
   justify-content: start;
   gap: 24px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-bottom: 10px;
   padding: 16px;
   border-radius: 24px;
@@ -212,8 +215,8 @@ h1 {
 }
 
 .card-category-title {
-  background-color: #1FD7C1;
-  color: #FFFFFF;
+  background-color: #1fd7c1;
+  color: #ffffff;
   border-radius: 8px;
   padding: 4px 16px;
   width: 113px;
@@ -225,8 +228,8 @@ h1 {
 }
 
 .blue {
-  background-color: #0038FF;
-  color: #FFFFFF;
+  background-color: #0038ff;
+  color: #ffffff;
   border-radius: 8px;
   padding: 4px 16px;
   width: 113px;
@@ -238,8 +241,8 @@ h1 {
 }
 
 .green {
-  background-color: #1FD7C1;
-  color: #FFFFFF;
+  background-color: #1fd7c1;
+  color: #ffffff;
   border-radius: 8px;
   padding: 4px 16px;
   width: 113px;
@@ -274,7 +277,7 @@ h1 {
   margin-block-start: 0;
   margin-block-end: 0;
   font-weight: 400;
-  color: #A8A8A8;
+  color: #a8a8a8;
   text-overflow: ellipsis;
   overflow: hidden;
   height: 2lh;
@@ -298,7 +301,7 @@ h1 {
 .add-task-board {
   height: 660px;
   width: 976.25px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -327,7 +330,7 @@ h1 {
   height: 650px;
   display: flex;
   flex-direction: column;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   justify-content: space-between;
   border-radius: 30px;
   padding: 30px 30px;
@@ -363,7 +366,7 @@ h1 {
 }
 
 .close-btn {
-  color: #2A3647;
+  color: #2a3647;
   font-size: 30px !important;
   font-weight: 100;
   cursor: pointer;
@@ -372,7 +375,7 @@ h1 {
 }
 
 .close-btn:hover {
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
   border-radius: 20px;
 }
 
@@ -397,7 +400,7 @@ h1 {
 }
 
 .input {
-  border: 1px solid #D1D1D1;
+  border: 1px solid #d1d1d1;
   border-radius: 10px;
   padding: 12px 21px 12px 21px;
   background-color: white;
@@ -407,9 +410,8 @@ h1 {
 }
 
 .input::placeholder {
-  color: #D1D1D1;
+  color: #d1d1d1;
 }
-
 
 .prio-buttons button:hover {
   box-shadow: 0px 4px 2px 0 rgba(17, 3, 3, 0.24);
@@ -417,26 +419,26 @@ h1 {
 
 .urgent-button:focus,
 .urgent-button.active {
-  background-color: #FF3d00;
-  color: #FFFFFF;
+  background-color: #ff3d00;
+  color: #ffffff;
 }
 
 .medium-button:focus,
 .medium-button.active {
-  background-color: #FFA800;
-  color: #FFFFFF;
+  background-color: #ffa800;
+  color: #ffffff;
 }
 
 .low-button:focus,
 .low-button.active {
-  background-color: #7AE229;
-  color: #FFFFFF;
+  background-color: #7ae229;
+  color: #ffffff;
 }
 
 .urgent-button img,
 .medium-button img,
 .low-button img {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: none;
   padding: 2px;
 }
@@ -450,7 +452,7 @@ h1 {
   font-size: 12px;
   font-weight: 400;
   line-height: 14.4px;
-  color: #FF8190;
+  color: #ff8190;
 }
 
 /*new*/
@@ -480,7 +482,7 @@ h1 {
 }
 
 .number-of-contacts {
-  color: #2A3647;
+  color: #2a3647;
   font-size: 18px;
 }
 
@@ -524,7 +526,6 @@ h1 {
   justify-content: center;
   align-items: center;
 }
-
 
 /*show card*/
 
@@ -597,7 +598,7 @@ h1 {
 
 .show-line-content {
   width: 1px;
-  background-color: #D1D1D1;
+  background-color: #d1d1d1;
   margin-right: 0px;
   height: 24px;
 }
@@ -622,7 +623,7 @@ input[type="checkbox"] {
   justify-content: center;
   font-size: 2rem;
   padding: 0.1rem;
-  border: 2px solid #2A3647;
+  border: 2px solid #2a3647;
   border-radius: 0.5rem;
   cursor: pointer;
 }
@@ -638,8 +639,8 @@ input[type="checkbox"]::before {
   justify-content: center;
   font-size: 24px;
   font-weight: 700;
-  color: #2A3647;
-  padding: 3px
+  color: #2a3647;
+  padding: 3px;
 }
 
 input[type="checkbox"]:checked::before {

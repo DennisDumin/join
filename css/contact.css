@@ -3,6 +3,10 @@ h2 {
   font-size: xxx-large;
   padding-right: 48px;
 }
+.header-sticky {
+  position: sticky;
+  top: 0;
+}
 
 .blueBackground {
   background-color: rgb(42, 54, 71);
@@ -12,8 +16,6 @@ h2 {
 .displayNone {
   display: none !important;
 }
-
-.dNone {}
 
 .layout-wrapper {
   height: 90vh;
@@ -327,7 +329,6 @@ h2 {
   width: 24px;
 }
 
-
 .cancel-Button {
   background-color: white;
 }
@@ -339,7 +340,8 @@ h2 {
 }
 
 .cancel-Button:hover img {
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
+    brightness(100%) contrast(100%);
 }
 
 .letter {
@@ -426,13 +428,15 @@ h4 {
 
 .edit-delete :first-child:hover {
   color: rgb(65, 157, 241);
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
+    brightness(100%) contrast(100%);
   cursor: pointer;
 }
 
 .edit-delete :nth-child(2):hover {
   color: rgb(65, 157, 241);
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
+    brightness(100%) contrast(100%);
   cursor: pointer;
 }
 
@@ -444,7 +448,8 @@ h4 {
 
 .edit-delete img:hover {
   cursor: pointer;
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
+    brightness(100%) contrast(100%);
 }
 
 .edit-delete span {
