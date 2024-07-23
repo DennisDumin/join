@@ -11,6 +11,7 @@ async function init() {
   laodLocalStorage()
   sortDates()
   showHTML()
+  summaryBgMenu()
 }
 
 function laodLocalStorage() {

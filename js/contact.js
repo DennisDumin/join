@@ -38,6 +38,7 @@ function renderData(info) {
     });
 
     newContactBgHighlight();
+    contactsBgMenu();
 }
 
 function groupAndSortContacts(info) {
