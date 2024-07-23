@@ -113,5 +113,5 @@ function resetCheckImg() {
 }
 
 function loadBoardPage() {
-  window.location.href = "http://127.0.0.1:5504/board.html"
+  window.location.href = "https://join-233.developerakademie.net/board.html"
 }
