@@ -15,8 +15,6 @@ async function loadData() {
         let info = responseAsJson.contact;
         material.push(responseAsJson.contact);
         renderData(info);
-
-        // Lade den colorIndex aus Firebase, falls verfügbar
         let colorIndexResponse = await fetch(BASE_URL + 'colorIndex.json');
         let colorIndexData = await colorIndexResponse.json();
         if (colorIndexData !== null) {
@@ -32,7 +30,17 @@ function renderData(info) {
     let content = document.getElementById('contacts');
     content.innerHTML = '';
 
-    // Kontakte alphabetisch nach Namen sortieren und gruppieren
+    const groupedContacts = groupAndSortContacts(info);
+    const sortedKeys = Object.keys(groupedContacts).sort();
+
+    sortedKeys.forEach(letter => {
+        renderGroup(content, letter, groupedContacts[letter]);
+    });
+
+    newContactBgHighlight();
+}
+
+function groupAndSortContacts(info) {
     let groupedContacts = Object.keys(info).reduce((groups, id) => {
         const contact = info[id];
         const firstLetter = contact.name[0].toUpperCase();
@@ -44,30 +52,32 @@ function renderData(info) {
 
         return groups;
     }, {});
-
-    // Alphabetisch sortieren nach Buchstaben
-    let sortedKeys = Object.keys(groupedContacts).sort();
-
-    for (let letter of sortedKeys) {
-        content.innerHTML += `<h3 class="letter">${letter}</h3>`;
+    Object.keys(groupedContacts).forEach(letter => {
         groupedContacts[letter].sort((a, b) => {
-            const nameA = a.name.toUpperCase();
-            const nameB = b.name.toUpperCase();
-            return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
-        }).forEach(contact => {
-            const contactColor = contact.color || getRandomColor(); // Falls Kontakt keine Farbe hat, generiere zufällige Farbe
-            content.innerHTML += `
-                <div onclick="renderDetailedContact('${contact.id}')" id="${contact.id}" class="contactCard">
-                     <div id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${contact.name[0]}</div>
-                     <div class ="fullName-email">
-                       <span>${contact.name}</span>
-                       <a class="email" href="#">${contact.email}</a href="${contact.email}">
-                     </div>
-                </div>
-            `;
+            return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
         });
-    }
-    newContactBgHighlight();
+    });
+    return groupedContacts;
+}
+
+function renderGroup(content, letter, contacts) {
+    content.innerHTML += `<h3 class="letter">${letter}</h3>`;
+    contacts.forEach(contact => {
+        renderContact(content, contact);
+    });
+}
+
+function renderContact(content, contact) {
+    const contactColor = contact.color || getRandomColor();
+    content.innerHTML += `
+        <div onclick="renderDetailedContact('${contact.id}')" id="${contact.id}" class="contactCard">
+             <div id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${contact.name[0]}</div>
+             <div class="fullName-email">
+               <span>${contact.name}</span>
+               <a class="email" href="#">${contact.email}</a>
+             </div>
+        </div>
+    `;
 }
 
 function getInitials(name) {
@@ -90,26 +100,7 @@ function renderDetailedContact(contactId) {
     
     // Render das Kontakt-Detailprofil
     let target = document.getElementById('content');
-    target.innerHTML = `
-        <div class="contact-profile">
-            <div id="singleLetterProfile" class="single-letter">${source['name'][0]}</div>
-            <div class="h4_edit-delete">
-                <h4>${source['name']}</h4>
-                <div class="edit-delete">
-                    <span onclick="openClosePopUp('open', true)"><img src="contact-assets/img/edit.png" />Edit</span>
-                    <span onclick="deleteContact('contact', '${contactId}')"><img src="contact-assets/img/delete.png" />Delete</span>
-                </div>
-            </div>
-        </div>
-        <div class="pers-info">
-            <b>Email</b>
-            <a href="#">${source['email']}</a>
-        </div>
-        <div class="pers-info">
-            <span><b>Phone</b></span>
-            <span>${source['telefonnummer']}</span>
-        </div>
-    `;
+    target.innerHTML = detailedContactHtml(source, contactId);
     fillEditPopUp(source);
     checkUserMaxWidth();
     
@@ -327,33 +318,39 @@ async function deleteContact(path = 'contact', id) {
 function openClosePopUp(param, key) {
     hideMobileAssets();
     let target = validatePopUp(key);
-
     let bgPopUp = document.getElementById(target);
     let popUp = bgPopUp.querySelector('.popUp');
     let sideBar = document.getElementById('containerSidebar');
     let header = document.getElementById('header');
 
     if (param === 'open') {
-        bgPopUp.classList.remove('displayNone', 'hide');
-        bgPopUp.classList.add('show');
-        popUp.classList.remove('slide-out');
-        popUp.classList.add('slide-in');
-        sideBar.classList.add('displayNone');
-        header.classList.add('stretch');
-
+        paramOpen(bgPopUp,popUp,sideBar,header);
     } else if (param === 'close') {
-        popUp.classList.remove('slide-in');
-        popUp.classList.add('slide-out');
-        bgPopUp.classList.remove('show');
-        bgPopUp.classList.add('hide');
-        setTimeout(() => {
-            bgPopUp.classList.add('displayNone');
-        }, 500);
-        sideBar.classList.remove('displayNone')
-        header.classList.remove('stretch');
+        paramClose(bgPopUp,popUp,sideBar,header)
     } else {
         param.stopPropagation();
     }
+}
+
+function paramOpen(bgPopUp,popUp,sideBar,header) {
+    bgPopUp.classList.remove('displayNone', 'hide');
+    bgPopUp.classList.add('show');
+    popUp.classList.remove('slide-out');
+    popUp.classList.add('slide-in');
+    sideBar.classList.add('displayNone');
+    header.classList.add('stretch');
+}
+
+function paramClose(bgPopUp,popUp,sideBar,header) {
+    popUp.classList.remove('slide-in');
+    popUp.classList.add('slide-out');
+    bgPopUp.classList.remove('show');
+    bgPopUp.classList.add('hide');
+    setTimeout(() => {
+        bgPopUp.classList.add('displayNone');
+    }, 500);
+    sideBar.classList.remove('displayNone')
+    header.classList.remove('stretch');
 }
 
 function validatePopUp(key) {
@@ -370,12 +367,6 @@ function getRandomColor() {
     return color;
 }
 
-async function testFetch() {
-    let response = await fetch(BASE_URL + 'contact' + '-O-5fQkP0Xg1m4qHkE21' + '.json');
-    let responseAsJson = await response.json();
-    console.log(responseAsJson);
-}
-
 function showContactMobile() {
     document.getElementById('contentSection').classList.add('dNone');
     document.getElementById('contactList').classList.remove('displayNone');
@@ -384,3 +375,28 @@ function showContactMobile() {
 function contactsBgMenu() {
     document.getElementById('link-contact').classList.add('bg-focus');
   }
+
+// html
+
+function detailedContactHtml(source, contactId) {
+    return `
+        <div class="contact-profile">
+            <div id="singleLetterProfile" class="single-letter">${source['name'][0]}</div>
+            <div class="h4_edit-delete">
+                <h4>${source['name']}</h4>
+                <div class="edit-delete">
+                    <span onclick="openClosePopUp('open', true)"><img src="contact-assets/img/edit.png" />Edit</span>
+                    <span onclick="deleteContact('contact', '${contactId}')"><img src="contact-assets/img/delete.png" />Delete</span>
+                </div>
+            </div>
+        </div>
+        <div class="pers-info">
+            <b>Email</b>
+            <a href="#">${source['email']}</a>
+        </div>
+        <div class="pers-info">
+            <span><b>Phone</b></span>
+            <span>${source['telefonnummer']}</span>
+        </div>
+    `;
+}
