@@ -318,33 +318,39 @@ async function deleteContact(path = 'contact', id) {
 function openClosePopUp(param, key) {
     hideMobileAssets();
     let target = validatePopUp(key);
-
     let bgPopUp = document.getElementById(target);
     let popUp = bgPopUp.querySelector('.popUp');
     let sideBar = document.getElementById('containerSidebar');
     let header = document.getElementById('header');
 
     if (param === 'open') {
-        bgPopUp.classList.remove('displayNone', 'hide');
-        bgPopUp.classList.add('show');
-        popUp.classList.remove('slide-out');
-        popUp.classList.add('slide-in');
-        sideBar.classList.add('displayNone');
-        header.classList.add('stretch');
-
+        paramOpen(bgPopUp,popUp,sideBar,header);
     } else if (param === 'close') {
-        popUp.classList.remove('slide-in');
-        popUp.classList.add('slide-out');
-        bgPopUp.classList.remove('show');
-        bgPopUp.classList.add('hide');
-        setTimeout(() => {
-            bgPopUp.classList.add('displayNone');
-        }, 500);
-        sideBar.classList.remove('displayNone')
-        header.classList.remove('stretch');
+        paramClose(bgPopUp,popUp,sideBar,header)
     } else {
         param.stopPropagation();
     }
+}
+
+function paramOpen(bgPopUp,popUp,sideBar,header) {
+    bgPopUp.classList.remove('displayNone', 'hide');
+    bgPopUp.classList.add('show');
+    popUp.classList.remove('slide-out');
+    popUp.classList.add('slide-in');
+    sideBar.classList.add('displayNone');
+    header.classList.add('stretch');
+}
+
+function paramClose(bgPopUp,popUp,sideBar,header) {
+    popUp.classList.remove('slide-in');
+    popUp.classList.add('slide-out');
+    bgPopUp.classList.remove('show');
+    bgPopUp.classList.add('hide');
+    setTimeout(() => {
+        bgPopUp.classList.add('displayNone');
+    }, 500);
+    sideBar.classList.remove('displayNone')
+    header.classList.remove('stretch');
 }
 
 function validatePopUp(key) {
