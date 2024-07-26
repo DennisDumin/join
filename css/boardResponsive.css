@@ -191,6 +191,10 @@
 
   @media(max-width:550px) {
 
+    .board-content {
+      padding: 0 12px 0 12px;
+    }
+
     .show-task {
       width: 300px;
       padding: 30px 25px 30px 20px;
