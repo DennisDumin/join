@@ -265,6 +265,7 @@ h2 {
 .return-mobilePopUp {
   display: flex;
   justify-content: end;
+  padding-right: 12px;
 }
 
 .return-mobilePopUp img {

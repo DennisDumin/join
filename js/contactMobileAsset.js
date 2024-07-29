@@ -50,3 +50,37 @@ function checkIfContactViewed() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    const img = document.getElementById('mobileAddContactImg');
+    if (img) {
+        const originalSrc = img.src; // Das ursprüngliche src speichern
+        const hoverSrc = 'contact-assets/img/mobileAddContactHover.png?v=' + new Date().getTime(); // Cache-Busting
+
+        img.addEventListener('mouseover', () => {
+            img.src = hoverSrc;
+        });
+
+        img.addEventListener('mouseout', () => {
+            img.src = originalSrc;
+        });
+    } 
+});
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const img2 = document.getElementById('mobileEditBtnImg');
+    if (img2) {
+        const originalSrc = img2.src; // Das ursprüngliche src speichern
+        const hoverSrc = 'contact-assets/img/mobileEditHover.png?v=' + new Date().getTime(); // Cache-Busting
+
+        img2.addEventListener('mouseover', () => {
+            img2.src = hoverSrc;
+        });
+
+        img2.addEventListener('mouseout', () => {
+            img2.src = originalSrc;
+        });
+    } 
+});
+
+
