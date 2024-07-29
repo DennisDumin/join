@@ -6,6 +6,8 @@ let highlightKey = null;
 let colorIndex = 0;
 let loadedColors = [];
 
+let contactViewed = false;
+
 const colors = generateColors(20);
 
 async function loadData() {
