@@ -33,8 +33,10 @@ function hideMobileAssets() {
 function changeMobileButton(param) {
     if(param === 'add') {
         document.getElementById('mobileAddContact').classList.add('displayNone');
+        document.getElementById('mobileEditBtn').classList.add('displayNone');
     } else if (param === 'remove') {
         document.getElementById('mobileAddContact').classList.remove('displayNone');
+        document.getElementById('mobileEditBtn').classList.remove('displayNone');
     }
 }
 

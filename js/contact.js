@@ -373,6 +373,7 @@ function getRandomColor() {
 function showContactMobile() {
     document.getElementById('contentSection').classList.add('dNone');
     document.getElementById('contactList').classList.remove('displayNone');
+    contactViewed = false;
 }
 
 function contactsBgMenu() {

@@ -229,3 +229,23 @@
     cursor: pointer;
 }
 
+.mobileEditBtn {
+    position: fixed;
+    bottom: 12vh;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.mobileEditBtn img {
+    object-fit: cover;
+    height: 72px;
+    width: 72px;
+}
+
+.mobileEditBtn img:hover {
+    cursor: pointer;
+}
+
