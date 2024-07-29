@@ -154,7 +154,7 @@ h2 {
 }
 
 .bg-popUp {
-  z-index: 1;
+  z-index: 998;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   height: 100vh;
@@ -173,7 +173,7 @@ h2 {
   height: 50vh;
   width: 60vw;
   border-radius: 24px;
-  z-index: 2;
+  z-index: 999;
   display: flex;
   flex-direction: row;
   align-items: center;
