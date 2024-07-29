@@ -1,3 +1,9 @@
+@media (max-width: 1300px) {
+    .popUp {
+        width: 70vw;
+    } 
+}
+
 @media (max-width: 1160px) {
     .contacts {
         width: 40%;

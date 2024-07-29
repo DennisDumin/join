@@ -111,9 +111,9 @@ function renderDetailedContact(contactId) {
 
 function fillEditPopUp(source) {
     document.getElementById('letterForPopUp').innerHTML = `${source['name'][0]}`;
-    document.getElementById('editEmail').value = source['name'];
+    document.getElementById('editEmail').value = source['email'];
     document.getElementById('editTel').value = source['telefonnummer'];
-    document.getElementById('editName').value = source['email'];
+    document.getElementById('editName').value = source['name'];
 }
 
 function setSingleLetterBackgroundColor(contactId) {

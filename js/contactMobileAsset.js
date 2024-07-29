@@ -21,3 +21,4 @@ function hideMobileAssets() {
         document.getElementById('mobileContactReturn').classList.remove('displayNone');
     }
 }
+
