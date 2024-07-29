@@ -67,6 +67,10 @@
 
 @media (max-width: 800px) {
 
+    #cancelButton {
+        display: none;
+    }
+
     .dNone {
         display: none;
     }
@@ -204,3 +208,24 @@
     width: 100vw;
     padding: 0 !important;
 }
+
+.mobileAddContactBtn {
+    position: fixed;
+    bottom: 12vh;
+    right: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.mobileAddContactBtn  img {
+    object-fit: cover;
+    height: 72px;
+    width: 72px;
+}
+
+.mobileAddContactBtn  img:hover {
+    cursor: pointer;
+}
+

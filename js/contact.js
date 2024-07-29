@@ -29,6 +29,7 @@ async function loadData() {
 
 
 function renderData(info) {
+    hideMobileAssets();
     let content = document.getElementById('contacts');
     content.innerHTML = '';
 
@@ -319,7 +320,6 @@ async function deleteContact(path = 'contact', id) {
 }
 
 function openClosePopUp(param, key) {
-    hideMobileAssets();
     let target = validatePopUp(key);
     let bgPopUp = document.getElementById(target);
     let popUp = bgPopUp.querySelector('.popUp');

@@ -34,6 +34,9 @@
           <button id="desktopAddContactBtn" onclick="openClosePopUp('open', key = false)" class="addContactButton position-fixed">Add new Contact
             <img src="./contact-assets/img/addPerson.png" alt=""></button>
         </div>
+        <div id="mobileAddContact" class="mobileAddContactBtn displayNone">
+          <img onclick="openClosePopUp('open', key = false)" src="contact-assets/img/mobileAddContact.png" alt="">
+        </div>
         <div class="list" id="contacts"></div>
       </section>
       <section id="contentSection" class="content-section dNone">
@@ -72,7 +75,7 @@
                   <input required id="tel" placeholder="Phone" type="tel">
                   <input required id="name" placeholder="Name" type="text">
                   <div class="contact_button">
-                    <button type="button" onclick="openClosePopUp('close')" class="cancel-Button">Cancel <img
+                    <button id="cancelButton" type="button" onclick="openClosePopUp('close')" class="cancel-Button">Cancel <img
                         src="./contact-assets/img/close.png" alt=""></button>
                     <button type="submit" class="addContactButton">Create Contact <img class="check"
                         src="./contact-assets/img/check.png" alt=""></button>
