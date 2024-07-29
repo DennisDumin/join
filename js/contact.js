@@ -386,7 +386,7 @@ function detailedContactHtml(source, contactId) {
     return `
         <div class="contact-profile">
             <div id="singleLetterProfile" class="single-letter">${source['name'][0]}</div>
-            <div class="h4_edit-delete">
+            <div id="editDelete" class="h4_edit-delete">
                 <h4>${source['name']}</h4>
                 <div class="edit-delete">
                     <span onclick="openClosePopUp('open', true)"><img src="contact-assets/img/edit.png" />Edit</span>

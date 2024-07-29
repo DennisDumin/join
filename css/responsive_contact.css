@@ -67,6 +67,32 @@
 
 @media (max-width: 800px) {
 
+    /* CSS for sliding in from the bottom */
+@keyframes slideIn {
+    from {
+      transform: translateY(100%);
+    }
+  
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  /* CSS for sliding out to the bottom */
+  @keyframes slideOut {
+    from {
+      transform: translateY(0);
+    }
+  
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+    #editDelete {
+        display: none;
+    }
+
     #cancelButton {
         display: none;
     }
@@ -248,4 +274,5 @@
 .mobileEditBtn img:hover {
     cursor: pointer;
 }
+
 
