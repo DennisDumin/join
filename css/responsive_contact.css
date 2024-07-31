@@ -1,7 +1,7 @@
 @media (max-width: 1300px) {
     .popUp {
         width: 70vw;
-    } 
+    }
 }
 
 @media (max-width: 1160px) {
@@ -14,8 +14,8 @@
     }
 
     .popUp {
-        width: 70vw;
-        height: 65vh;
+        width: 80vw;
+        height: 55vh;
 
     }
 
@@ -47,6 +47,10 @@
         width: 100%;
     }
 
+    .text {
+        gap: 24px;
+    }
+
     .layout-wrapper {
         height: 80vh;
     }
@@ -66,6 +70,36 @@
 }
 
 @media (max-width: 800px) {
+
+    /* CSS for sliding in from the bottom */
+    @keyframes slideIn {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    /* CSS for sliding out to the bottom */
+    @keyframes slideOut {
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(100%);
+        }
+    }
+
+    #editDelete {
+        display: none;
+    }
+
+    #cancelButton {
+        display: none;
+    }
 
     .dNone {
         display: none;
@@ -152,6 +186,25 @@
         margin-bottom: 48px;
     }
 
+    .edit-logo-box {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        padding: 0 0 0 12px;
+    }
+
+    .edit-logo {
+        width: 347px;
+        height: auto;
+    }
+}
+
+@media (max-width:500px) {
+    .edit-logo {
+        width: 290px;
+    }
 }
 
 @media (max-width: 450px) {
@@ -168,6 +221,18 @@
 
     .detailed_Content {
         padding: 12px 0 12px 0;
+    }
+
+    .edit-logo {
+        width: 260px;
+    }
+
+    .edit-logo-box {
+        padding: 0;
+    }
+
+    .form input {
+        width: 260px;
     }
 }
 
@@ -204,3 +269,43 @@
     width: 100vw;
     padding: 0 !important;
 }
+
+.mobileAddContactBtn {
+    position: fixed;
+    bottom: 12vh;
+    right: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.mobileAddContactBtn img {
+    object-fit: cover;
+    height: 72px;
+    width: 72px;
+}
+
+.mobileAddContactBtn img:hover {
+    cursor: pointer;
+  }
+
+.mobileEditBtn {
+    position: fixed;
+    bottom: 12vh;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.mobileEditBtn img {
+    object-fit: cover;
+    height: 72px;
+    width: 72px;
+}
+
+.mobileEditBtn img:hover {
+    cursor: pointer;
+  }

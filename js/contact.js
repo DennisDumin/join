@@ -29,6 +29,7 @@ async function loadData() {
 
 
 function renderData(info) {
+    hideMobileAssets();
     let content = document.getElementById('contacts');
     content.innerHTML = '';
 
@@ -319,32 +320,27 @@ async function deleteContact(path = 'contact', id) {
 }
 
 function openClosePopUp(param, key) {
-    hideMobileAssets();
     let target = validatePopUp(key);
     let bgPopUp = document.getElementById(target);
     let popUp = bgPopUp.querySelector('.popUp');
-    let sideBar = document.getElementById('containerSidebar');
-    let header = document.getElementById('header');
 
     if (param === 'open') {
-        paramOpen(bgPopUp,popUp,sideBar,header);
+        paramOpen(bgPopUp,popUp,);
     } else if (param === 'close') {
-        paramClose(bgPopUp,popUp,sideBar,header)
+        paramClose(bgPopUp,popUp,)
     } else {
         param.stopPropagation();
     }
 }
 
-function paramOpen(bgPopUp,popUp,sideBar,header) {
+function paramOpen(bgPopUp,popUp,) {
     bgPopUp.classList.remove('displayNone', 'hide');
     bgPopUp.classList.add('show');
     popUp.classList.remove('slide-out');
     popUp.classList.add('slide-in');
-    sideBar.classList.add('displayNone');
-    header.classList.add('stretch');
 }
 
-function paramClose(bgPopUp,popUp,sideBar,header) {
+function paramClose(bgPopUp,popUp,) {
     popUp.classList.remove('slide-in');
     popUp.classList.add('slide-out');
     bgPopUp.classList.remove('show');
@@ -352,8 +348,6 @@ function paramClose(bgPopUp,popUp,sideBar,header) {
     setTimeout(() => {
         bgPopUp.classList.add('displayNone');
     }, 500);
-    sideBar.classList.remove('displayNone')
-    header.classList.remove('stretch');
 }
 
 function validatePopUp(key) {
@@ -373,6 +367,7 @@ function getRandomColor() {
 function showContactMobile() {
     document.getElementById('contentSection').classList.add('dNone');
     document.getElementById('contactList').classList.remove('displayNone');
+    contactViewed = false;
 }
 
 function contactsBgMenu() {
@@ -385,7 +380,7 @@ function detailedContactHtml(source, contactId) {
     return `
         <div class="contact-profile">
             <div id="singleLetterProfile" class="single-letter">${source['name'][0]}</div>
-            <div class="h4_edit-delete">
+            <div id="editDelete" class="h4_edit-delete">
                 <h4>${source['name']}</h4>
                 <div class="edit-delete">
                     <span onclick="openClosePopUp('open', true)"><img src="contact-assets/img/edit.png" />Edit</span>
