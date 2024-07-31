@@ -5,7 +5,6 @@ let closest
 let formatDate = { year: "numeric", month: "long", day: "numeric" }
 let user
 let number = 15220
-
 async function init() {
   await loadTasks()
   laodLocalStorage()
@@ -34,7 +33,7 @@ async function loadTasks() {
 }
 
 function sortDates() {
-  let priorityHigh = tasks.filter((t) => t["priorityHigh"] == true)
+  let priorityHigh = tasks.filter((t) => t["prio"] == "Urgent")
   for (let i = 0; i < priorityHigh.length; i++) {
     priorityHighDates.push(priorityHigh[i]["date"])
   }
