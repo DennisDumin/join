@@ -229,7 +229,7 @@ function generateAllTasksHTML(element) {
   <div class="card">
    <div id="card-category-title${element["ID"]}" class="card-category-title">${
     element["category"]
-  }</div>
+  } </div>
    <div class="title-description-content">
      <h2 class="card-title">${element["title"]}</h2>
      <p class="card-description">${element["description"]}</p>
@@ -252,58 +252,67 @@ function generateAllTasksHTML(element) {
         }"></div>
       </div>
       <img src="${element["prioIcon"]}" alt="">
+      <!-- Button to open the dropdown menu -->
+      <div class="card-menu">
+        <button onclick="toggleDropdown(${element["ID"]})" class="menu-btn">☰</button>
+        <!-- Dropdown menu -->
+        <div id="dropdown${element["ID"]}" class="dropdown-content">
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'To Do')">To Do</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'In Progress')">In Progress</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Await Feedback')">Await Feedback</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Done')">Done</a>
     </div>
   </div>
   </div>`
 }
 
 function allowDrop(ev) {
-  ev.preventDefault()
+  ev.preventDefault();
 }
 
 function moveTo(phase) {
-  tasks[currentDraggedElement]["phases"] = phase
-  updateHTML()
-  styleOfNoTaskToDo()
-  styleOfNoTaskInProgress()
-  styleOfNoTaskAwaitFeedback()
-  styleOfNoTaskDone()
-  putData("/tasks", tasks)
+  tasks[currentDraggedElement]["phases"] = phase;
+  updateHTML();
+  styleOfNoTaskToDo();
+  styleOfNoTaskInProgress();
+  styleOfNoTaskAwaitFeedback();
+  styleOfNoTaskDone();
+  putData("/tasks", tasks);
 }
 
 function styleOfNoTaskToDo() {
-  let toDoContent = document.getElementById("new-task-to-do")
+  let toDoContent = document.getElementById("new-task-to-do");
   if (toDoContent.childElementCount > 0) {
-    document.getElementById("no-task-to-do").classList.add("hidden")
+    document.getElementById("no-task-to-do").classList.add("hidden");
   } else {
-    document.getElementById("no-task-to-do").classList.remove("hidden")
+    document.getElementById("no-task-to-do").classList.remove("hidden");
   }
 }
 
 function styleOfNoTaskInProgress() {
-  let inProgressContent = document.getElementById("new-task-in-progress")
+  let inProgressContent = document.getElementById("new-task-in-progress");
   if (inProgressContent.childElementCount > 0) {
-    document.getElementById("no-task-in-progress").classList.add("hidden")
+    document.getElementById("no-task-in-progress").classList.add("hidden");
   } else {
-    document.getElementById("no-task-in-progress").classList.remove("hidden")
+    document.getElementById("no-task-in-progress").classList.remove("hidden");
   }
 }
 
 function styleOfNoTaskAwaitFeedback() {
-  let inProgressContent = document.getElementById("new-task-await")
-  if (inProgressContent.childElementCount > 0) {
-    document.getElementById("no-task-await").classList.add("hidden")
+  let awaitFeedbackContent = document.getElementById("new-task-await");
+  if (awaitFeedbackContent.childElementCount > 0) {
+    document.getElementById("no-task-await").classList.add("hidden");
   } else {
-    document.getElementById("no-task-await").classList.remove("hidden")
+    document.getElementById("no-task-await").classList.remove("hidden");
   }
 }
 
 function styleOfNoTaskDone() {
-  let inProgressContent = document.getElementById("new-task-done")
-  if (inProgressContent.childElementCount > 0) {
-    document.getElementById("no-task-done").classList.add("hidden")
+  let doneContent = document.getElementById("new-task-done");
+  if (doneContent.childElementCount > 0) {
+    document.getElementById("no-task-done").classList.add("hidden");
   } else {
-    document.getElementById("no-task-done").classList.remove("hidden")
+    document.getElementById("no-task-done").classList.remove("hidden");
   }
 }
 
