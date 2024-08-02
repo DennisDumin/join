@@ -323,7 +323,7 @@ function checkwidthForAddTask() {
 function updateButtonOnClick() {
   let plusButton = document.getElementsByClassName("plus-btn")
   if (plusButton.length > 0) {
-    if (window.innerWidth <= 1075) {
+    if (window.innerWidth <= 1350) {
       for (let i = 0; i < plusButton.length; i++) {
         plusButton[i].setAttribute(
           "onclick",
