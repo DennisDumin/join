@@ -135,7 +135,7 @@ function subtasksShowRender(taskIndex){
 
 function UpdateProgress(taskIndex) {
   let checkedCount = tasks[taskIndex]['subtasks'].filter(subtask => subtask.completed).length;
-  let totalSubtasks = tasks[taskIndex]["subtasks"].length; // Gesamtanzahl der Subtasks
+  let totalSubtasks = tasks[taskIndex]["subtasks"].length;
 
   let progress = document.getElementById(`progress-bar${taskIndex}`);
   let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
