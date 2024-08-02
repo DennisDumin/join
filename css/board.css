@@ -319,26 +319,29 @@ h1 {
 }
 
 .card-menu {
-  position: relative;
-  display: inline-block;
+  display: none;
 }
 
 .menu-btn {
-  background-color: #4CAF50;
   color: white;
   padding: 5px;
   font-size: 16px;
   border: none;
   cursor: pointer;
+  fill: black;
+  width: 24px;
 }
 
 .dropdown-content {
   display: none;
-  position: absolute;
+  position: fixed; /* Verändere von absolute auf fixed für die zentrale Positionierung */
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 9999; /* Ein hoher Wert, um sicherzustellen, dass das Menü über allen anderen Elementen liegt */
+  left: 50%; /* Zentriert das Menü horizontal */
+  top: 50%; /* Zentriert das Menü vertikal */
+  transform: translate(-50%, -50%); /* Verschiebt das Menü um die Hälfte seiner Breite und Höhe, um es exakt in der Mitte zu platzieren */
 }
 
 .dropdown-content a {
@@ -657,6 +660,14 @@ h1 {
   background-color: #d1d1d1;
   margin-right: 0px;
   height: 24px;
+}
+
+.show-line-content-cardmenu {
+  width: 1px;
+  background-color: #d1d1d1;
+  margin-right: 0px;
+  height: 24px;
+  display: none;
 }
 
 .show-delete-content,

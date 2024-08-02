@@ -252,16 +252,6 @@ function generateAllTasksHTML(element) {
         }"></div>
       </div>
       <img src="${element["prioIcon"]}" alt="">
-      <!-- Button to open the dropdown menu -->
-      <div class="card-menu">
-        <button onclick="toggleDropdown(${element["ID"]})" class="menu-btn">☰</button>
-        <!-- Dropdown menu -->
-        <div id="dropdown${element["ID"]}" class="dropdown-content">
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'To Do')">To Do</a>
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'In Progress')">In Progress</a>
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Await Feedback')">Await Feedback</a>
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Done')">Done</a>
-    </div>
   </div>
   </div>`
 }

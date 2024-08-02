@@ -200,6 +200,15 @@
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .card-menu {
+    display: block;
+  }
+  .show-line-content-cardmenu {
+display: block;
+  }
+}
+
   @media(max-width:550px) {
 
     .board-content {
