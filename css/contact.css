@@ -472,4 +472,13 @@ h4 {
   text-decoration: none;
 }
 
+.input-with-icon {
+  padding-right: 30px; /* Platz für das Icon */
+  background: url('./contact-assets/img/call.png') no-repeat right center;
+  background-size: 20px 20px; /* Größe des Icons */
+  border: 1px solid #ccc; /* Optional: Rand des Input-Feldes */
+  border-radius: 4px; /* Optional: Abgerundete Ecken */
+  height: 40px; /* Optional: Höhe des Input-Feldes */
+}
+
 
