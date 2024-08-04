@@ -197,7 +197,7 @@ function pushTaskElements(title, description, date, prio, category, prioBtn) {
     date: date,
     prio: prio,
     category: category,
-    subtasks: subtasks,
+    subtasks: subtasks.map(subtask => ({ ...subtask, completed: false })),
     phases: "To Do",
     ID: currentId++,
     prioIcon: prioBtn,

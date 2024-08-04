@@ -124,30 +124,43 @@ function heightOfShowTaskAdjust() {
   }
 }
 
-function subtasksShowRender(taskIndex){
+function subtasksShowRender(taskIndex) {
   let content = document.getElementById('subtask-show');
-  content.innerHTML ='';
-  for(let subtaskIndex = 0;  subtaskIndex < tasks[taskIndex]['subtasks'].length; subtaskIndex++){
-    content.innerHTML += `<div class="checkbox-show-content"><input type="checkbox" onclick="UpdateProgress(${taskIndex})" checked id="checkbox${subtaskIndex}">
-    <label class="subtask-show-text">${tasks[taskIndex]['subtasks'][subtaskIndex]}</label></div>`;
+  content.innerHTML = '';
+  for (let subtaskIndex = 0; subtaskIndex < tasks[taskIndex]['subtasks'].length; subtaskIndex++) {
+      content.innerHTML += `<div class="checkbox-show-content">
+          <input type="checkbox" onclick="toggleSubtask(${taskIndex}, ${subtaskIndex})" ${tasks[taskIndex]['subtasks'][subtaskIndex].completed ? 'checked' : ''} id="checkbox${subtaskIndex}">
+          <label class="subtask-show-text">${tasks[taskIndex]['subtasks'][subtaskIndex].name}</label>
+      </div>`;
   }
 }
 
+function toggleSubtask(taskIndex, subtaskIndex) {
+  tasks[taskIndex]['subtasks'][subtaskIndex].completed = !tasks[taskIndex]['subtasks'][subtaskIndex].completed;
+  UpdateProgress(taskIndex);
+}
+
 function UpdateProgress(taskIndex) {
-  let checkedCount = tasks[taskIndex]['subtasks'].filter(subtask => subtask.completed).length;
-  let totalSubtasks = tasks[taskIndex]["subtasks"].length;
+  let subtasks = tasks[taskIndex]['subtasks'];
+  if (!Array.isArray(subtasks)) {
+    subtasks = [];
+  }
+  let checkedCount = subtasks.filter(subtask => subtask.completed).length;
+  let totalSubtasks = subtasks.length;
 
   let progress = document.getElementById(`progress-bar${taskIndex}`);
   let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
 
-  if (checkedCount > 0) {
+  if (totalSubtasks > 0) {
     let progressValue = (checkedCount / totalSubtasks) * 100;
     progress.value = progressValue;
-    numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks} Subtasks`;
+    numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks}`;
   } else {
     progress.value = 0;
-    numberOfSubtask.textContent = `0/${totalSubtasks} Subtasks`;
+    numberOfSubtask.textContent = `0/0`;
   }
+
+  putData(`/tasks/${taskIndex}`, tasks[taskIndex]);
 }
 
 function contactsShowLetterRender(taskIndex) {

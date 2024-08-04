@@ -21,9 +21,9 @@ function emptySubtaskInput() {
 }
 
 function addSubtask() {
-    let subtask = document.getElementById('add-task-subtasks').value;
-    if (subtask.length > 1) {
-        subtasks.push(subtask);
+    let subtaskName = document.getElementById('add-task-subtasks').value;
+    if (subtaskName.length > 1) {
+        subtasks.push({ name: subtaskName, completed: false });
         generateSubtasksList();
         emptySubtaskInput();
     }
@@ -40,17 +40,20 @@ function addSubtaskEnter(){
 }
 
 function generateSubtasksList() {
-    let container = document.getElementById('subtasks-list');
-    container.innerHTML = '';
-    if (subtasks.length > 0) {
-        container.style.display = 'block';
-        for (let i = 0; i < subtasks.length; i++) {
-            const subtask = subtasks[i];
-            container.innerHTML += templateSubtaskListElement(i, subtask);
-        }
-    } else {
-        container.style.display = 'none';
-    }
+    let subtaskList = document.getElementById('subtasks-list');
+    subtaskList.innerHTML = '';
+    subtaskList.style.display = 'block';
+    subtasks.forEach((subtask, index) => {
+        subtaskList.innerHTML += `
+            <div id="subtasks-list-element${index}" class="subtasks-list-element">
+                <li ondblclick="editSubtask(${index})">${subtask.name}</li>
+                <div class="subtasks-icon subtasks-icon-hidden">
+                    <img onclick="editSubtask(${index})" src="./assets/img/icon_edit.svg" alt="Bearbeiten">
+                    <div class="parting-line subtasks-icon-line"></div>
+                    <img onclick="deleteSubtask(${index})" src="./assets/img/icon_delete.svg" alt="Löschen">
+                </div>
+            </div>`;
+    });
 }
 
 function templateSubtaskListElement(i, subtask) {
@@ -71,10 +74,12 @@ function deleteSubtask(i) {
     generateSubtasksList();
 }
 
-function editSubtask(i) {
-    let container = document.getElementById(`subtasks-list-element${i}`);
-    container.classList.add('subtask-edit-container');
-    container.innerHTML = templateEditSubtask(i);
+function editSubtask(index) {
+    let newSubtaskName = prompt("Edit subtask:", subtasks[index].name);
+    if (newSubtaskName !== null && newSubtaskName.length > 1) {
+        subtasks[index].name = newSubtaskName;
+        generateSubtasksList();
+    }
 }
 
 function templateEditSubtask(i) {

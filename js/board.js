@@ -62,28 +62,33 @@ function openAddTask() {
 }
 
 function closeMe() {
-  let dialog2 = document.querySelector(".add-task-board")
-  let dialog = document.querySelector(".show-task")
+  let dialog3 = document.getElementById("add-task-edit");
+  let dialog2 = document.querySelector(".add-task-board");
+  let dialog = document.querySelector(".show-task");
 
-  dialog2.classList.remove("slide-in")
-  dialog2.classList.add("slide-out")
-  dialog.classList.remove("slide-in")
-  dialog.classList.add("slide-out")
+  dialog3.classList.remove("slide-in");
+  dialog3.classList.add("slide-out");
+  dialog2.classList.remove("slide-in");
+  dialog2.classList.add("slide-out");
+  dialog.classList.remove("slide-in");
+  dialog.classList.add("slide-out");
 
   setTimeout(() => {
-    let content = document.getElementById("add-task")
-    let showContent = document.getElementById("show-task")
-    let editContent = document.getElementById("add-task-edit")
-    let overlay = document.getElementsByClassName("overlay")[0]
-    content.classList.add("hidden")
-    showContent.classList.add("hidden")
-    editContent.classList.add("hidden")
-    overlay.classList.add("hidden")
-  }, 500)
-  updateHTML()
-  contacts = []
-  selectedEditContacts = []
-  loadData()
+    let content = document.getElementById("add-task");
+    let showContent = document.getElementById("show-task");
+    let editContent = document.getElementById("add-task-edit");
+    let overlay = document.getElementsByClassName("overlay")[0];
+
+    content.classList.add("hidden");
+    showContent.classList.add("hidden");
+    editContent.classList.add("hidden");
+    overlay.classList.add("hidden");
+  }, 500);
+
+  updateHTML();
+  contacts = [];
+  selectedEditContacts = [];
+  loadData();
 }
 
 function changeColorOfCategoryTitle() {
@@ -185,15 +190,20 @@ function startDragging(id) {
 }
 
 function valueOfProgressBar(taskIndex) {
-  let value
-  if (tasks[taskIndex]["subtasks"].length === 0) {
-    value = 0
-  } else if (tasks[taskIndex]["subtasks"].length === 1) {
-    value = 50
-  } else {
-    value = 100
+  const task = tasks[taskIndex];
+
+  if (!Array.isArray(task["subtasks"])) {
+    task["subtasks"] = [];
   }
-  return value
+
+  const totalSubtasks = task["subtasks"].length;
+  const completedSubtasks = task["subtasks"].filter(subtask => subtask.completed === true).length;
+
+  if (totalSubtasks === 0) {
+    return 0;
+  }
+
+  return (completedSubtasks / totalSubtasks) * 100;
 }
 
 function contactsRender() {
@@ -221,39 +231,31 @@ function contactsRender() {
 }
 
 function generateAllTasksHTML(element) {
-  return ` <div id="card-id${
-    element["ID"]
-  }" draggable="true" ondragstart="startDragging(${
-    element["ID"]
-  })" onclick="showTask(${element["ID"]})">
-  <div class="card">
-   <div id="card-category-title${element["ID"]}" class="card-category-title">${
-    element["category"]
-  } </div>
-   <div class="title-description-content">
-     <h2 class="card-title">${element["title"]}</h2>
-     <p class="card-description">${element["description"]}</p>
-   </div>
-   <div class="progress-bar-content">
-     <progress value="${valueOfProgressBar(
-       element["ID"]
-     )}" max="100" id="progress-bar${element["ID"]}"></progress>
-     <p class="card-subtasks-text"><span id="number-of-subtask${
-       element["ID"]
-     }" class="number-of-subtask">${element["subtasks"].length}/${
-    element["subtasks"].length
-  }</span> Subtasks</p>
-    </div>
-    <div class="card-user-content">
-      <div class="user-container-board">
-        <div class="user-inner-container" id="new-div${element["ID"]}"></div>
-        <div class="number-of-contacts" id="plus-number-contacts${
-          element["ID"]
-        }"></div>
+  return `
+    <div id="card-id${element["ID"]}" draggable="true" ondragstart="startDragging(${element["ID"]})" onclick="showTask(${element["ID"]})">
+      <div class="card">
+        <div id="card-category-title${element["ID"]}" class="card-category-title">${element["category"]}</div>
+        <div class="title-description-content">
+          <h2 class="card-title">${element["title"]}</h2>
+          <p class="card-description">${element["description"]}</p>
+        </div>
+        <div class="progress-bar-content">
+          <progress value="${valueOfProgressBar(element["ID"])}" max="100" id="progress-bar${element["ID"]}"></progress>
+          <p class="card-subtasks-text">
+            <span id="number-of-subtask${element["ID"]}" class="number-of-subtask">
+              ${tasks[element["ID"]].subtasks.filter(subtask => subtask.completed).length}/${tasks[element["ID"]].subtasks.length}
+            </span> Subtasks
+          </p>
+        </div>
+        <div class="card-user-content">
+          <div class="user-container-board">
+            <div class="user-inner-container" id="new-div${element["ID"]}"></div>
+            <div class="number-of-contacts" id="plus-number-contacts${element["ID"]}"></div>
+          </div>
+          <img src="${element["prioIcon"]}" alt="">
+        </div>
       </div>
-      <img src="${element["prioIcon"]}" alt="">
-  </div>
-  </div>`
+    </div>`;
 }
 
 function allowDrop(ev) {

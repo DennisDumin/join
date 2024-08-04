@@ -3,6 +3,7 @@ function openEdit(taskIndex) {
   showContent.classList.add("hidden");
   let editContent = document.getElementById("add-task-edit");
   editContent.classList.remove("hidden");
+  editContent.classList.add("slide-in");
   let overlay = document.getElementsByClassName("overlay")[0];
   overlay.classList.remove("hidden");
 
@@ -76,49 +77,61 @@ function generateInputEditSubtask(taskIndex) {
   <img src="./assets/img/icon_subtasks.svg" class="plus-icon-edit-subtasks" id="plus-edit-icon" onclick="openEditSubtaskIcons()"/>`;
 }
 
-function subtasksEditRender(taskIndex){
+function subtasksEditRender(taskIndex) {
   let content = document.getElementById('new-subtask');
-  content.innerHTML ='';
-  for(let j = 0;  j < tasks[taskIndex]['subtasks'].length; j++){
+  content.innerHTML = '';
+  for (let j = 0; j < tasks[taskIndex]['subtasks'].length; j++) {
+    let subtask = tasks[taskIndex]['subtasks'][j];
     content.innerHTML += `
-  <div class="checkbox-edit-content">
-    <div id="checkbox-edit-content${j}" class="checkbox-show-content">
-      <input type="checkbox" checked id="check-sub${j}">
-      <label id="subtask-edit-text${j}" class="subtask-show-text">${tasks[taskIndex]['subtasks'][j]}</label>
-    </div>
-
-    <div id="edit-input-board-content${j}" class=" subtasks-icon input-subtask-edit-content hidden">
-      <input type ="text" class="edit-input-board" id = "edit-input-board${j}" value =${tasks[taskIndex]['subtasks'][j]}>
-      <div class="edit-buttons-content">
-        <img onclick="deleteEditBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_delete.svg" alt="delete">
-        <div class="parting-line subtasks-icon-line"></div>
-        <img onclick="confirmEdit(${taskIndex}, ${j})" src="./assets/img/icon_done.svg" alt="confirm">
-      </div>
-    </div>
-
-    <div id="subtasks-icon${j}" class="subtasks-icon subtasks-icon-hidden">
-      <img onclick="editBoardSubtask(${j})" src="./assets/img/icon_edit.svg" alt="edit">
-      <div class="parting-line subtasks-icon-line"></div>
-      <img onclick="deleteEditBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_delete.svg" alt="delete">
-    </div>
-  </div> `
-    ;
+      <div class="checkbox-edit-content">
+        <div id="checkbox-edit-content${j}" class="checkbox-show-content">
+          <input type="checkbox" ${subtask.completed ? 'checked' : ''} id="check-sub${j}" onclick="toggleSubtask(${taskIndex}, ${j})">
+          <label id="subtask-edit-text${j}" class="subtask-show-text">${subtask.name}</label>
+        </div>
+        <div id="edit-input-board-content${j}" class="subtasks-icon input-subtask-edit-content hidden">
+          <input type="text" class="edit-input-board" id="edit-input-board${j}" value="${subtask.name}">
+          <div class="edit-buttons-content">
+            <img onclick="deleteEditBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_delete.svg" alt="delete">
+            <div class="parting-line subtasks-icon-line"></div>
+            <img onclick="confirmEdit(${taskIndex}, ${j})" src="./assets/img/icon_done.svg" alt="confirm">
+          </div>
+        </div>
+        <div id="subtasks-icon${j}" class="subtasks-icon subtasks-icon-hidden">
+          <img onclick="editBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_edit.svg" alt="edit">
+          <div class="parting-line subtasks-icon-line"></div>
+          <img onclick="deleteEditBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_delete.svg" alt="delete">
+        </div>
+      </div>`;
   }
 }
 
-function confirmEdit(taskIndex, subtaskIndex){
-  let inputSubtask = document.getElementById(`edit-input-board${subtaskIndex}`).value;
-  deleteEditBoardSubtask(taskIndex, subtaskIndex);
-  if(!Array.isArray(tasks[taskIndex].subtasks)){
+function confirmEdit(taskIndex, subtaskIndex) {
+  let inputSubtask = document.getElementById(`edit-input-board${subtaskIndex}`).value.trim();
+
+  // Überprüfen, ob das Eingabefeld leer ist
+  if (inputSubtask === "") {
+    return;
+  }
+
+  // Initialisiere die Subtasks-Liste, falls noch nicht vorhanden
+  if (!Array.isArray(tasks[taskIndex].subtasks)) {
     tasks[taskIndex].subtasks = [];
   }
-  tasks[taskIndex]["subtasks"].push(inputSubtask);
+
+  // Update den Subtask an der gegebenen Indexposition
+  tasks[taskIndex].subtasks[subtaskIndex] = { name: inputSubtask, completed: false };
+
+  // Generiere die aktualisierte Liste der Subtasks
   subtasksEditRender(taskIndex);
+
+  // Aktualisiere den Fortschritt
+  UpdateProgress(taskIndex);
+
+  // Speichere die Änderungen
   putData("/tasks", tasks);
-  inputSubtask ="";
 }
 
-function editBoardSubtask(taskIndex){
+function editBoardSubtask(subtaskIndex, taskIndex) {
   document.getElementById(`edit-input-board-content${taskIndex}`).classList.remove('hidden');
   document.getElementById(`checkbox-edit-content${taskIndex}`).classList.add('hidden');
   document.getElementById(`subtasks-icon${taskIndex}`).classList.add('hidden');
@@ -133,9 +146,11 @@ function deleteEditBoardSubtask(taskIndex, subtaskIndex){
       tasks[taskIndex].subtasks = "";
     }
     subtasksEditRender(taskIndex);
+    UpdateProgress(taskIndex);
   }else{
     tasks[taskIndex]["subtasks"].splice(subtaskIndex, 1);
     subtasksEditRender(taskIndex);
+    UpdateProgress(taskIndex);
   }
   putData("/tasks", tasks);
 }
@@ -150,43 +165,60 @@ function closeEditSubtaskIcons() {
   document.getElementById('plus-edit-icon').classList.remove('d-none');
 }
 
-function addEditSubtasks(taskIndex){
-  let inputSubtask = document.getElementById(`add-task-edit-subtasks${taskIndex}`).value;
-      if(inputSubtask.trim() === ""){
-        return;
-      }else{
-        if(!Array.isArray(tasks[taskIndex].subtasks)){
-          tasks[taskIndex].subtasks = [];
-        }
-        if(tasks[taskIndex]["subtasks"].length === 2){
-          tasks[taskIndex]["subtasks"].pop();
-          tasks[taskIndex]["subtasks"].push(inputSubtask);
-        }else{
-          tasks[taskIndex]["subtasks"].push(inputSubtask);
-        }
-        generateEditSubtask(taskIndex);
-        putData("/tasks", tasks);
-        inputSubtask ="";
-      }
-      subtasksEditRender(taskIndex);
+function addEditSubtasks(taskIndex) {
+  let inputSubtask = document.getElementById(`add-task-edit-subtasks${taskIndex}`).value.trim();
+
+  // Überprüfen, ob das Eingabefeld leer ist
+  if (inputSubtask === "") {
+    return;
+  }
+
+  // Initialisiere die Subtasks-Liste, falls noch nicht vorhanden
+  if (!Array.isArray(tasks[taskIndex].subtasks)) {
+    tasks[taskIndex].subtasks = [];
+  }
+
+  // Füge den neuen Subtask hinzu
+  tasks[taskIndex].subtasks.push({ name: inputSubtask, completed: false });
+
+  // Generiere die aktualisierte Liste der Subtasks
+  subtasksEditRender(taskIndex);
+
+  // Aktualisiere den Fortschritt
+  UpdateProgress(taskIndex);
+
+  // Speichere die Änderungen
+  putData("/tasks", tasks);
+
+  // Leere das Eingabefeld
+  document.getElementById(`add-task-edit-subtasks${taskIndex}`).value = "";
 }
 
-function generateEditSubtask(taskIndex){
+function generateEditSubtask(taskIndex) {
   let list = document.getElementById('new-subtask');
   list.innerHTML = '';
-  for(let i= 0; i < tasks[taskIndex]["subtasks"].length; i++){
+  for (let i = 0; i < tasks[taskIndex]["subtasks"].length; i++) {
+    let subtask = tasks[taskIndex]["subtasks"][i];
     list.innerHTML += `
-    <div class="checkbox-edit-content">
-      <div class="checkbox-show-content">
-        <input type="checkbox" checked>
-        <label class="subtask-show-text">${tasks[taskIndex]["subtasks"][i]}</label>
-      </div>
-      <div class="subtasks-icon subtasks-icon-hidden">
-        <img onclick="editBoardSubtask(${taskIndex})" src="./assets/img/icon_edit.svg" alt="Bearbeiten">
-        <div class="parting-line subtasks-icon-line"></div>
-        <img onclick="deleteEditBoardSubtask(${taskIndex})" src="./assets/img/icon_delete.svg" alt="Delete">
-      </div>
-    </div> `;
+      <div class="checkbox-edit-content">
+        <div id="checkbox-edit-content${i}" class="checkbox-show-content">
+          <input type="checkbox" ${subtask.completed ? 'checked' : ''} id="check-sub${i}">
+          <label id="subtask-edit-text${i}" class="subtask-show-text">${subtask.name}</label>
+        </div>
+        <div id="edit-input-board-content${i}" class="subtasks-icon input-subtask-edit-content hidden">
+          <input type="text" class="edit-input-board" id="edit-input-board${i}" value="${subtask.name}">
+          <div class="edit-buttons-content">
+            <img onclick="deleteEditBoardSubtask(${taskIndex}, ${i})" src="./assets/img/icon_delete.svg" alt="delete">
+            <div class="parting-line subtasks-icon-line"></div>
+            <img onclick="confirmEdit(${taskIndex}, ${i})" src="./assets/img/icon_done.svg" alt="confirm">
+          </div>
+        </div>
+        <div id="subtasks-icon${i}" class="subtasks-icon subtasks-icon-hidden">
+          <img onclick="editBoardSubtask(${taskIndex}, ${i})" src="./assets/img/icon_edit.svg" alt="edit">
+          <div class="parting-line subtasks-icon-line"></div>
+          <img onclick="deleteEditBoardSubtask(${taskIndex}, ${i})" src="./assets/img/icon_delete.svg" alt="delete">
+        </div>
+      </div>`;
   }
 }
 
@@ -195,6 +227,7 @@ async function saveEditTask() {
   let hiddenInput = document.getElementById("hidden-input").value;
   let description = document.getElementById("add-task-edit-description").value;
   let date = document.getElementById("task-edit-date").value;
+  
   if (title.trim() === "" || date.trim() === "") {
     return;
   } else {
@@ -205,18 +238,26 @@ async function saveEditTask() {
         tasks[i].date = date;
         tasks[i].prioIcon = prioBtn;
         tasks[i].prio = prioText;
-        if(selectedEditContacts.length > 0){
+        if (selectedEditContacts.length > 0) {
           tasks[i]["contacts"].splice(0, tasks[i]["contacts"].length);
           tasks[i]["contacts"].push(...selectedEditContacts);
         }
+        ensureSubtasksArray(tasks[i]);
         keepPrioButton(i);
         break;
       }
     }
   }
-  await  putData("/tasks", tasks);
-  await updateHTML();
-  await closeMe();
+  
+  await putData("/tasks", tasks);
+   updateHTML();
+   closeMe();
+}
+
+function ensureSubtasksArray(task) {
+  if (!Array.isArray(task.subtasks)) {
+    task.subtasks = [];
+  }
 }
 
 function keepPrioButton(taskIndex){
