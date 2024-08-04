@@ -10,6 +10,7 @@ let contactViewed = false;
 
 const colors = generateColors(20);
 
+// Loads data from a server and initializes the application
 async function loadData() {
     try {
         let response = await fetch(BASE_URL + '.json');
@@ -27,7 +28,7 @@ async function loadData() {
     }
 }
 
-
+// Renders contact data on the page
 function renderData(info) {
     hideMobileAssets();
     let content = document.getElementById('contacts');
@@ -44,6 +45,7 @@ function renderData(info) {
     contactsBgMenu();
 }
 
+// Groups and sorts contacts alphabetically by their names
 function groupAndSortContacts(info) {
     let groupedContacts = Object.keys(info).reduce((groups, id) => {
         const contact = info[id];
@@ -64,6 +66,7 @@ function groupAndSortContacts(info) {
     return groupedContacts;
 }
 
+// Renders a group of contacts under a specific letter
 function renderGroup(content, letter, contacts) {
     content.innerHTML += `<h3 class="letter">${letter}</h3>`;
     contacts.forEach(contact => {
@@ -71,47 +74,36 @@ function renderGroup(content, letter, contacts) {
     });
 }
 
+// Renders a single contact
 function renderContact(content, contact) {
     const contactColor = contact.color || getRandomColor();
-    content.innerHTML += `
-        <div onclick="renderDetailedContact('${contact.id}')" id="${contact.id}" class="contactCard">
-             <div id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${contact.name[0]}</div>
-             <div class="fullName-email">
-               <span>${contact.name}</span>
-               <a class="email" href="#">${contact.email}</a>
-             </div>
-        </div>
-    `;
+    content.innerHTML += renderContactHtml(contactColor, contact);
 }
 
+// Gets the initials of a name
 function getInitials(name) {
     return name.split(' ').map(word => word.charAt(0).toUpperCase()).join(' ');
 }
 
+// Renders detailed contact information
 function renderDetailedContact(contactId) {
     let source = material[0][contactId];
-    
-    // Entferne die blaue Hintergrundklasse vom vorherigen bearbeiteten Kontakt
+
     if (keyForEdit !== null) {
         document.getElementById(keyForEdit).classList.remove('blueBackground');
     }
-    
-    // Setze den neuen bearbeiteten Kontakt als aktuellen
+
     keyForEdit = contactId;
-    
-    // Füge die blaue Hintergrundklasse zum aktuellen bearbeiteten Kontakt hinzu
     document.getElementById(keyForEdit).classList.add('blueBackground');
-    
-    // Render das Kontakt-Detailprofil
+
     let target = document.getElementById('content');
     target.innerHTML = detailedContactHtml(source, contactId);
     fillEditPopUp(source);
     checkUserMaxWidth();
-    
-    // Setze die Hintergrundfarbe des single-letter Profils
     setSingleLetterBackgroundColor(contactId);
 }
 
+// Fills the edit popup with contact data
 function fillEditPopUp(source) {
     document.getElementById('letterForPopUp').innerHTML = `${source['name'][0]}`;
     document.getElementById('editEmail').value = source['email'];
@@ -119,16 +111,17 @@ function fillEditPopUp(source) {
     document.getElementById('editName').value = source['name'];
 }
 
+// Sets the background color of the single-letter profile
 function setSingleLetterBackgroundColor(contactId) {
     let source = material[0][contactId];
-    
     let singleLetterElement = document.getElementById('singleLetterProfile');
     if (singleLetterElement) {
-        let contactColor = source.color || getRandomColor(); // Verwende die vorhandene Farbe oder generiere eine neue
+        let contactColor = source.color || getRandomColor();
         singleLetterElement.style.backgroundColor = contactColor;
     }
 }
 
+// Adds a new contact
 function addContact() {
     stopWindowReload('new');
 
@@ -146,10 +139,11 @@ function addContact() {
     postNewContact('contact');
 }
 
+// Generates a list of random colors
 function generateColors(numColors) {
     const colors = [];
-    const letters = '0123456789ABCDEF'; // Hexadezimal-Ziffern für Farbcodes
-    const brightnessThreshold = 128; // Helligkeitsschwelle für den Text
+    const letters = '0123456789ABCDEF';
+    const brightnessThreshold = 128;
 
     for (let i = 0; i < numColors; i++) {
         let color;
@@ -166,17 +160,17 @@ function generateColors(numColors) {
     return colors;
 }
 
+// Calculates the brightness of a color
 function getColorBrightness(color) {
-    // Entferne das führende '#' und parse die Farbkomponenten
     let hex = color.substring(1);
     let r = parseInt(hex.substring(0, 2), 16);
     let g = parseInt(hex.substring(2, 4), 16);
     let b = parseInt(hex.substring(4, 6), 16);
 
-    // Helligkeit berechnen (Luminanzmethode)
     return (0.2126 * r + 0.7152 * g + 0.0722 * b);
 }
 
+// Gets the next color from the list of generated colors
 function getNextColor() {
     const color = colors[colorIndex % colors.length];
     colorIndex++;
@@ -184,6 +178,7 @@ function getNextColor() {
     return color;
 }
 
+// Posts a new contact to the server
 async function postNewContact(path) {
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -198,8 +193,6 @@ async function postNewContact(path) {
         });
         if (response.ok) {
             console.log('Contact saved successfully');
-            
-            // Änderung hier: Speichern des aktuellen colorIndex in Firebase nach erfolgreicher Speicherung des Kontakts
             saveColorIndex();
         } else {
             console.error('Failed to save contact');
@@ -208,6 +201,7 @@ async function postNewContact(path) {
     window.location.reload();
 }
 
+// Saves the current color index to the server
 function saveColorIndex() {
     fetch(BASE_URL + 'colorIndex.json', {
         method: "PUT",
@@ -225,11 +219,13 @@ function saveColorIndex() {
     .catch(error => console.error('Error updating color index:', error));
 }
 
+// Saves the highlight key to local storage
 function saveForBackground() {
     let asTexthighlightKey = JSON.stringify(highlightKey);
     localStorage.setItem('highlightKey', asTexthighlightKey);
 }
 
+// Highlights the new contact background
 function newContactBgHighlight() {
     let asTexthighlightKey = localStorage.getItem('highlightKey')
 
@@ -244,6 +240,7 @@ function newContactBgHighlight() {
     scrollToNewDiv();
 }
 
+// Searches for a name in the material array
 function searchNameInMaterialArray() {
     let nameData = material[0]
 
@@ -254,6 +251,7 @@ function searchNameInMaterialArray() {
     }
 }
 
+// Scrolls to the new contact div
 function scrollToNewDiv() {
     document.getElementById(keyForEdit).scrollIntoView({
         behavior: 'smooth',
@@ -261,6 +259,7 @@ function scrollToNewDiv() {
       });
 }
 
+// Updates a contact
 async function UpdateContact() {
     stopWindowReload('update');
     array.length = 0;
@@ -275,6 +274,7 @@ async function UpdateContact() {
     window.location.reload();
 }
 
+// Edits a contact
 function editContact() {
     let email = document.getElementById('editEmail');
     let name = document.getElementById('editName');
@@ -288,6 +288,7 @@ function editContact() {
     return data;
 }
 
+// Prevents the window from reloading on form submission
 function stopWindowReload(key) {
     let target;
     if (key == 'new') {
@@ -300,7 +301,7 @@ function stopWindowReload(key) {
     });
 }
 
-
+// Deletes a contact
 async function deleteContact(path = 'contact', id) {
     try {
         const url = `${BASE_URL}${path}/${id}.json`;
@@ -319,28 +320,31 @@ async function deleteContact(path = 'contact', id) {
     }
 }
 
+// Opens or closes a popup
 function openClosePopUp(param, key) {
     let target = validatePopUp(key);
     let bgPopUp = document.getElementById(target);
     let popUp = bgPopUp.querySelector('.popUp');
 
     if (param === 'open') {
-        paramOpen(bgPopUp,popUp,);
+        paramOpen(bgPopUp, popUp);
     } else if (param === 'close') {
-        paramClose(bgPopUp,popUp,)
+        paramClose(bgPopUp, popUp);
     } else {
         param.stopPropagation();
     }
 }
 
-function paramOpen(bgPopUp,popUp,) {
+// Opens a popup
+function paramOpen(bgPopUp, popUp) {
     bgPopUp.classList.remove('displayNone', 'hide');
     bgPopUp.classList.add('show');
     popUp.classList.remove('slide-out');
     popUp.classList.add('slide-in');
 }
 
-function paramClose(bgPopUp,popUp,) {
+// Closes a popup
+function paramClose(bgPopUp, popUp) {
     popUp.classList.remove('slide-in');
     popUp.classList.add('slide-out');
     bgPopUp.classList.remove('show');
@@ -350,10 +354,12 @@ function paramClose(bgPopUp,popUp,) {
     }, 500);
 }
 
+// Validates the popup key
 function validatePopUp(key) {
     return key ? 'backgroundPopUpEdit' : 'backgroundPopUp';
 }
 
+// Gets a random color
 function getRandomColor() {
     const letters = '89ABCDEF';
     let color = '#';
@@ -364,37 +370,16 @@ function getRandomColor() {
     return color;
 }
 
+// Shows the contact list on mobile
 function showContactMobile() {
     document.getElementById('contentSection').classList.add('dNone');
     document.getElementById('contactList').classList.remove('displayNone');
     contactViewed = false;
 }
 
+// Adds background focus to the contacts menu
 function contactsBgMenu() {
     document.getElementById('link-contact').classList.add('bg-focus');
-  }
-
-// html
-
-function detailedContactHtml(source, contactId) {
-    return `
-        <div class="contact-profile">
-            <div id="singleLetterProfile" class="single-letter">${source['name'][0]}</div>
-            <div id="editDelete" class="h4_edit-delete">
-                <h4>${source['name']}</h4>
-                <div class="edit-delete">
-                    <span onclick="openClosePopUp('open', true)"><img src="contact-assets/img/edit.png" />Edit</span>
-                    <span onclick="deleteContact('contact', '${contactId}')"><img src="contact-assets/img/delete.png" />Delete</span>
-                </div>
-            </div>
-        </div>
-        <div class="pers-info">
-            <b>Email</b>
-            <a href="#">${source['email']}</a>
-        </div>
-        <div class="pers-info">
-            <span><b>Phone</b></span>
-            <span>${source['telefonnummer']}</span>
-        </div>
-    `;
 }
+
+
