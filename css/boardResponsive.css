@@ -1,6 +1,24 @@
 /*Responsive*/
 
-@media (max-width: 1250px) {
+@media (max-width: 1550px) {
+
+  .board-management-content {
+    width: 1100px;
+}
+}
+
+@media (max-width: 1450px) {
+
+  .board-management-content {
+    width: 1000px;
+}
+}
+
+@media (max-width: 1350px) {
+
+  .board-management-content {
+    width: 100%;
+}
   .add-task-top {
     gap: 0 !important;
     height: 600px;
@@ -13,10 +31,8 @@
   .add-task-bottom {
     padding-left: 0 !important;
   }
-}
 
-@media (max-width: 1230px) {
-  .add-task-button-responsive {
+.add-task-button-responsive {
     display: block;
     display: flex;
     align-items: center;
@@ -69,15 +85,11 @@
   height: 100%;
 }
 
-}
 
-@media(max-width:1024px) {
   .board-section {
     height: 80vh;
 }
-}
 
-@media(max-width:1005px) {
   .inner-management-content {
     width: 100%;
   }
@@ -181,7 +193,6 @@
 
   .add-task-bottom {
     bottom: 0 !important;
-    /* wird nicht überschrieben da schon important ist */
   }
 
   .add-task-board {
@@ -189,7 +200,20 @@
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .card-menu {
+    display: block;
+  }
+  .show-line-content-cardmenu {
+display: block;
+  }
+}
+
   @media(max-width:550px) {
+
+    .prio-buttons button {
+      font-size: 16px !important;
+    }
 
     .board-content {
       padding: 0 12px 0 12px;

@@ -48,8 +48,62 @@ function generateShowTask(taskIndex) {
         <i class="fa fa-edit" style="font-size:24px"></i>
         <button>Edit</button>
       </div>
+      <div class="show-line-content-cardmenu"></div>
+        <!-- Button to open the dropdown menu -->
+      <div class="card-menu">
+     <i class="fa fa-arrows-alt" style="font-size:20px; cursor:pointer; display: flex; align-items: center;" onclick="toggleDropdown(${taskIndex})"><button>Move to</button></i>
+        <!-- Dropdown menu -->
+        <div id="dropdown${taskIndex}" class="dropdown-content">
+          <a href="#" onclick="moveToCategory(${taskIndex}, 'To Do')">To Do</a>
+          <a href="#" onclick="moveToCategory(${taskIndex}, 'In progress')">In Progress</a>
+          <a href="#" onclick="moveToCategory(${taskIndex}, 'Await feedback')">Await Feedback</a>
+          <a href="#" onclick="moveToCategory(${taskIndex}, 'Done')">Done</a>
+    </div>
   </div> 
   `;
+}
+
+function moveToCategory(taskIndex, newCategory) {
+  // Aktualisiere die Kategorie der Aufgabe
+  //tasks[taskIndex]["phases"] = newCategory;
+
+  // Verschiebe die Aufgabe in die neue Kategorie
+  moveToPhase(taskIndex, newCategory);
+
+  // Schließe das Dropdown-Menü
+  document.getElementById(`dropdown${taskIndex}`).classList.remove("show");
+}
+
+function toggleDropdown(id) {
+  const dropdown = document.getElementById(`dropdown${id}`);
+  dropdown.classList.toggle("show");
+  
+  // Entferne vorherige Event-Listener, um mehrfaches Hinzufügen zu vermeiden
+  window.removeEventListener('click', closeDropdownMenu);
+
+  window.addEventListener('click', function(event) {
+    closeDropdownMenu(event, id);
+  });
+}
+
+function moveToPhase(currentDraggedElement, phase) {
+  tasks[currentDraggedElement]["phases"] = phase;
+  updateHTML();
+  styleOfNoTaskToDo();
+  styleOfNoTaskInProgress();
+  styleOfNoTaskAwaitFeedback();
+  styleOfNoTaskDone();
+  putData("/tasks", tasks);
+}
+
+
+function closeDropdownMenu(event, id) {
+  const dropdown = document.getElementById(`dropdown${id}`);
+  const cardMenu = document.querySelector(`.card-menu`);
+  
+  if (!cardMenu.contains(event.target) && !dropdown.contains(event.target)) {
+    dropdown.classList.remove("show");
+  }
 }
 
 function slideInTask() {
@@ -81,7 +135,7 @@ function subtasksShowRender(taskIndex){
 
 function UpdateProgress(taskIndex) {
   let checkedCount = tasks[taskIndex]['subtasks'].filter(subtask => subtask.completed).length;
-  let totalSubtasks = tasks[taskIndex]["subtasks"].length; // Gesamtanzahl der Subtasks
+  let totalSubtasks = tasks[taskIndex]["subtasks"].length;
 
   let progress = document.getElementById(`progress-bar${taskIndex}`);
   let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);

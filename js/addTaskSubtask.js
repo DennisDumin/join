@@ -42,9 +42,14 @@ function addSubtaskEnter(){
 function generateSubtasksList() {
     let container = document.getElementById('subtasks-list');
     container.innerHTML = '';
-    for (let i = 0; i < subtasks.length; i++) {
-        const subtask = subtasks[i];
-        container.innerHTML += templateSubtaskListElement(i, subtask);
+    if (subtasks.length > 0) {
+        container.style.display = 'block';
+        for (let i = 0; i < subtasks.length; i++) {
+            const subtask = subtasks[i];
+            container.innerHTML += templateSubtaskListElement(i, subtask);
+        }
+    } else {
+        container.style.display = 'none';
     }
 }
 
