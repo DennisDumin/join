@@ -1,5 +1,7 @@
-
-// Define a function to check if the window width is less than or equal to the mobileWidth (800px).
+/**
+ * Checks if the window width is less than or equal to the mobile width (800px)
+ * and performs specific actions if it is.
+ */
 function checkUserMaxWidth() {
     const mobileWidth = 800;
 
@@ -12,12 +14,16 @@ function checkUserMaxWidth() {
     }
 }
 
-// Add an event listener to the window that triggers on resize and calls the hideMobileAssets function.
+/**
+ * Adds an event listener to the window that triggers on resize and calls the hideMobileAssets function.
+ */
 window.addEventListener('resize', hideMobileAssets)
 
-// Define a function to hide or show mobile assets based on the window width.
+/**
+ * Hides or shows mobile assets based on the window width.
+ */
 function hideMobileAssets() {
-    checkIfContactViewed() // Check if the contact view has been seen.
+    checkIfContactViewed(); // Check if the contact view has been seen.
 
     // If the viewport width is greater than 800px, perform the following actions.
     if (window.innerWidth > 800) {
@@ -35,9 +41,13 @@ function hideMobileAssets() {
     }
 }
 
-// Define a function to change the mobile button state based on the parameter.
+/**
+ * Changes the mobile button state based on the parameter.
+ *
+ * @param {string} param - The state to change the mobile button to ('add' or 'remove').
+ */
 function changeMobileButton(param) {
-    if(param === 'add') { // If the parameter is 'add', perform the following actions.
+    if (param === 'add') { // If the parameter is 'add', perform the following actions.
         document.getElementById('mobileAddContact').classList.add('displayNone'); // Hide the mobile add contact button.
         document.getElementById('mobileEditBtn').classList.add('displayNone'); // Hide the mobile edit button.
     } else if (param === 'remove') { // If the parameter is 'remove', perform the following actions.
@@ -46,7 +56,9 @@ function changeMobileButton(param) {
     }
 }
 
-// Define a function to check if the contact view has been seen and adjust the contact list visibility accordingly.
+/**
+ * Checks if the contact view has been seen and adjusts the contact list visibility accordingly.
+ */
 function checkIfContactViewed() {
     if (contactViewed === true) { // If the contact view has been seen, perform the following actions.
         if (window.innerWidth > 800) { // If the viewport width is greater than 800px, show the contact list.
@@ -57,7 +69,9 @@ function checkIfContactViewed() {
     }
 }
 
-// Add an event listener that triggers when the DOM content is fully loaded.
+/**
+ * Adds event listeners that trigger when the DOM content is fully loaded and handle image hover effects.
+ */
 document.addEventListener('DOMContentLoaded', (event) => {
     // Get the element with the ID 'mobileAddContactImg'.
     const img = document.getElementById('mobileAddContactImg');
@@ -77,7 +91,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     } 
 });
 
-// Add another event listener that triggers when the DOM content is fully loaded.
+/**
+ * Adds event listeners that trigger when the DOM content is fully loaded and handle image hover effects.
+ */
 document.addEventListener('DOMContentLoaded', (event) => {
     // Get the element with the ID 'mobileEditBtnImg'.
     const img2 = document.getElementById('mobileEditBtnImg');
