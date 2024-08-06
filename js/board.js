@@ -192,12 +192,12 @@ function startDragging(id) {
 function valueOfProgressBar(taskIndex) {
   const task = tasks[taskIndex];
 
-  if (!Array.isArray(task["subtasks"])) {
-    task["subtasks"] = [];
+  if (!task || !Array.isArray(task["subtasks"])) {
+    return 0;
   }
 
   const totalSubtasks = task["subtasks"].length;
-  const completedSubtasks = task["subtasks"].filter(subtask => subtask.completed === true).length;
+  const completedSubtasks = task["subtasks"].filter(subtask => subtask.completed).length;
 
   if (totalSubtasks === 0) {
     return 0;
@@ -231,6 +231,7 @@ function contactsRender() {
 }
 
 function generateAllTasksHTML(element) {
+  const subtasks = Array.isArray(element.subtasks) ? element.subtasks : [];
   return `
     <div id="card-id${element["ID"]}" draggable="true" ondragstart="startDragging(${element["ID"]})" onclick="showTask(${element["ID"]})">
       <div class="card">
@@ -239,14 +240,15 @@ function generateAllTasksHTML(element) {
           <h2 class="card-title">${element["title"]}</h2>
           <p class="card-description">${element["description"]}</p>
         </div>
+        ${subtasks.length > 0 ? `
         <div class="progress-bar-content">
           <progress value="${valueOfProgressBar(element["ID"])}" max="100" id="progress-bar${element["ID"]}"></progress>
           <p class="card-subtasks-text">
             <span id="number-of-subtask${element["ID"]}" class="number-of-subtask">
-              ${tasks[element["ID"]].subtasks.filter(subtask => subtask.completed).length}/${tasks[element["ID"]].subtasks.length}
+              ${subtasks.filter(subtask => subtask.completed).length}/${subtasks.length}
             </span> Subtasks
           </p>
-        </div>
+        </div>` : ''}
         <div class="card-user-content">
           <div class="user-container-board">
             <div class="user-inner-container" id="new-div${element["ID"]}"></div>

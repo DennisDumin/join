@@ -127,6 +127,11 @@ function heightOfShowTaskAdjust() {
 function subtasksShowRender(taskIndex) {
   let content = document.getElementById('subtask-show');
   content.innerHTML = '';
+
+  if (!Array.isArray(tasks[taskIndex]['subtasks'])) {
+    tasks[taskIndex]['subtasks'] = [];
+  }
+
   for (let subtaskIndex = 0; subtaskIndex < tasks[taskIndex]['subtasks'].length; subtaskIndex++) {
       content.innerHTML += `<div class="checkbox-show-content">
           <input type="checkbox" onclick="toggleSubtask(${taskIndex}, ${subtaskIndex})" ${tasks[taskIndex]['subtasks'][subtaskIndex].completed ? 'checked' : ''} id="checkbox${subtaskIndex}">
@@ -151,16 +156,20 @@ function UpdateProgress(taskIndex) {
   let progress = document.getElementById(`progress-bar${taskIndex}`);
   let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
 
-  if (totalSubtasks > 0) {
-    let progressValue = (checkedCount / totalSubtasks) * 100;
-    progress.value = progressValue;
-    numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks}`;
-  } else {
-    progress.value = 0;
-    numberOfSubtask.textContent = `0/0`;
-  }
+  if (progress && numberOfSubtask) {
+    if (totalSubtasks > 0) {
+      let progressValue = (checkedCount / totalSubtasks) * 100;
+      progress.value = progressValue;
+      numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks}`;
+    } else {
+      progress.value = 0;
+      numberOfSubtask.textContent = `0/0`;
+    }
 
-  putData(`/tasks/${taskIndex}`, tasks[taskIndex]);
+    putData(`/tasks/${taskIndex}`, tasks[taskIndex]);
+  } else {
+    console.error(`Elemente nicht gefunden: progress-bar${taskIndex} oder number-of-subtask${taskIndex}`);
+  }
 }
 
 function contactsShowLetterRender(taskIndex) {

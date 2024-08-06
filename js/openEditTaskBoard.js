@@ -227,7 +227,7 @@ async function saveEditTask() {
   let hiddenInput = document.getElementById("hidden-input").value;
   let description = document.getElementById("add-task-edit-description").value;
   let date = document.getElementById("task-edit-date").value;
-  
+
   if (title.trim() === "" || date.trim() === "") {
     return;
   } else {
@@ -239,19 +239,19 @@ async function saveEditTask() {
         tasks[i].prioIcon = prioBtn;
         tasks[i].prio = prioText;
         if (selectedEditContacts.length > 0) {
-          tasks[i]["contacts"].splice(0, tasks[i]["contacts"].length);
-          tasks[i]["contacts"].push(...selectedEditContacts);
+          tasks[i]["contacts"] = selectedEditContacts.slice();
         }
         ensureSubtasksArray(tasks[i]);
+        tasks[i]["subtasks"] = Array.isArray(subtasks) ? subtasks : [];
         keepPrioButton(i);
         break;
       }
     }
   }
-  
+
   await putData("/tasks", tasks);
-   updateHTML();
-   closeMe();
+  updateHTML();
+  closeMe();
 }
 
 function ensureSubtasksArray(task) {

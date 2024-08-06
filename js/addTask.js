@@ -184,12 +184,12 @@ function getPrio() {
 
 function pushTaskElements(title, description, date, prio, category, prioBtn) {
   if (selectedContacts.length < 1) {
-    selectedContacts = ""
+    selectedContacts = [];
   }
   if (subtasks.length < 1) {
-    subtasks = ""
+    subtasks = [];
   }
-  let currentId = tasks.length
+  let currentId = tasks.length;
   tasks.push({
     title: title,
     description: description,
@@ -201,7 +201,7 @@ function pushTaskElements(title, description, date, prio, category, prioBtn) {
     phases: "To Do",
     ID: currentId++,
     prioIcon: prioBtn,
-  })
+  });
 }
 
 async function saveTask() {
