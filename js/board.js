@@ -208,24 +208,28 @@ function valueOfProgressBar(taskIndex) {
 
 function contactsRender() {
   for (let i = 0; i < tasks.length; i++) {
-    let maxContacts = 3
-    let content = document.getElementById(`new-div${i}`)
-    for (
-      let j = 0;
-      j < Math.min(tasks[i]["contacts"].length, maxContacts);
-      j++
-    ) {
-      let nameParts = tasks[i]["contacts"][j]["name"].split(" ")
-      let initials = nameParts
-        .map((part) => part.charAt(0).toUpperCase())
-        .join("")
-      content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]["contacts"][j]["color"]};">${initials}</div>`
-    }
-    if (tasks[i]["contacts"].length > maxContacts) {
-      let additionalContacts = tasks[i]["contacts"].length - maxContacts
-      let numberOfContacts = document.getElementById(`plus-number-contacts${i}`)
-      numberOfContacts.innerHTML = ""
-      numberOfContacts.innerHTML = `+${additionalContacts}`
+    let maxContacts = 3;
+    let content = document.getElementById(`new-div${i}`);
+    content.innerHTML = ""; 
+
+    if (tasks[i]["contacts"] && Array.isArray(tasks[i]["contacts"])) {
+      for (
+        let j = 0;
+        j < Math.min(tasks[i]["contacts"].length, maxContacts);
+        j++
+      ) {
+        let nameParts = tasks[i]["contacts"][j]["name"].split(" ");
+        let initials = nameParts
+          .map((part) => part.charAt(0).toUpperCase())
+          .join("");
+        content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]["contacts"][j]["color"]};">${initials}</div>`;
+      }
+
+      if (tasks[i]["contacts"].length > maxContacts) {
+        let additionalContacts = tasks[i]["contacts"].length - maxContacts;
+        let numberOfContacts = document.getElementById(`plus-number-contacts${i}`);
+        numberOfContacts.innerHTML = `+${additionalContacts}`;
+      }
     }
   }
 }

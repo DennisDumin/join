@@ -140,14 +140,14 @@ function editBoardSubtask(subtaskIndex, taskIndex) {
   labelOfSubtask.innerHTML = subtaskInput;
 }
 
-function deleteEditBoardSubtask(taskIndex, subtaskIndex){
-  if(tasks[taskIndex]["subtasks"].length === 1){
-    if(Array.isArray(tasks[taskIndex].subtasks)){
+function deleteEditBoardSubtask(taskIndex, subtaskIndex) {
+  if (tasks[taskIndex]["subtasks"].length === 1) {
+    if (Array.isArray(tasks[taskIndex].subtasks)) {
       tasks[taskIndex].subtasks = "";
     }
     subtasksEditRender(taskIndex);
     UpdateProgress(taskIndex);
-  }else{
+  } else {
     tasks[taskIndex]["subtasks"].splice(subtaskIndex, 1);
     subtasksEditRender(taskIndex);
     UpdateProgress(taskIndex);
@@ -168,29 +168,24 @@ function closeEditSubtaskIcons() {
 function addEditSubtasks(taskIndex) {
   let inputSubtask = document.getElementById(`add-task-edit-subtasks${taskIndex}`).value.trim();
 
-  // Überprüfen, ob das Eingabefeld leer ist
   if (inputSubtask === "") {
     return;
   }
 
-  // Initialisiere die Subtasks-Liste, falls noch nicht vorhanden
   if (!Array.isArray(tasks[taskIndex].subtasks)) {
     tasks[taskIndex].subtasks = [];
   }
 
-  // Füge den neuen Subtask hinzu
   tasks[taskIndex].subtasks.push({ name: inputSubtask, completed: false });
 
-  // Generiere die aktualisierte Liste der Subtasks
-  subtasksEditRender(taskIndex);
+  generateEditSubtask(taskIndex);
 
-  // Aktualisiere den Fortschritt
-  UpdateProgress(taskIndex);
+  setTimeout(() => {
+    UpdateProgress(taskIndex);
+  }, 100);
 
-  // Speichere die Änderungen
   putData("/tasks", tasks);
 
-  // Leere das Eingabefeld
   document.getElementById(`add-task-edit-subtasks${taskIndex}`).value = "";
 }
 
@@ -260,12 +255,12 @@ function ensureSubtasksArray(task) {
   }
 }
 
-function keepPrioButton(taskIndex){
+function keepPrioButton(taskIndex) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
   let lowEditbutton = document.getElementsByClassName("low-edit-button")[0];
-  if(/(\s|^)active(\s|$)/.test(urgentEditbutton.className)) {
-   tasks[taskIndex]["prio"] = 'Urgent';
+  if (/(\s|^)active(\s|$)/.test(urgentEditbutton.className)) {
+    tasks[taskIndex]["prio"] = 'Urgent';
     tasks[taskIndex]["prioIcon"] = "./assets/img/icon_PrioAltaRed.svg";
   } else if (/(\s|^)active(\s|$)/.test(mediumEditbutton.className)) {
     tasks[taskIndex]["prio"] = 'Medium';

@@ -167,8 +167,6 @@ function UpdateProgress(taskIndex) {
     }
 
     putData(`/tasks/${taskIndex}`, tasks[taskIndex]);
-  } else {
-    console.error(`Elemente nicht gefunden: progress-bar${taskIndex} oder number-of-subtask${taskIndex}`);
   }
 }
 

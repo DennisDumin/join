@@ -90,6 +90,12 @@ h1 {
   color: #d1d1d1;
 }
 
+#subtask-show {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 #search-icon {
   font-size: 18px;
   cursor: pointer;
