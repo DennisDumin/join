@@ -1,10 +1,21 @@
 let tasks = []
+
 let priorityHighDates = []
+
 let dateToday
+
 let closest
+
 let formatDate = { year: "numeric", month: "long", day: "numeric" }
+
 let user
+
 let number = 15220
+
+/**
+ * Initializes the application by loading tasks, sorting dates, and updating the UI.
+ * @async
+ */
 async function init() {
   await loadTasks()
   laodLocalStorage()
@@ -13,6 +24,9 @@ async function init() {
   summaryBgMenu()
 }
 
+/**
+ * Loads the user data from local storage.
+ */
 function laodLocalStorage() {
   let userAsText = localStorage.getItem("user")
 
@@ -21,6 +35,10 @@ function laodLocalStorage() {
   }
 }
 
+/**
+ * Loads tasks from the server or storage.
+ * @async
+ */
 async function loadTasks() {
   tasks = []
   let task = await getData("tasks")
@@ -32,6 +50,9 @@ async function loadTasks() {
   }
 }
 
+/**
+ * Sorts the dates of high-priority tasks and identifies the closest one.
+ */
 function sortDates() {
   let priorityHigh = tasks.filter((t) => t["prio"] == "Urgent")
   for (let i = 0; i < priorityHigh.length; i++) {
@@ -44,12 +65,16 @@ function sortDates() {
   })
 }
 
+/**
+ * Updates the HTML content to display the tasks and their status.
+ */
 function showHTML() {
   let todo = tasks.filter((t) => t["phases"] == "To Do")
   let done = tasks.filter((t) => t["phases"] == "Done")
   let priorityHigh = tasks.filter((t) => t["prio"] == "Urgent")
   let inprogress = tasks.filter((t) => t["phases"] == "In progress")
   let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback")
+
   document.getElementById("to-do").innerHTML = `${todo.length}`
   document.getElementById("done").innerHTML = `${done.length}`
   document.getElementById("priority-high").innerHTML = `${priorityHigh.length}`
@@ -64,6 +89,10 @@ function showHTML() {
   document.getElementById("greeting-text").innerHTML = `${checkIfGuest()}`
 }
 
+/**
+ * Checks if there are any high-priority tasks and returns the closest date or a message if none exist.
+ * @return {string} The closest high-priority date or a message indicating no urgent tasks.
+ */
 function checkIfpriorityHighArray() {
   if (priorityHighDates.length === 0) {
     return /*html*/ `
@@ -75,6 +104,10 @@ function checkIfpriorityHighArray() {
   }
 }
 
+/**
+ * Checks if the user is a guest and returns a greeting message.
+ * @return {string} A greeting message based on the user type.
+ */
 function checkIfGuest() {
   if (user["name"] === "Gast") {
     return /*html*/ `
@@ -87,6 +120,7 @@ function checkIfGuest() {
         `
   }
 }
+
 function changePencilImg() {
   document
     .getElementById("pencil-img")
