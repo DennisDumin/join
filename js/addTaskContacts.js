@@ -1,12 +1,28 @@
+/**
+ * An array that stores the contacts selected by the user.
+ * @type {Array<Object>}
+ */
 let selectedContacts = [];
+
+/**
+ * An array that stores the contacts available for searching.
+ * @type {Array<Object>}
+ */
 let contactsSearch = [];
 
+/**
+ * Renders the list of contacts inside the specified container.
+ * Each contact is displayed with its name, initials, and color.
+ * @function renderContacts
+ * @param {string} contactContainer - The ID of the HTML container element where the contacts will be rendered.
+ * @returns {void}
+ */
 function renderContacts(contactContainer) {
     let container = document.getElementById(`${contactContainer}`);
     container.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
         let name = contacts[i]['name'];
-        let initials = getInitials(name); // from contacts.js
+        let initials = getInitials(name);
         let color = contacts[i]['color'];
         container.innerHTML += templateContact(i, name, initials, color);
         if (contacts[i]['selected'] === true) {
@@ -17,6 +33,12 @@ function renderContacts(contactContainer) {
     }
 }
 
+/**
+ * Displays the initials of the logged-in user based on the username stored in session storage.
+ * If no username is found, it defaults to "G".
+ * @function displayUserInitials
+ * @returns {void}
+ */
 function displayUserInitials() {
     let username = sessionStorage.getItem('loggedInUser');
     let userInitials = document.getElementById('userInitials');
@@ -29,7 +51,16 @@ function displayUserInitials() {
     }
 }
 
-
+/**
+ * Returns the HTML template for displaying a contact.
+ * Each contact includes the name, initials, and color.
+ * @function templateContact
+ * @param {number} i - The index of the contact in the contacts array.
+ * @param {string} name - The name of the contact.
+ * @param {string} initials - The initials of the contact's name.
+ * @param {string} color - The color associated with the contact.
+ * @returns {string} - The HTML string representing the contact.
+ */
 function templateContact(i, name, initials, color) {
     return `
     <div id="contact-container${i}" onclick="selectContact(${i})" class="contact-container" tabindex="1">
@@ -42,6 +73,12 @@ function templateContact(i, name, initials, color) {
 `;
 }
 
+/**
+ * Opens the contacts dropdown and hides the selected contacts.
+ * Adds an event listener to close the dropdown when clicking outside.
+ * @function openContacts
+ * @returns {void}
+ */
 function openContacts() {
     let container = document.getElementById('input-section-element');
     let contacts = document.getElementById('add-task-contacts-container');
@@ -58,6 +95,13 @@ function openContacts() {
     });
 }
 
+/**
+ * Toggles the contacts dropdown on and off, hiding or showing the selected contacts.
+ * Prevents the event from propagating further.
+ * @function openCloseContacts
+ * @param {Event} event - The event object from the click action.
+ * @returns {void}
+ */
 function openCloseContacts(event) {
     event.stopPropagation();
     let container = document.getElementById('add-task-contacts-container');
@@ -71,8 +115,15 @@ function openCloseContacts(event) {
     }
 }
 
+/**
+ * Selects or deselects a contact and updates the selected contacts list.
+ * If the contact is already selected, it is removed from the selected contacts array.
+ * If the contact is not selected, it is added to the array.
+ * @function selectContact
+ * @param {number} i - The index of the contact in the contacts array.
+ * @returns {void}
+ */
 function selectContact(i) {
-    // Überprüfen, ob der Index i gültig ist
     if (i >= 0 && i < contacts.length) {
         let container = document.getElementById(`contact-container${i}`);
         let contactName = contacts[i]['name'];
@@ -93,6 +144,12 @@ function selectContact(i) {
     }
 }
 
+/**
+ * Displays the selected contacts in a separate container.
+ * Shows the selected contacts by their initials with corresponding colors.
+ * @function showSelectedContacts
+ * @returns {void}
+ */
 function showSelectedContacts() {
     let container = document.getElementById('selected-contacts');
     container.classList.remove('d-none');
@@ -100,7 +157,7 @@ function showSelectedContacts() {
     for (let i = 0; i < selectedContacts.length; i++) {
         let contact = selectedContacts[i];
         let name = contact['name'];
-        let initials = getInitials(name); // from contacts.js
+        let initials = getInitials(name);
         let color = selectedContacts[i]['color'];
         container.innerHTML += `
         <span style="background-color: ${color}" class="circle-name">${initials}</span>
@@ -108,11 +165,23 @@ function showSelectedContacts() {
     }
 }
 
+/**
+ * Hides the container that displays the selected contacts.
+ * @function hideSelectedContacts
+ * @returns {void}
+ */
 function hideSelectedContacts() {
     let container = document.getElementById('selected-contacts');
     container.classList.add('d-none');
 }
 
+/**
+ * Searches for contacts based on the user's input in the search bar.
+ * Filters the contacts array and displays matching contacts.
+ * If the search bar is empty, it renders the full contacts list.
+ * @function searchContacts
+ * @returns {void}
+ */
 function searchContacts() {
     let search = document.getElementById('add-task-assigned').value.toLowerCase();
     contactsSearch = [];
@@ -126,6 +195,13 @@ function searchContacts() {
     }
 }
 
+/**
+ * Finds contacts that match the search query and adds them to the contactsSearch array.
+ * @function findContacts
+ * @param {number} i - The index of the contact in the contacts array.
+ * @param {string} search - The search query entered by the user.
+ * @returns {void}
+ */
 function findContacts(i, search) {
     let contactName = contacts[i]['name'];
     let contactSelected = contacts[i]['selected'];
@@ -135,6 +211,12 @@ function findContacts(i, search) {
     }
 }
 
+/**
+ * Displays the search results for contacts by rendering them in the contact container.
+ * Highlights selected contacts in the results.
+ * @function showContactResults
+ * @returns {void}
+ */
 function showContactResults() {
     let container = document.getElementById('add-task-contacts-container');
     container.innerHTML = '';
@@ -152,6 +234,16 @@ function showContactResults() {
     }
 }
 
+/**
+ * Returns the HTML template for displaying a contact in the search results.
+ * Each contact includes the name, initials, and color.
+ * @function templateContactSearch
+ * @param {number} i - The index of the contact in the contactsSearch array.
+ * @param {string} name - The name of the contact.
+ * @param {string} initials - The initials of the contact's name.
+ * @param {string} color - The color associated with the contact.
+ * @returns {string} - The HTML string representing the contact in the search results.
+ */
 function templateContactSearch(i, name, initials, color) {
     return `
     <div id="contact-container${i}" onclick="selectContactSearch(${i})" class="contact-container" tabindex="1">
@@ -164,6 +256,13 @@ function templateContactSearch(i, name, initials, color) {
 `;
 }
 
+/**
+ * Toggles the selection of a contact in the search results.
+ * Adds or removes the contact from the selected contacts list.
+ * @function selectContactSearch
+ * @param {number} i - The index of the contact in the contactsSearch array.
+ * @returns {void}
+ */
 function selectContactSearch(i) {
     let contactSelected = contactsSearch[i]['selected'];
     if (contactSelected === true) {
@@ -173,6 +272,13 @@ function selectContactSearch(i) {
     }
 }
 
+/**
+ * Adds a contact from the search results to the selected contacts list.
+ * Updates the contacts and contactsSearch arrays to reflect the selection.
+ * @function addContactSearch
+ * @param {number} i - The index of the contact in the contactsSearch array.
+ * @returns {void}
+ */
 function addContactSearch(i) {
     let container = document.getElementById(`contact-container${i}`);
     let contactName = contactsSearch[i]['name'];
@@ -184,6 +290,13 @@ function addContactSearch(i) {
     container.classList.add('contact-container-focus');
 }
 
+/**
+ * Removes a contact from the selected contacts list based on the search results.
+ * Updates the contacts and contactsSearch arrays to reflect the deselection.
+ * @function removeContactSearch
+ * @param {number} i - The index of the contact in the contactsSearch array.
+ * @returns {void}
+ */
 function removeContactSearch(i) {
     let container = document.getElementById(`contact-container${i}`);
     let contactName = contactsSearch[i]['name'];

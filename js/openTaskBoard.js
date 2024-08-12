@@ -1,3 +1,11 @@
+/**
+ * Displays a task's detailed view in the "show-task" section.
+ * This function reveals the task's content, including category, title, description,
+ * due date, priority, assigned contacts, and subtasks. It also adjusts the layout
+ * and animations.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function showTask(taskIndex) {
   let showContent = document.getElementById("show-task");
   showContent.classList.remove("hidden");
@@ -13,6 +21,13 @@ function showTask(taskIndex) {
   heightOfShowTaskAdjust();
 }
 
+/**
+ * Generates the HTML content for displaying a task.
+ * This function creates a string of HTML that represents the task details, including
+ * category, title, description, due date, priority, assigned contacts, and subtasks.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {string} The HTML string representing the task's detailed view.
+ */
 function generateShowTask(taskIndex) {
   return `
   <div class="category-show-content">
@@ -63,22 +78,30 @@ function generateShowTask(taskIndex) {
   `;
 }
 
+/**
+ * Moves a task to a new category.
+ * This function updates the category of a task and hides the dropdown menu.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @param {string} newCategory - The new category to assign to the task.
+ * @returns {void}
+ */
 function moveToCategory(taskIndex, newCategory) {
-  // Aktualisiere die Kategorie der Aufgabe
-  //tasks[taskIndex]["phases"] = newCategory;
-
-  // Verschiebe die Aufgabe in die neue Kategorie
   moveToPhase(taskIndex, newCategory);
 
-  // Schließe das Dropdown-Menü
   document.getElementById(`dropdown${taskIndex}`).classList.remove("show");
 }
 
+/**
+ * Toggles the visibility of the dropdown menu for moving a task.
+ * This function shows or hides the dropdown menu and sets up an event listener
+ * to close the menu if a click occurs outside of it.
+ * @param {number} id - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function toggleDropdown(id) {
   const dropdown = document.getElementById(`dropdown${id}`);
   dropdown.classList.toggle("show");
   
-  // Entferne vorherige Event-Listener, um mehrfaches Hinzufügen zu vermeiden
   window.removeEventListener('click', closeDropdownMenu);
 
   window.addEventListener('click', function(event) {
@@ -86,6 +109,13 @@ function toggleDropdown(id) {
   });
 }
 
+/**
+ * Updates the phase of a task and refreshes the displayed tasks.
+ * This function sets the phase of a task and updates the UI accordingly.
+ * @param {number} currentDraggedElement - The index of the task being moved.
+ * @param {string} phase - The new phase to assign to the task.
+ * @returns {void}
+ */
 function moveToPhase(currentDraggedElement, phase) {
   tasks[currentDraggedElement]["phases"] = phase;
   updateHTML();
@@ -96,7 +126,14 @@ function moveToPhase(currentDraggedElement, phase) {
   putData("/tasks", tasks);
 }
 
-
+/**
+ * Closes the dropdown menu if a click occurs outside of it.
+ * This function hides the dropdown menu when clicking outside of the menu and
+ * the card menu.
+ * @param {Event} event - The click event object.
+ * @param {number} id - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function closeDropdownMenu(event, id) {
   const dropdown = document.getElementById(`dropdown${id}`);
   const cardMenu = document.querySelector(`.card-menu`);
@@ -106,6 +143,11 @@ function closeDropdownMenu(event, id) {
   }
 }
 
+/**
+ * Applies a slide-in animation to the task details.
+ * This function triggers a CSS animation to slide in the task details from the side.
+ * @returns {void}
+ */
 function slideInTask() {
   let dialog = document.querySelector('.show-task');
   dialog.classList.remove('slide-in');
@@ -114,6 +156,12 @@ function slideInTask() {
   }, 50);
 }
 
+/**
+ * Adjusts the height of the task display container.
+ * This function ensures that the height of the task display container is either
+ * adjusted automatically if its content is too tall or restricted to a maximum height.
+ * @returns {void}
+ */
 function heightOfShowTaskAdjust() {
   let showContent = document.getElementById('show-task');
   if (showContent.scrollHeight > 650) {
@@ -124,6 +172,12 @@ function heightOfShowTaskAdjust() {
   }
 }
 
+/**
+ * Renders the subtasks for a specific task in the display container.
+ * This function generates HTML for each subtask and displays it in the "subtask-show" section.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function subtasksShowRender(taskIndex) {
   let content = document.getElementById('subtask-show');
   content.innerHTML = '';
@@ -140,11 +194,24 @@ function subtasksShowRender(taskIndex) {
   }
 }
 
+/**
+ * Toggles the completion status of a subtask and updates the progress.
+ * This function marks a subtask as completed or not completed and updates the progress bar.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @param {number} subtaskIndex - The index of the subtask in the `subtasks` array.
+ * @returns {void}
+ */
 function toggleSubtask(taskIndex, subtaskIndex) {
   tasks[taskIndex]['subtasks'][subtaskIndex].completed = !tasks[taskIndex]['subtasks'][subtaskIndex].completed;
   UpdateProgress(taskIndex);
 }
 
+/**
+ * Updates the progress bar for the subtasks of a specific task.
+ * This function calculates and displays the progress of completed subtasks in a progress bar.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function UpdateProgress(taskIndex) {
   let subtasks = tasks[taskIndex]['subtasks'];
   if (!Array.isArray(subtasks)) {
@@ -170,6 +237,12 @@ function UpdateProgress(taskIndex) {
   }
 }
 
+/**
+ * Renders the initials of assigned contacts in the task details.
+ * This function creates HTML elements for each assigned contact's initials and displays them.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function contactsShowLetterRender(taskIndex) {
   let content = document.getElementById('user-show-letter');
   for (let j = 0; j < tasks[taskIndex]['contacts'].length; j++) {
@@ -182,6 +255,12 @@ function contactsShowLetterRender(taskIndex) {
   }
 }
 
+/**
+ * Renders the names of assigned contacts in the task details.
+ * This function creates HTML elements for each assigned contact's name and displays them.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function contactsShowNameRender(taskIndex) {
   let content = document.getElementById('user-show-name');
   for (let j = 0; j < tasks[taskIndex]['contacts'].length; j++) {
@@ -189,6 +268,13 @@ function contactsShowNameRender(taskIndex) {
   }
 }
 
+/**
+ * Changes the color of the category title based on the task's category.
+ * This function adds a CSS class to the category title element based on the category
+ * of the task to style it appropriately.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function changeColorOfCategoryTitleShow(taskIndex) {
   let content = document.getElementById(`card-category-title-show${taskIndex}`);
   let category = tasks[taskIndex]["category"];

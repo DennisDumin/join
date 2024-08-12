@@ -5,9 +5,15 @@ prioBtn = ""
 let prioIcon = ""
 let prioText = ""
 
+/**
+ * Initializes the board by loading tasks, rendering contacts, and setting up the board's appearance.
+ * This function is asynchronous and waits for the inclusion of external components.
+ * @async
+ * @function initBoard
+ * @returns {Promise<void>}
+ */
 async function initBoard() {
   await initInclude()
-  //displayUserInitials()
   loadTasksBoard()
   updateHTML()
   renderEditContacts("add-task-contacts-container-edit")
@@ -17,12 +23,19 @@ async function initBoard() {
   showUser()
 }
 
+/**
+ * Renders the list of contacts in the specified container for editing.
+ * This function generates the HTML for each contact and applies the necessary styles if a contact is selected.
+ * @function renderEditContacts
+ * @param {string} contactContainer - The ID of the HTML container where the contacts will be rendered.
+ * @returns {void}
+ */
 function renderEditContacts(contactContainer) {
   let container = document.getElementById(`${contactContainer}`)
   container.innerHTML = ""
   for (let i = 0; i < contacts.length; i++) {
     let name = contacts[i]["name"]
-    let initials = getInitials(name) // from contact.js
+    let initials = getInitials(name)
     let color = contacts[i]["color"]
     container.innerHTML += templateEditContact(i, name, initials, color)
     if (contacts[i]["selected"] === true) {
@@ -37,6 +50,16 @@ function renderEditContacts(contactContainer) {
   }
 }
 
+/**
+ * Returns the HTML template for a contact list item in the edit view.
+ * This function generates the HTML structure for each contact item, including the contact's name, initials, and color.
+ * @function templateEditContact
+ * @param {number} i - The index of the contact in the contacts array.
+ * @param {string} name - The name of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} color - The background color associated with the contact.
+ * @returns {string} The HTML string for the contact list item.
+ */
 function templateEditContact(i, name, initials, color) {
   return `
   <div id="contact-edit-container${i}" onclick="selectEditContact(${i})" class="contact-container" tabindex="1">
@@ -49,6 +72,11 @@ function templateEditContact(i, name, initials, color) {
 `
 }
 
+/**
+ * Opens the "Add Task" form by making the relevant HTML elements visible and animating the slide-in effect.
+ * @function openAddTask
+ * @returns {void}
+ */
 function openAddTask() {
   let content = document.getElementById("add-task")
   content.classList.remove("hidden")
@@ -61,6 +89,12 @@ function openAddTask() {
   }, 50)
 }
 
+/**
+ * Closes the "Add Task", "Show Task", and "Edit Task" dialogs by sliding them out and hiding the associated overlay.
+ * It also resets the contacts and reloads the data.
+ * @function closeMe
+ * @returns {void}
+ */
 function closeMe() {
   let dialog3 = document.getElementById("add-task-edit");
   let dialog2 = document.querySelector(".add-task-board");
@@ -91,6 +125,12 @@ function closeMe() {
   loadData();
 }
 
+/**
+ * Changes the color of the category title based on the task's category.
+ * This function iterates through the tasks and applies a color class to the category title element.
+ * @function changeColorOfCategoryTitle
+ * @returns {void}
+ */
 function changeColorOfCategoryTitle() {
   for (let i = 0; i < tasks.length; i++) {
     let content = document.getElementById(`card-category-title${i}`)
@@ -103,6 +143,13 @@ function changeColorOfCategoryTitle() {
   }
 }
 
+/**
+ * Deletes a task from the tasks list based on its index.
+ * This function removes the task, reassigns task IDs, updates the data, and refreshes the HTML content.
+ * @function deleteTask
+ * @param {number} taskIndex - The index of the task to be deleted in the tasks array.
+ * @returns {void}
+ */
 function deleteTask(taskIndex) {
   tasks.splice(taskIndex, 1)
   for (let j = 0; j < tasks.length; j++) {
@@ -116,6 +163,12 @@ function deleteTask(taskIndex) {
   closeMe()
 }
 
+/**
+ * Searches for tasks based on the user's input.
+ * This function filters tasks by title or description and shows/hides task cards accordingly.
+ * @function searchTask
+ * @returns {void}
+ */
 function searchTask() {
   let search = document.getElementById("search-input").value.toLowerCase()
   for (let i = 0; i < tasks.length; i++) {
@@ -134,6 +187,12 @@ function searchTask() {
   }
 }
 
+/**
+ * Converts a date string from "YYYY-MM-DD" format to "DD/MM/YYYY" format.
+ * @function convertDate
+ * @param {string} date - The date string in "YYYY-MM-DD" format.
+ * @returns {string} The converted date string in "DD/MM/YYYY" format.
+ */
 function convertDate(date) {
   let datePart = date.split("-")
   let newDate = datePart[2] + "/" + datePart[1] + "/" + datePart[0]
@@ -142,6 +201,13 @@ function convertDate(date) {
 
 let currentDraggedElement
 
+/**
+ * Updates the HTML content of the task board by filtering tasks based on their phases
+ * and rendering them in their respective columns ("To Do", "In progress", "Await feedback", "Done").
+ * This function also updates the styles and contact elements for each task.
+ * @function updateHTML
+ * @returns {void}
+ */
 function updateHTML() {
   let toDo = tasks.filter((t) => t["phases"] == "To Do")
   let toDoContent = document.getElementById("new-task-to-do")
@@ -185,10 +251,24 @@ function updateHTML() {
   contactsRender()
 }
 
+/**
+ * Initiates the dragging process by setting the currentDraggedElement to the task's ID.
+ * This function is typically called when a user starts dragging a task.
+ * @function startDragging
+ * @param {string} id - The ID of the task being dragged.
+ * @returns {void}
+ */
 function startDragging(id) {
   currentDraggedElement = id
 }
 
+/**
+ * Calculates the progress of a task based on the completion of its subtasks.
+ * The progress is returned as a percentage value (0 to 100).
+ * @function valueOfProgressBar
+ * @param {number} taskIndex - The index of the task in the tasks array.
+ * @returns {number} The percentage of subtasks completed, as a value between 0 and 100.
+ */
 function valueOfProgressBar(taskIndex) {
   const task = tasks[taskIndex];
 
@@ -206,6 +286,12 @@ function valueOfProgressBar(taskIndex) {
   return (completedSubtasks / totalSubtasks) * 100;
 }
 
+/**
+ * Renders the contact initials for each task in the task board.
+ * Displays a maximum of three contacts per task, with an indication if there are more contacts.
+ * @function contactsRender
+ * @returns {void}
+ */
 function contactsRender() {
   for (let i = 0; i < tasks.length; i++) {
     let maxContacts = 3;
@@ -234,6 +320,13 @@ function contactsRender() {
   }
 }
 
+/**
+ * Generates the HTML structure for a task card, including its subtasks and progress bar.
+ * This function creates a draggable task card with a progress bar, subtasks count, and user details.
+ * @function generateAllTasksHTML
+ * @param {Object} element - The task object containing details such as ID, category, title, description, subtasks, and priority icon.
+ * @returns {string} The HTML string representing the task card.
+ */
 function generateAllTasksHTML(element) {
   const subtasks = Array.isArray(element.subtasks) ? element.subtasks : [];
   return `
@@ -264,10 +357,22 @@ function generateAllTasksHTML(element) {
     </div>`;
 }
 
+/**
+ * Prevents the default behavior of a drag event, allowing drop operations.
+ * @function allowDrop
+ * @param {Event} ev - The drag event.
+ * @returns {void}
+ */
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
+/**
+ * Moves a task to a different phase and updates the task board and backend data.
+ * @function moveTo
+ * @param {string} phase - The phase to move the task to (e.g., "To Do", "In progress", "Await feedback", "Done").
+ * @returns {void}
+ */
 function moveTo(phase) {
   tasks[currentDraggedElement]["phases"] = phase;
   updateHTML();
@@ -278,6 +383,11 @@ function moveTo(phase) {
   putData("/tasks", tasks);
 }
 
+/**
+ * Toggles the visibility of the "No tasks" message for the "To Do" phase based on the presence of tasks.
+ * @function styleOfNoTaskToDo
+ * @returns {void}
+ */
 function styleOfNoTaskToDo() {
   let toDoContent = document.getElementById("new-task-to-do");
   if (toDoContent.childElementCount > 0) {
@@ -287,6 +397,11 @@ function styleOfNoTaskToDo() {
   }
 }
 
+/**
+ * Toggles the visibility of the "No tasks" message for the "In progress" phase based on the presence of tasks.
+ * @function styleOfNoTaskInProgress
+ * @returns {void}
+ */
 function styleOfNoTaskInProgress() {
   let inProgressContent = document.getElementById("new-task-in-progress");
   if (inProgressContent.childElementCount > 0) {
@@ -296,6 +411,11 @@ function styleOfNoTaskInProgress() {
   }
 }
 
+/**
+ * Toggles the visibility of the "No tasks" message for the "Await feedback" phase based on the presence of tasks.
+ * @function styleOfNoTaskAwaitFeedback
+ * @returns {void}
+ */
 function styleOfNoTaskAwaitFeedback() {
   let awaitFeedbackContent = document.getElementById("new-task-await");
   if (awaitFeedbackContent.childElementCount > 0) {
@@ -305,6 +425,11 @@ function styleOfNoTaskAwaitFeedback() {
   }
 }
 
+/**
+ * Toggles the visibility of the "No tasks" message for the "Done" phase based on the presence of tasks.
+ * @function styleOfNoTaskDone
+ * @returns {void}
+ */
 function styleOfNoTaskDone() {
   let doneContent = document.getElementById("new-task-done");
   if (doneContent.childElementCount > 0) {
@@ -314,10 +439,22 @@ function styleOfNoTaskDone() {
   }
 }
 
+/**
+ * Redirects the user to the "Add Task" page.
+ * @function checkwidthForAddTask
+ * @returns {void}
+ */
 function checkwidthForAddTask() {
   window.location.href = "./add_task.html"
 }
 
+/**
+ * Updates the click event handler for the plus buttons based on the window width.
+ * If the window width is less than or equal to 1350 pixels, the button redirects to the "Add Task" page.
+ * Otherwise, it opens the "Add Task" dialog.
+ * @function updateButtonOnClick
+ * @returns {void}
+ */
 function updateButtonOnClick() {
   let plusButton = document.getElementsByClassName("plus-btn")
   if (plusButton.length > 0) {
@@ -341,6 +478,11 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", updateButtonOnClick)
 })
 
+/**
+ * Adds the "bg-focus" class to the board link element, potentially to highlight it.
+ * @function boardBg
+ * @returns {void}
+ */
 function boardBg() {
   document.getElementById("link-board").classList.add("bg-focus")
 }

@@ -1,6 +1,11 @@
 let selectedEditContacts = [];
 let editContactsSearch = [];
 
+/**
+ * Opens the edit contacts dropdown and hides selected contacts when clicking outside the dropdown.
+ * @function openEditContacts
+ * @returns {void}
+ */
 function openEditContacts() {
   let container = document.getElementById('input-assigned-edit-section');
   let contacts = document.getElementById('add-task-contacts-container-edit');
@@ -17,6 +22,12 @@ function openEditContacts() {
   });
 }
 
+/**
+ * Toggles the visibility of the edit contacts dropdown and updates the display of selected contacts.
+ * @function openCloseEditContacts
+ * @param {Event} event - The click event that triggered this function.
+ * @returns {void}
+ */
 function openCloseEditContacts(event) {
   event.stopPropagation();
   let container = document.getElementById('add-task-contacts-container-edit');
@@ -30,6 +41,12 @@ function openCloseEditContacts(event) {
   }
 }
 
+/**
+ * Selects or deselects a contact in the edit contact list and updates their state.
+ * @function selectEditContact
+ * @param {number} i - The index of the contact to select or deselect.
+ * @returns {void}
+ */
 function selectEditContact(i) {
   let container = document.getElementById(`contact-edit-container${i}`);
   let contactName = contacts[i]['name'];
@@ -46,6 +63,11 @@ function selectEditContact(i) {
   }
 }
 
+/**
+ * Displays the list of selected contacts in the edit contacts section.
+ * @function showSelectedEditContacts
+ * @returns {void}
+ */
 function showSelectedEditContacts() {
   let container = document.getElementById('user-content-edit-letter');
   container.classList.remove('d-none');
@@ -61,11 +83,21 @@ function showSelectedEditContacts() {
   }
 }
 
+/**
+ * Hides the list of selected contacts in the edit contacts section.
+ * @function hideSelectedEditContacts
+ * @returns {void}
+ */
 function hideSelectedEditContacts() {
   let container = document.getElementById('selected-contacts-edit');
   container.classList.add('d-none');
 }
 
+/**
+ * Searches for contacts in the edit contacts list based on the user's input.
+ * @function searchEditContacts
+ * @returns {void}
+ */
 function searchEditContacts() {
   let search = document.getElementById('add-task-edit-assigned').value.toLowerCase();
   editContactsSearch = [];
@@ -79,6 +111,13 @@ function searchEditContacts() {
   }
 }
 
+/**
+ * Finds contacts that match the search query and adds them to the editContactsSearch array.
+ * @function findEditContacts
+ * @param {number} i - The index of the contact to check.
+ * @param {string} search - The search query to match against contact names.
+ * @returns {void}
+ */
 function findEditContacts(i, search) {
   let contactName = contacts[i]['name'];
   let contactSelected = contacts[i]['selected'];
@@ -88,13 +127,18 @@ function findEditContacts(i, search) {
   }
 }
 
+/**
+ * Displays the search results for contacts in the edit contacts section.
+ * @function showEditContactResults
+ * @returns {void}
+ */
 function showEditContactResults() {
   let container = document.getElementById('add-task-contacts-container-edit');
   container.innerHTML = '';
   for (let i = 0; i < editContactsSearch.length; i++) {
     const contact = editContactsSearch[i];
     let name = contact['name'];
-    let initials = getInitials(name); // from contact.js
+    let initials = getInitials(name);
     let color = contact['color'];
     container.innerHTML += templateEditContactSearch(i, name, initials, color);
     if (contact['selected'] === true) {
@@ -105,6 +149,15 @@ function showEditContactResults() {
   }
 }
 
+/**
+ * Creates the HTML structure for a contact search result item.
+ * @function templateEditContactSearch
+ * @param {number} i - The index of the contact.
+ * @param {string} name - The name of the contact.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} color - The background color for the contact's initials.
+ * @returns {string} The HTML string representing the contact search result item.
+ */
 function templateEditContactSearch(i, name, initials, color) {
   return `
   <div id="contact-edit-container${i}" onclick="selectEditContactSearch(${i})" class="contact-container" tabindex="1">
@@ -117,6 +170,12 @@ function templateEditContactSearch(i, name, initials, color) {
   `;
 }
 
+/**
+ * Toggles the selection state of a contact in the search results.
+ * @function selectEditContactSearch
+ * @param {number} i - The index of the contact to toggle.
+ * @returns {void}
+ */
 function selectEditContactSearch(i) {
   let contactSelected = editContactsSearch[i]['selected'];
   if (contactSelected === true) {
@@ -126,6 +185,12 @@ function selectEditContactSearch(i) {
   }
 }
 
+/**
+ * Adds a contact from the search results to the selected contacts list and updates their state.
+ * @function addEditContactSearch
+ * @param {number} i - The index of the contact to add.
+ * @returns {void}
+ */
 function addEditContactSearch(i) {
   let container = document.getElementById(`contact-edit-container${i}`);
   let contactName = editContactsSearch[i]['name'];
@@ -137,6 +202,12 @@ function addEditContactSearch(i) {
   container.classList.add('contact-container-edit-focus');
 }
 
+/**
+ * Removes a contact from the search results and updates its state.
+ * @function removeEditContactSearch
+ * @param {number} i - The index of the contact to remove.
+ * @returns {void}
+ */
 function removeEditContactSearch(i) {
   let container = document.getElementById(`contact-edit-container${i}`);
   let contactName = editContactsSearch[i]['name'];

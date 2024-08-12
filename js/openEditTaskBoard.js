@@ -1,3 +1,11 @@
+/**
+ * Opens the edit view for a specific task, allowing users to modify task details.
+ * This function hides the current task view, shows the edit task view, and populates
+ * the edit fields with the existing task data. It also displays the task's assigned
+ * contacts and subtasks for editing.
+ * @param {number} taskIndex - The index of the task in the `tasks` array to be edited.
+ * @returns {void}
+ */
 function openEdit(taskIndex) {
   let showContent = document.getElementById("show-task");
   showContent.classList.add("hidden");
@@ -25,6 +33,13 @@ function openEdit(taskIndex) {
   generateEditTask(taskIndex);
 }
 
+/**
+ * Updates the list of selected contacts for editing by marking them as selected.
+ * This function updates the `selectedEditContacts` array with contacts that are
+ * currently selected and also updates their status in the global `contacts` array.
+ * @param {Array<Object>} selected - An array of selected contact objects, each containing `name` and `color`.
+ * @returns {void}
+ */
 function showSelectedContactsEdit(selected) {
   selectedEditContacts = [];
   for (let i = 0; i < selected.length; i++) {
@@ -41,6 +56,13 @@ function showSelectedContactsEdit(selected) {
   }
 }
 
+/**
+ * Generates and renders the edit view for a specific task.
+ * This function activates the edit buttons, renders the subtasks and contacts,
+ * and generates input fields for adding new subtasks.
+ * @param {number} taskIndex - The index of the task in the `tasks` array to be edited.
+ * @returns {void}
+ */
 function generateEditTask(taskIndex) {
   activeEditButton();
   activeButton(taskIndex);
@@ -51,6 +73,12 @@ function generateEditTask(taskIndex) {
 
 }
 
+/**
+ * Renders the contacts associated with a task for editing.
+ * This function updates the user interface with the selected contacts' initials and colors.
+ * @param {number} taskIndex - The index of the task in the `tasks` array to be edited.
+ * @returns {void}
+ */
 function contactsEditRender(taskIndex) {
   let content = document.getElementsByClassName('user-content-edit-letter')[0];
   content.innerHTML = '';
@@ -64,6 +92,13 @@ function contactsEditRender(taskIndex) {
   }
 }
 
+/**
+ * Generates the HTML input field for adding new subtasks in the edit view.
+ * This function creates an input field with a placeholder and attaches event handlers
+ * for opening and closing the subtask icons.
+ * @param {number} taskIndex - The index of the task in the `tasks` array for which subtasks are being edited.
+ * @returns {void}
+ */
 function generateInputEditSubtask(taskIndex) {
   let content = document.getElementsByClassName(`input-edit-subtask`)[0];
   content.innerHTML = `      
@@ -77,6 +112,12 @@ function generateInputEditSubtask(taskIndex) {
   <img src="./assets/img/icon_subtasks.svg" class="plus-icon-edit-subtasks" id="plus-edit-icon" onclick="openEditSubtaskIcons()"/>`;
 }
 
+/**
+ * Renders the list of subtasks in the edit view.
+ * This function generates HTML for displaying subtasks with options to edit or delete each subtask.
+ * @param {number} taskIndex - The index of the task in the `tasks` array for which subtasks are being edited.
+ * @returns {void}
+ */
 function subtasksEditRender(taskIndex) {
   let content = document.getElementById('new-subtask');
   content.innerHTML = '';
@@ -105,32 +146,40 @@ function subtasksEditRender(taskIndex) {
   }
 }
 
+/**
+ * Confirms and updates a subtask with the new value.
+ * This function updates the subtask with the new value entered by the user, 
+ * and refreshes the subtasks list and progress accordingly.
+ * @param {number} taskIndex - The index of the task in the `tasks` array that contains the subtask.
+ * @param {number} subtaskIndex - The index of the subtask within the task.
+ * @returns {void}
+ */
 function confirmEdit(taskIndex, subtaskIndex) {
   let inputSubtask = document.getElementById(`edit-input-board${subtaskIndex}`).value.trim();
 
-  // Überprüfen, ob das Eingabefeld leer ist
   if (inputSubtask === "") {
     return;
   }
 
-  // Initialisiere die Subtasks-Liste, falls noch nicht vorhanden
   if (!Array.isArray(tasks[taskIndex].subtasks)) {
     tasks[taskIndex].subtasks = [];
   }
 
-  // Update den Subtask an der gegebenen Indexposition
   tasks[taskIndex].subtasks[subtaskIndex] = { name: inputSubtask, completed: false };
 
-  // Generiere die aktualisierte Liste der Subtasks
   subtasksEditRender(taskIndex);
 
-  // Aktualisiere den Fortschritt
   UpdateProgress(taskIndex);
-
-  // Speichere die Änderungen
   putData("/tasks", tasks);
 }
 
+/**
+ * Initiates the editing mode for a specific subtask.
+ * This function reveals the input field for editing a subtask and hides other related elements.
+ * @param {number} taskIndex - The index of the task in the `tasks` array containing the subtask.
+ * @param {number} subtaskIndex - The index of the subtask within the task.
+ * @returns {void}
+ */
 function editBoardSubtask(subtaskIndex, taskIndex) {
   document.getElementById(`edit-input-board-content${taskIndex}`).classList.remove('hidden');
   document.getElementById(`checkbox-edit-content${taskIndex}`).classList.add('hidden');
@@ -140,6 +189,15 @@ function editBoardSubtask(subtaskIndex, taskIndex) {
   labelOfSubtask.innerHTML = subtaskInput;
 }
 
+/**
+ * Deletes a subtask from a task in the edit view.
+ * If the task only has one subtask, the subtasks array is cleared. 
+ * For multiple subtasks, the specified subtask is removed. 
+ * The function updates the UI and task progress accordingly.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @param {number} subtaskIndex - The index of the subtask within the task.
+ * @returns {void}
+ */
 function deleteEditBoardSubtask(taskIndex, subtaskIndex) {
   if (tasks[taskIndex]["subtasks"].length === 1) {
     if (Array.isArray(tasks[taskIndex].subtasks)) {
@@ -155,16 +213,33 @@ function deleteEditBoardSubtask(taskIndex, subtaskIndex) {
   putData("/tasks", tasks);
 }
 
+/**
+ * Opens the icons for adding subtasks in the edit view.
+ * This function shows the subtask icons and hides the plus icon.
+ * @returns {void}
+ */
 function openEditSubtaskIcons() {
   document.getElementById('add-task-subtasks-edit-icons').classList.remove('d-none');
   document.getElementById('plus-edit-icon').classList.add('d-none');
 }
 
+/**
+ * Closes the icons for adding subtasks in the edit view.
+ * This function hides the subtask icons and shows the plus icon.
+ * @returns {void}
+ */
 function closeEditSubtaskIcons() {
   document.getElementById('add-task-subtasks-edit-icons').classList.add('d-none');
   document.getElementById('plus-edit-icon').classList.remove('d-none');
 }
 
+/**
+ * Adds a new subtask to a specific task.
+ * This function retrieves the subtask value from the input field, adds it to the task's subtasks,
+ * and updates the UI and task progress accordingly.
+ * @param {number} taskIndex - The index of the task in the `tasks` array to which the subtask is being added.
+ * @returns {void}
+ */
 function addEditSubtasks(taskIndex) {
   let inputSubtask = document.getElementById(`add-task-edit-subtasks${taskIndex}`).value.trim();
 
@@ -189,6 +264,12 @@ function addEditSubtasks(taskIndex) {
   document.getElementById(`add-task-edit-subtasks${taskIndex}`).value = "";
 }
 
+/**
+ * Generates and renders the HTML for subtasks in the edit view.
+ * This function creates HTML elements for each subtask, including options to edit or delete them.
+ * @param {number} taskIndex - The index of the task in the `tasks` array for which subtasks are being rendered.
+ * @returns {void}
+ */
 function generateEditSubtask(taskIndex) {
   let list = document.getElementById('new-subtask');
   list.innerHTML = '';
@@ -217,6 +298,12 @@ function generateEditSubtask(taskIndex) {
   }
 }
 
+/**
+ * Saves the edited task details.
+ * This function updates the task with new title, description, date, priority, and contacts,
+ * and then saves the changes to the server and updates the HTML view.
+ * @returns {Promise<void>}
+ */
 async function saveEditTask() {
   let title = document.getElementById("add-task-edit-title").value;
   let hiddenInput = document.getElementById("hidden-input").value;
@@ -249,12 +336,25 @@ async function saveEditTask() {
   closeMe();
 }
 
+/**
+ * Ensures that the subtasks property of a task is an array.
+ * If the subtasks property is not an array, it initializes it as an empty array.
+ * @param {Object} task - The task object to be checked and updated.
+ * @returns {void}
+ */
 function ensureSubtasksArray(task) {
   if (!Array.isArray(task.subtasks)) {
     task.subtasks = [];
   }
 }
 
+/**
+ * Updates the priority of a task based on the currently active priority button.
+ * This function sets the priority and priority icon of the task according to which 
+ * priority button is active.
+ * @param {number} taskIndex - The index of the task in the `tasks` array to be updated.
+ * @returns {void}
+ */
 function keepPrioButton(taskIndex) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
@@ -274,6 +374,11 @@ function keepPrioButton(taskIndex) {
   }
 }
 
+/**
+ * Activates the priority buttons for editing a task.
+ * This function sets up event listeners for the priority buttons and handles their active states.
+ * @returns {void}
+ */
 function activeEditButton() {
   let lastClick = null;
   urgentButtenEdit(lastClick);
@@ -281,6 +386,13 @@ function activeEditButton() {
   lowButtonEdit(lastClick);
 }
 
+/**
+ * Sets up the event listener for the urgent priority button in the edit view.
+ * This function manages the active state of the urgent priority button and updates
+ * the priority icon and text accordingly.
+ * @param {Object} lastClick - The previously clicked priority button, if any.
+ * @returns {void}
+ */
 function urgentButtenEdit(lastClick) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
@@ -300,6 +412,13 @@ function urgentButtenEdit(lastClick) {
   });
 }
 
+/**
+ * Sets up the event listener for the medium priority button in the edit view.
+ * This function manages the active state of the medium priority button and updates
+ * the priority icon and text accordingly.
+ * @param {HTMLElement} lastClick - The previously clicked priority button, if any.
+ * @returns {void}
+ */
 function mediumButtonEdit(lastClick) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
@@ -319,6 +438,13 @@ function mediumButtonEdit(lastClick) {
   });
 }
 
+/**
+ * Sets up the event listener for the low priority button in the edit view.
+ * This function manages the active state of the low priority button and updates
+ * the priority icon and text accordingly.
+ * @param {HTMLElement} lastClick - The previously clicked priority button, if any.
+ * @returns {void}
+ */
 function lowButtonEdit(lastClick) {
   let urgentEditbutton = document.getElementsByClassName("urgent-edit-button")[0];
   let mediumEditbutton = document.getElementsByClassName("medium-edit-button")[0];
@@ -338,6 +464,13 @@ function lowButtonEdit(lastClick) {
   });
 }
 
+/**
+ * Activates the appropriate priority button based on the task's current priority.
+ * This function highlights the button corresponding to the task's priority and updates
+ * the priority icon accordingly.
+ * @param {number} taskIndex - The index of the task in the `tasks` array.
+ * @returns {void}
+ */
 function activeButton(taskIndex) {
   if (tasks[taskIndex]["prio"] === "Low") {
     document.getElementsByClassName("low-edit-button")[0].classList.add("active");
@@ -363,6 +496,12 @@ function activeButton(taskIndex) {
   }
 }
 
+/**
+ * Changes the icon of the urgent priority button and updates the other priority icons.
+ * This function sets the urgent priority icon to the current `prioIcon`, while updating
+ * the icons of the medium and low priorities to their default images.
+ * @returns {void}
+ */
 function changeIconOfUrgent() {
   let urgent = document.getElementById('urgent-img');
   urgent.src = prioIcon;
@@ -372,6 +511,12 @@ function changeIconOfUrgent() {
   low.src = './assets/img/icon_PrioBajaGreen.svg';
 }
 
+/**
+ * Changes the icon of the medium priority button and updates the other priority icons.
+ * This function sets the medium priority icon to the current `prioIcon`, while updating
+ * the icons of the urgent and low priorities to their default images.
+ * @returns {void}
+ */
 function changeIconOfMedium() {
   let medium = document.getElementById('medium-img');
   medium.src = prioIcon;
@@ -381,6 +526,12 @@ function changeIconOfMedium() {
   low.src = './assets/img/icon_PrioBajaGreen.svg';
 }
 
+/**
+ * Changes the icon of the low priority button and updates the other priority icons.
+ * This function sets the low priority icon to the current `prioIcon`, while updating
+ * the icons of the urgent and medium priorities to their default images.
+ * @returns {void}
+ */
 function changeIconOfLow() {
   let low = document.getElementById('low-img');
   low.src = prioIcon;
