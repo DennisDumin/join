@@ -51,28 +51,6 @@ function renderEditContacts(contactContainer) {
 }
 
 /**
- * Returns the HTML template for a contact list item in the edit view.
- * This function generates the HTML structure for each contact item, including the contact's name, initials, and color.
- * @function templateEditContact
- * @param {number} i - The index of the contact in the contacts array.
- * @param {string} name - The name of the contact.
- * @param {string} initials - The initials of the contact.
- * @param {string} color - The background color associated with the contact.
- * @returns {string} The HTML string for the contact list item.
- */
-function templateEditContact(i, name, initials, color) {
-  return `
-  <div id="contact-edit-container${i}" onclick="selectEditContact(${i})" class="contact-container" tabindex="1">
-      <div class="contact-container-name">
-          <span style="background-color: ${color}" id="contact-edit-initals${i}" class="circle-name">${initials}</span>
-          <span id="contact-name${i}">${name}</span>
-      </div>
-      <div class="contact-container-check"></div>
-  </div> 
-`
-}
-
-/**
  * Opens the "Add Task" form by making the relevant HTML elements visible and animating the slide-in effect.
  * @function openAddTask
  * @returns {void}
@@ -318,43 +296,6 @@ function contactsRender() {
       }
     }
   }
-}
-
-/**
- * Generates the HTML structure for a task card, including its subtasks and progress bar.
- * This function creates a draggable task card with a progress bar, subtasks count, and user details.
- * @function generateAllTasksHTML
- * @param {Object} element - The task object containing details such as ID, category, title, description, subtasks, and priority icon.
- * @returns {string} The HTML string representing the task card.
- */
-function generateAllTasksHTML(element) {
-  const subtasks = Array.isArray(element.subtasks) ? element.subtasks : [];
-  return `
-    <div id="card-id${element["ID"]}" draggable="true" ondragstart="startDragging(${element["ID"]})" onclick="showTask(${element["ID"]})">
-      <div class="card">
-        <div id="card-category-title${element["ID"]}" class="card-category-title">${element["category"]}</div>
-        <div class="title-description-content">
-          <h2 class="card-title">${element["title"]}</h2>
-          <p class="card-description">${element["description"]}</p>
-        </div>
-        ${subtasks.length > 0 ? `
-        <div class="progress-bar-content">
-          <progress value="${valueOfProgressBar(element["ID"])}" max="100" id="progress-bar${element["ID"]}"></progress>
-          <p class="card-subtasks-text">
-            <span id="number-of-subtask${element["ID"]}" class="number-of-subtask">
-              ${subtasks.filter(subtask => subtask.completed).length}/${subtasks.length}
-            </span> Subtasks
-          </p>
-        </div>` : ''}
-        <div class="card-user-content">
-          <div class="user-container-board">
-            <div class="user-inner-container" id="new-div${element["ID"]}"></div>
-            <div class="number-of-contacts" id="plus-number-contacts${element["ID"]}"></div>
-          </div>
-          <img src="${element["prioIcon"]}" alt="">
-        </div>
-      </div>
-    </div>`;
 }
 
 /**

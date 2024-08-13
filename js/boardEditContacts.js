@@ -150,27 +150,6 @@ function showEditContactResults() {
 }
 
 /**
- * Creates the HTML structure for a contact search result item.
- * @function templateEditContactSearch
- * @param {number} i - The index of the contact.
- * @param {string} name - The name of the contact.
- * @param {string} initials - The initials of the contact.
- * @param {string} color - The background color for the contact's initials.
- * @returns {string} The HTML string representing the contact search result item.
- */
-function templateEditContactSearch(i, name, initials, color) {
-  return `
-  <div id="contact-edit-container${i}" onclick="selectEditContactSearch(${i})" class="contact-container" tabindex="1">
-    <div class="contact-container-name">
-      <span style="background-color: ${color}" id="contact-edit-initals${i}" class="circle-name">${initials}</span>
-      <span id="contact-name${i}">${name}</span>
-    </div>
-    <div class="contact-container-check"></div>
-  </div> 
-  `;
-}
-
-/**
  * Toggles the selection state of a contact in the search results.
  * @function selectEditContactSearch
  * @param {number} i - The index of the contact to toggle.

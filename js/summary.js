@@ -1,15 +1,43 @@
+/**
+ * An array to store tasks.
+ * @type {Array<Object>}
+ */
 let tasks = []
 
+/**
+ * An array to store the dates of high-priority tasks.
+ * @type {Array<string>}
+ */
 let priorityHighDates = []
 
+/**
+ * Stores the current date.
+ * @type {Date}
+ */
 let dateToday
 
+/**
+ * Stores the closest high-priority task date.
+ * @type {string}
+ */
 let closest
 
+/**
+ * Format options for displaying dates.
+ * @type {Object}
+ */
 let formatDate = { year: "numeric", month: "long", day: "numeric" }
 
+/**
+ * Stores the user data.
+ * @type {Object}
+ */
 let user
 
+/**
+ * A number used for demonstration or as a placeholder.
+ * @type {number}
+ */
 let number = 15220
 
 /**
@@ -121,30 +149,45 @@ function checkIfGuest() {
   }
 }
 
+/**
+ * Changes the pencil image to a white version.
+ */
 function changePencilImg() {
   document
     .getElementById("pencil-img")
     .setAttribute("src", "./assets/img/pencil-white.png")
 }
 
+/**
+ * Resets the pencil image to the default dark blue version.
+ */
 function resetPencilImg() {
   document
     .getElementById("pencil-img")
     .setAttribute("src", "./assets/img/pencil-darkblue.png")
 }
 
+/**
+ * Changes the checkmark image to a white version.
+ */
 function changeCheckImg() {
   document
     .getElementById("check-img")
     .setAttribute("src", "./assets/img/check-white.png")
 }
 
+/**
+ * Resets the checkmark image to the default dark blue version.
+ */
 function resetCheckImg() {
   document
     .getElementById("check-img")
     .setAttribute("src", "./assets/img/check-darkblue.png")
 }
 
+/**
+ * Loads the board page in the browser.
+ */
 function loadBoardPage() {
   window.location.href = "https://join-233.developerakademie.net/board.html"
 }

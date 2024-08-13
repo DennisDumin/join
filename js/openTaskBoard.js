@@ -22,63 +22,6 @@ function showTask(taskIndex) {
 }
 
 /**
- * Generates the HTML content for displaying a task.
- * This function creates a string of HTML that represents the task details, including
- * category, title, description, due date, priority, assigned contacts, and subtasks.
- * @param {number} taskIndex - The index of the task in the `tasks` array.
- * @returns {string} The HTML string representing the task's detailed view.
- */
-function generateShowTask(taskIndex) {
-  return `
-  <div class="category-show-content">
-    <div id="card-category-title-show${taskIndex}">${tasks[taskIndex]["category"]}</div>
-    <div class="close-img" onclick="closeMe()"></div>
-  </div>
-  <div class="title-description-content">
-    <div class="title-content-show"><h2 class="show-card-title">${tasks[taskIndex]["title"]}</h2></div>
-    <p class="show-card-description">${tasks[taskIndex]["description"]}</p>
-  </div>
-  <div class="due-date-content"><div class="due-date-text-content">Due date:</div>${convertDate(
-    tasks[taskIndex]["date"])}</div>
-  <div class="priority-content">
-    <div class="prio-text">Priority:</div>
-    <div class="prio-icon-text-content">${tasks[taskIndex]["prio"]} <img src="${tasks[taskIndex]["prioIcon"]}" alt=""></div>
-  </div>
-  <div class="show-assigned-to-content">
-    <div class="assigned-to-text">Assigned To:</div>
-    <div class="show-user-content">
-      <div class="user-task-show-content" id="user-show-letter"></div>
-      <div class="user-show-content" id="user-show-name"></div>
-    </div>
-  </div>
-  <div>Subtasks</div>
-  <div id="subtask-show"></div>
-  <div class="show-btn-content">
-    <div class="show-delete-content" onclick="deleteTask(${taskIndex})">
-      <i class="fa fa-trash-o" style="font-size:24px"></i>
-      <button>Delete</button>
-    </div>
-    <div class="show-line-content"></div>
-      <div class="show-edit-content" onclick="openEdit(${taskIndex})">
-        <i class="fa fa-edit" style="font-size:24px"></i>
-        <button>Edit</button>
-      </div>
-      <div class="show-line-content-cardmenu"></div>
-        <!-- Button to open the dropdown menu -->
-      <div class="card-menu">
-     <i class="fa fa-arrows-alt" style="font-size:20px; cursor:pointer; display: flex; align-items: center;" onclick="toggleDropdown(${taskIndex})"><button>Move to</button></i>
-        <!-- Dropdown menu -->
-        <div id="dropdown${taskIndex}" class="dropdown-content">
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'To Do')">To Do</a>
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'In progress')">In Progress</a>
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'Await feedback')">Await Feedback</a>
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'Done')">Done</a>
-    </div>
-  </div> 
-  `;
-}
-
-/**
  * Moves a task to a new category.
  * This function updates the category of a task and hides the dropdown menu.
  * @param {number} taskIndex - The index of the task in the `tasks` array.

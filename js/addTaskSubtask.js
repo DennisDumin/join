@@ -69,49 +69,6 @@ function addSubtaskEnter(){
 }
 
 /**
- * Generates the HTML list of subtasks and displays them.
- * Iterates through the subtasks array and creates list elements for each subtask.
- * @function generateSubtasksList
- * @returns {void}
- */
-function generateSubtasksList() {
-    let subtaskList = document.getElementById('subtasks-list');
-    subtaskList.innerHTML = '';
-    subtaskList.style.display = 'block';
-    subtasks.forEach((subtask, index) => {
-        subtaskList.innerHTML += `
-            <div id="subtasks-list-element${index}" class="subtasks-list-element">
-                <li ondblclick="editSubtask(${index})">${subtask.name}</li>
-                <div class="subtasks-icon subtasks-icon-hidden">
-                    <img onclick="editSubtask(${index})" src="./assets/img/icon_edit.svg" alt="Bearbeiten">
-                    <div class="parting-line subtasks-icon-line"></div>
-                    <img onclick="deleteSubtask(${index})" src="./assets/img/icon_delete.svg" alt="Löschen">
-                </div>
-            </div>`;
-    });
-}
-
-/**
- * Returns the HTML template for a subtask list element.
- * @function templateSubtaskListElement
- * @param {number} i - The index of the subtask in the subtasks array.
- * @param {string} subtask - The name of the subtask.
- * @returns {string} The HTML string for the subtask list element.
- */
-function templateSubtaskListElement(i, subtask) {
-    return `
-    <div id="subtasks-list-element${i}" class="subtasks-list-element">
-        <li ondblclick="editSubtask(${i})">${subtask}</li>
-        <div class="subtasks-icon subtasks-icon-hidden">
-            <img onclick="editSubtask(${i})" src="./assets/img/icon_edit.svg" alt="Bearbeiten">
-            <div class="parting-line subtasks-icon-line"></div>
-            <img onclick="deleteSubtask(${i})" src="./assets/img/icon_delete.svg" alt="Löschen">
-        </div>
-    </div>
-`;
-}
-
-/**
  * Deletes a subtask from the subtasks list.
  * Removes the subtask at the specified index from the subtasks array and regenerates the list display.
  * @function deleteSubtask
@@ -138,25 +95,6 @@ function editSubtask(index) {
         generateSubtasksList();
     }
 }
-
-/**
- * Returns the HTML template for editing a subtask.
- * Provides an input field for the user to edit the subtask and buttons to confirm or delete the subtask.
- * @function templateEditSubtask
- * @param {number} i - The index of the subtask in the subtasks array.
- * @returns {string} The HTML string for the edit subtask template.
- */
-function templateEditSubtask(i) {
-    return `
-    <input id="newSubtask" value="${subtasks[i]}" class="inputfield subtask-edit-input" type="text">
-    <div id="addTask-subtasks-icons" class="subtasks-icon">
-        <img onclick="deleteSubtask(${i})" src="./assets/img/icon_delete.svg" alt="Löschen">
-        <div class="parting-line subtasks-icon-line"></div>
-        <img onclick="keepSubtask(${i})" src="./assets/img/icon_done.svg" alt="Bestätigen">
-    </div>
-    `;
-}
-
 
 /**
  * Confirms the edits made to a subtask.

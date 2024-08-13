@@ -1,3 +1,10 @@
+/**
+ * Generates the HTML for displaying detailed contact information, including options to edit or delete the contact.
+ * 
+ * @param {Object} source - The source object containing contact details.
+ * @param {string} contactId - The unique identifier for the contact.
+ * @returns {string} The HTML string for the detailed contact view.
+ */
 function detailedContactHtml(source, contactId) {
     return `
         <div class="contact-profile">
@@ -21,6 +28,13 @@ function detailedContactHtml(source, contactId) {
     `;
 }
 
+/**
+ * Generates the HTML for rendering a contact in the contact list.
+ * 
+ * @param {string} contactColor - The background color for the contact's initial.
+ * @param {Object} contact - The contact object containing name, email, and id.
+ * @returns {string} The HTML string for displaying the contact in the list.
+ */
 function renderContactHtml(contactColor, contact) {
     return `
         <div onclick="renderDetailedContact('${contact.id}')" id="${contact.id}" class="contactCard">

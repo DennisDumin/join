@@ -93,60 +93,6 @@ function contactsEditRender(taskIndex) {
 }
 
 /**
- * Generates the HTML input field for adding new subtasks in the edit view.
- * This function creates an input field with a placeholder and attaches event handlers
- * for opening and closing the subtask icons.
- * @param {number} taskIndex - The index of the task in the `tasks` array for which subtasks are being edited.
- * @returns {void}
- */
-function generateInputEditSubtask(taskIndex) {
-  let content = document.getElementsByClassName(`input-edit-subtask`)[0];
-  content.innerHTML = `      
-  <input id="add-task-edit-subtasks${taskIndex}" class="inputfield" type="text"
-  placeholder="Add new subtask" maxlength="26" autocomplete="off" onclick="openEditSubtaskIcons()"/>
-  <div id="add-task-subtasks-edit-icons" class="subtasks-icon d-none">
-    <img  src="./assets/img/icon_closeVectorBlack.svg" alt="Delete" onclick="closeEditSubtaskIcons()">
-    <div class="parting-line subtasks-icon-line"></div>
-    <img id="add-subtask-button" src="./assets/img/icon_done.svg" alt="confirm" onclick="addEditSubtasks(${taskIndex})">
-  </div>
-  <img src="./assets/img/icon_subtasks.svg" class="plus-icon-edit-subtasks" id="plus-edit-icon" onclick="openEditSubtaskIcons()"/>`;
-}
-
-/**
- * Renders the list of subtasks in the edit view.
- * This function generates HTML for displaying subtasks with options to edit or delete each subtask.
- * @param {number} taskIndex - The index of the task in the `tasks` array for which subtasks are being edited.
- * @returns {void}
- */
-function subtasksEditRender(taskIndex) {
-  let content = document.getElementById('new-subtask');
-  content.innerHTML = '';
-  for (let j = 0; j < tasks[taskIndex]['subtasks'].length; j++) {
-    let subtask = tasks[taskIndex]['subtasks'][j];
-    content.innerHTML += `
-      <div class="checkbox-edit-content">
-        <div id="checkbox-edit-content${j}" class="checkbox-show-content">
-          <input type="checkbox" ${subtask.completed ? 'checked' : ''} id="check-sub${j}" onclick="toggleSubtask(${taskIndex}, ${j})">
-          <label id="subtask-edit-text${j}" class="subtask-show-text">${subtask.name}</label>
-        </div>
-        <div id="edit-input-board-content${j}" class="subtasks-icon input-subtask-edit-content hidden">
-          <input type="text" class="edit-input-board" id="edit-input-board${j}" value="${subtask.name}">
-          <div class="edit-buttons-content">
-            <img onclick="deleteEditBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_delete.svg" alt="delete">
-            <div class="parting-line subtasks-icon-line"></div>
-            <img onclick="confirmEdit(${taskIndex}, ${j})" src="./assets/img/icon_done.svg" alt="confirm">
-          </div>
-        </div>
-        <div id="subtasks-icon${j}" class="subtasks-icon subtasks-icon-hidden">
-          <img onclick="editBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_edit.svg" alt="edit">
-          <div class="parting-line subtasks-icon-line"></div>
-          <img onclick="deleteEditBoardSubtask(${taskIndex}, ${j})" src="./assets/img/icon_delete.svg" alt="delete">
-        </div>
-      </div>`;
-  }
-}
-
-/**
  * Confirms and updates a subtask with the new value.
  * This function updates the subtask with the new value entered by the user, 
  * and refreshes the subtasks list and progress accordingly.
@@ -262,40 +208,6 @@ function addEditSubtasks(taskIndex) {
   putData("/tasks", tasks);
 
   document.getElementById(`add-task-edit-subtasks${taskIndex}`).value = "";
-}
-
-/**
- * Generates and renders the HTML for subtasks in the edit view.
- * This function creates HTML elements for each subtask, including options to edit or delete them.
- * @param {number} taskIndex - The index of the task in the `tasks` array for which subtasks are being rendered.
- * @returns {void}
- */
-function generateEditSubtask(taskIndex) {
-  let list = document.getElementById('new-subtask');
-  list.innerHTML = '';
-  for (let i = 0; i < tasks[taskIndex]["subtasks"].length; i++) {
-    let subtask = tasks[taskIndex]["subtasks"][i];
-    list.innerHTML += `
-      <div class="checkbox-edit-content">
-        <div id="checkbox-edit-content${i}" class="checkbox-show-content">
-          <input type="checkbox" ${subtask.completed ? 'checked' : ''} id="check-sub${i}">
-          <label id="subtask-edit-text${i}" class="subtask-show-text">${subtask.name}</label>
-        </div>
-        <div id="edit-input-board-content${i}" class="subtasks-icon input-subtask-edit-content hidden">
-          <input type="text" class="edit-input-board" id="edit-input-board${i}" value="${subtask.name}">
-          <div class="edit-buttons-content">
-            <img onclick="deleteEditBoardSubtask(${taskIndex}, ${i})" src="./assets/img/icon_delete.svg" alt="delete">
-            <div class="parting-line subtasks-icon-line"></div>
-            <img onclick="confirmEdit(${taskIndex}, ${i})" src="./assets/img/icon_done.svg" alt="confirm">
-          </div>
-        </div>
-        <div id="subtasks-icon${i}" class="subtasks-icon subtasks-icon-hidden">
-          <img onclick="editBoardSubtask(${taskIndex}, ${i})" src="./assets/img/icon_edit.svg" alt="edit">
-          <div class="parting-line subtasks-icon-line"></div>
-          <img onclick="deleteEditBoardSubtask(${taskIndex}, ${i})" src="./assets/img/icon_delete.svg" alt="delete">
-        </div>
-      </div>`;
-  }
 }
 
 /**
