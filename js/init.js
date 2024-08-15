@@ -42,15 +42,42 @@ async function includeHTML() {
  * @function showUser
  * @returns {void}
  */
-function showUser() {
-  let userInitials = document.getElementById("userInitials")
-  if (!userInitials) {
-    console.error("Can not find container userInitials")
-    return
+async function showUser() {
+  let userInitialsElement = document.getElementById("userInitials");
+  if (!userInitialsElement) {
+      console.error("Cannot find container userInitials");
+      return;
   }
-  let userAsText = localStorage.getItem("user")
-  let user = JSON.parse(userAsText)
-  userInitials.innerHTML = `<div>${user.initials}</div>`
+  let userAsText = localStorage.getItem("user");
+  let user;
+
+  if (userAsText) {
+      user = JSON.parse(userAsText);
+
+      if (user && user.name === "Gast") {
+          userInitialsElement.innerHTML = `<div>G</div>`;
+          return;
+      }
+  }
+  try {
+      let userId = user ? user.id : "unknownUserId";
+      let response = await fetch(BASE_URL + `users/${userId}.json`);
+      
+      if (!response.ok) {
+          throw new Error(`Failed to fetch user data: ${response.status}`);
+      }
+
+      user = await response.json();
+
+      if (user && user.initials) {
+          userInitialsElement.innerHTML = `<div>${user.initials}</div>`;
+      } else {
+          throw new Error("User data is incomplete or not found.");
+      }
+  } catch (error) {
+      console.error("Error fetching user data from Firebase:", error.message);
+      userInitialsElement.innerHTML = `<div>?</div>`;
+  }
 }
 
 /**

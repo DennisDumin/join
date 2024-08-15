@@ -141,14 +141,27 @@ function getInitials(name) {
  * @param {string} contactId - The ID of the contact.
  */
 function renderDetailedContact(contactId) {
-    let source = material[0][contactId];
+    if (!contactId) {
+        console.error('Error: Contact ID is undefined or null.');
+        return;
+    }
+    let source = material[0] ? material[0][contactId] : null;
 
-    if (keyForEdit !== null) {
+    if (!source) {
+        console.error('Error: Contact data not found for ID', contactId);
+        return;
+    }
+    if (keyForEdit !== null && document.getElementById(keyForEdit)) {
         document.getElementById(keyForEdit).classList.remove('blueBackground');
     }
 
     keyForEdit = contactId;
-    document.getElementById(keyForEdit).classList.add('blueBackground');
+    let contactElement = document.getElementById(keyForEdit);
+    if (contactElement) {
+        contactElement.classList.add('blueBackground');
+    } else {
+        console.error('Error: Contact element not found for ID', contactId);
+    }
 
     let target = document.getElementById('content');
     target.innerHTML = detailedContactHtml(source, contactId);
@@ -310,17 +323,23 @@ function saveForBackground() {
  * Highlights the new contact background.
  */
 function newContactBgHighlight() {
-    let asTexthighlightKey = localStorage.getItem('highlightKey')
+    let asTexthighlightKey = localStorage.getItem('highlightKey');
 
     if (asTexthighlightKey === null) {
-        return
-    } else
-    highlightKey = JSON.parse(asTexthighlightKey)
-    console.log(highlightKey)
-    keyForEdit = searchNameInMaterialArray();
-    renderDetailedContact(keyForEdit);
-    localStorage.clear();
-    scrollToNewDiv();
+        return;
+    } else {
+        highlightKey = JSON.parse(asTexthighlightKey);
+        console.log('Highlight Key:', highlightKey);  // Debugging output
+        keyForEdit = searchNameInMaterialArray();
+        console.log('Key for Edit:', keyForEdit);  // Debugging output
+        if (keyForEdit !== undefined && keyForEdit !== null) {
+            renderDetailedContact(keyForEdit);
+            localStorage.clear();
+            scrollToNewDiv();
+        } else {
+            console.error('Error: Invalid contact ID for highlighting.');
+        }
+    }
 }
 
 /**
