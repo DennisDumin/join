@@ -93,10 +93,20 @@
         }
     }
 
-    #editDelete {
+    .edit-delete {
         display: none;
     }
 
+    .single-letter {
+        height: 80px;
+        width: 80px;
+        font-size: 32px;
+    }
+
+.contact-profile {
+gap: 48px;
+
+    }
     #cancelButton {
         display: none;
     }
