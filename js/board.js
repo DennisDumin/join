@@ -21,6 +21,7 @@ async function initBoard() {
   boardBg()
   chooseMedium()
   showUser()
+  renderDateInput()
 }
 
 /**

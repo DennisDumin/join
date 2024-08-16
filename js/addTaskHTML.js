@@ -51,12 +51,12 @@ function templateContactSearch(i, name, initials, color) {
  */
 function templateEditSubtask(i) {
   return `
-  <input id="newSubtask" value="${subtasks[i]}" class="inputfield subtask-edit-input" type="text">
-  <div id="addTask-subtasks-icons" class="subtasks-icon">
-      <img onclick="deleteSubtask(${i})" src="./assets/img/icon_delete.svg" alt="Löschen">
-      <div class="parting-line subtasks-icon-line"></div>
-      <img onclick="keepSubtask(${i})" src="./assets/img/icon_done.svg" alt="Bestätigen">
-  </div>
+      <input id="newSubtask${i}" value="${subtasks[i].name}" class="inputfield subtask-edit-input" type="text">
+      <div class="subtasks-icon">
+          <img onclick="keepSubtask(${i})" src="./assets/img/icon_done.svg" alt="Bestätigen">
+          <div class="parting-line subtasks-icon-line"></div>
+          <img onclick="cancelEditSubtask(${i})" src="./assets/img/icon_closeVectorBlack.svg" alt="Abbrechen">
+      </div>
   `;
 }
 
@@ -90,6 +90,7 @@ function generateSubtasksList() {
   let subtaskList = document.getElementById('subtasks-list');
   subtaskList.innerHTML = '';
   subtaskList.style.display = 'block';
+
   subtasks.forEach((subtask, index) => {
       subtaskList.innerHTML += `
           <div id="subtasks-list-element${index}" class="subtasks-list-element">

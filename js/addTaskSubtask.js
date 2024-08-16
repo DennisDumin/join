@@ -89,11 +89,8 @@ function deleteSubtask(i) {
  * @returns {void}
  */
 function editSubtask(index) {
-    let newSubtaskName = prompt("Edit subtask:", subtasks[index].name);
-    if (newSubtaskName !== null && newSubtaskName.length > 1) {
-        subtasks[index].name = newSubtaskName;
-        generateSubtasksList();
-    }
+    const subtaskElement = document.getElementById(`subtasks-list-element${index}`);
+    subtaskElement.innerHTML = templateEditSubtask(index);
 }
 
 /**
@@ -104,9 +101,19 @@ function editSubtask(index) {
  * @returns {void}
  */
 function keepSubtask(i) {
-    let newSubtask = document.getElementById('newSubtask').value;
-    if (newSubtask.length > 1) {
-        subtasks.splice(i, 1, newSubtask);
+    let newSubtaskName = document.getElementById(`newSubtask${i}`).value;
+    if (newSubtaskName.length > 1) {
+        subtasks[i].name = newSubtaskName;
         generateSubtasksList();
     }
+}
+
+/**
+ * Cancels the edit operation and restores the original subtask display.
+ * @function cancelEditSubtask
+ * @param {number} i - The index of the subtask in the subtasks array.
+ * @returns {void}
+ */
+function cancelEditSubtask(i) {
+    generateSubtasksList();
 }

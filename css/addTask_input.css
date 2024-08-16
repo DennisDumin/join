@@ -75,6 +75,7 @@
     border-radius: 10px;
     box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
     overflow-y: scroll;
+    z-index: 88;
 }
 
 .circle-name {

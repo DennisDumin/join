@@ -132,13 +132,22 @@ function showSelectedContacts() {
     let container = document.getElementById('selected-contacts');
     container.classList.remove('d-none');
     container.innerHTML = '';
-    for (let i = 0; i < selectedContacts.length; i++) {
+
+    let maxVisibleContacts = 3;
+    let numSelectedContacts = selectedContacts.length;
+    for (let i = 0; i < Math.min(maxVisibleContacts, numSelectedContacts); i++) {
         let contact = selectedContacts[i];
         let name = contact['name'];
         let initials = getInitials(name);
-        let color = selectedContacts[i]['color'];
+        let color = contact['color'];
         container.innerHTML += `
         <span style="background-color: ${color}" class="circle-name">${initials}</span>
+        `;
+    }
+    if (numSelectedContacts > maxVisibleContacts) {
+        let additionalContacts = numSelectedContacts - maxVisibleContacts;
+        container.innerHTML += `
+        <span style="background-color: #2a3647; color: white;" class="circle-name">+${additionalContacts}</span>
         `;
     }
 }
