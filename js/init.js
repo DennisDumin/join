@@ -48,26 +48,35 @@ async function showUser() {
       console.error("Cannot find container userInitials");
       return;
   }
+
   let userAsText = localStorage.getItem("user");
   let user;
 
   if (userAsText) {
       user = JSON.parse(userAsText);
-
-      if (user && user.name === "Gast") {
-          userInitialsElement.innerHTML = `<div>G</div>`;
-          return;
-      }
   }
+
+  if (!user || !user.id) {
+      user = {
+          id: "guest",
+          name: "Gast",
+          initials: "G"
+      };
+      console.log("No user ID found. Falling back to guest user.");
+      userInitialsElement.innerHTML = `<div>G</div>`;
+      return;
+  }
+
   try {
-      let userId = user ? user.id : "unknownUserId";
-      let response = await fetch(BASE_URL + `users/${userId}.json`);
-      
+      let response = await fetch(BASE_URL + `users/${user.id}.json`);
+
       if (!response.ok) {
           throw new Error(`Failed to fetch user data: ${response.status}`);
       }
 
       user = await response.json();
+
+      console.log("Fetched user data:", user);
 
       if (user && user.initials) {
           userInitialsElement.innerHTML = `<div>${user.initials}</div>`;
@@ -76,9 +85,10 @@ async function showUser() {
       }
   } catch (error) {
       console.error("Error fetching user data from Firebase:", error.message);
-      userInitialsElement.innerHTML = `<div>?</div>`;
+      userInitialsElement.innerHTML = `<div>G</div>`;
   }
 }
+
 
 /**
  * Adds a background focus class to the summary menu link.

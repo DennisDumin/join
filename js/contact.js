@@ -302,13 +302,13 @@ function saveColorIndex() {
         },
         body: JSON.stringify(colorIndex)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to update color index');
-        }
-        console.log('Color index updated successfully');
-    })
-    .catch(error => console.error('Error updating color index:', error));
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update color index');
+            }
+            console.log('Color index updated successfully');
+        })
+        .catch(error => console.error('Error updating color index:', error));
 }
 
 /**
@@ -325,20 +325,19 @@ function saveForBackground() {
 function newContactBgHighlight() {
     let asTexthighlightKey = localStorage.getItem('highlightKey');
 
-    if (asTexthighlightKey === null) {
+    if (!asTexthighlightKey) {
         return;
+    }
+
+    highlightKey = JSON.parse(asTexthighlightKey);
+
+    keyForEdit = searchNameInMaterialArray();
+
+    if (keyForEdit) {
+        renderDetailedContact(keyForEdit);
+        localStorage.clear();
+        scrollToNewDiv();
     } else {
-        highlightKey = JSON.parse(asTexthighlightKey);
-        console.log('Highlight Key:', highlightKey);  // Debugging output
-        keyForEdit = searchNameInMaterialArray();
-        console.log('Key for Edit:', keyForEdit);  // Debugging output
-        if (keyForEdit !== undefined && keyForEdit !== null) {
-            renderDetailedContact(keyForEdit);
-            localStorage.clear();
-            scrollToNewDiv();
-        } else {
-            console.error('Error: Invalid contact ID for highlighting.');
-        }
     }
 }
 
@@ -347,13 +346,17 @@ function newContactBgHighlight() {
  * @returns {string} - The key of the found contact.
  */
 function searchNameInMaterialArray() {
-    let nameData = material[0]
+    if (!material || !material.length || !material[0]) {
+        return null;
+    }
 
+    let nameData = material[0];
     for (const key in nameData) {
         if (nameData[key].name === highlightKey['name']) {
             return key;
         }
     }
+    return null;
 }
 
 /**
@@ -371,33 +374,33 @@ function scrollToNewDiv() {
  * @async
  */
 async function UpdateContact() {
-    stopWindowReload('update');
-    array.length = 0;
-    array.push(editContact());
-    const response = await fetch(`${BASE_URL}contact/${keyForEdit}.json`, {
-        method: "PATCH",
-        headers: {
-            "content-type": "application/json",
-        },
-        body: JSON.stringify(array[0]),
-    });
-    window.location.reload();
-}
+    let email = document.getElementById('editEmail').value;
+    let name = document.getElementById('editName').value;
+    let tel = document.getElementById('editTel').value;
+    if (email.trim() === "" || name.trim() === "" || tel.trim() === "") {
+        return;
+    }
+    if (!keyForEdit) {
+        return;
+    }
+    try {
+        let response = await fetch(`${BASE_URL}contact/${keyForEdit}.json`);
+        if (!response.ok) {
+            throw new Error('Fehler beim Abrufen des bestehenden Kontakts');
+        }
 
-/**
- * Edits a contact.
- * @returns {Object} - The edited contact data.
- */
-function editContact() {
-    let email = document.getElementById('editEmail');
-    let name = document.getElementById('editName');
-    let tel = document.getElementById('editTel');
-    let data = {
-        'email': email.value,
-        'name': name.value,
-        'telefonnummer': tel.value
-    };
-    return data;
+        let existingContact = await response.json();
+        let updatedContact = {
+            email: email,
+            name: name,
+            telefonnummer: tel,
+            color: existingContact.color
+        };
+        await putData(`contact/${keyForEdit}`, updatedContact);
+        window.location.reload();
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren des Kontakts:', error.message);
+    }
 }
 
 /**
@@ -436,7 +439,6 @@ async function deleteContact(path = 'contact', id) {
         }
         window.location.reload();
     } catch (error) {
-        console.error('Fehler beim Löschen des Kontakts:', error.message);
     }
 }
 
@@ -505,7 +507,6 @@ function getRandomColor() {
     for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * letters.length)];
     }
-    console.log(color);
     return color;
 }
 
