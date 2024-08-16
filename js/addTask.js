@@ -15,6 +15,7 @@ async function initTask() {
   renderContacts("add-task-contacts-container")
   chooseMedium()
   showUser()
+  renderDateInput()
 }
 
 /**
@@ -325,6 +326,24 @@ async function saveTask() {
   } else {
     await putData("/tasks", tasks) // from storage.js
   }
+}
+
+/**
+ * Sets the minimum date for the date input field to the current date.
+ *
+ * This function generates a date string in the format "YYYY-MM-DD" representing the
+ * current date. If the month is less than 10, a leading zero is added to ensure the
+ * proper format. The resulting date string is then set as the minimum allowable date
+ * in the date input field with the ID 'add-task-input-date'.
+ */
+function renderDateInput() {
+  const today = new Date(); // Heutiges Datum
+  let year = today.getFullYear();
+  let month = (today.getMonth() + 1).toString().padStart(2, '0');
+  let day = today.getDate().toString().padStart(2, '0');
+
+  const newDate = `${year}-${month}-${day}`;
+  document.getElementById('task-date').min = newDate;
 }
 
 /**
