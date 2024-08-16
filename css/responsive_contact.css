@@ -122,8 +122,8 @@ gap: 48px;
 
     .popUp {
         flex-direction: column;
-        width: 90vw;
-        height: 90vh;
+        width: 100%;
+        height: 100%;
         border-radius: 32px;
     }
 

@@ -3,6 +3,7 @@ h2 {
   font-size: xxx-large;
   padding-right: 48px;
 }
+
 .header-sticky {
   position: sticky;
   top: 0;
@@ -28,6 +29,7 @@ h2 {
   height: 100%;
   overflow-y: auto;
   display: flex;
+  background-color: white;
   flex-direction: column;
   padding: 0 12px 0 12px 0;
   padding: 0 12px 0 12px;
@@ -82,6 +84,8 @@ h2 {
   align-items: center;
   gap: 12px;
   height: 40px;
+  justify-content: center;
+  width: 250px;
   border-radius: 12px;
   font-size: larger;
   padding: 8px 12px 8px 12px;
@@ -342,8 +346,7 @@ h2 {
 }
 
 .cancel-Button:hover img {
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
-    brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
 }
 
 .letter {
@@ -431,15 +434,13 @@ h4 {
 
 .edit-delete :first-child:hover {
   color: rgb(65, 157, 241);
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
-    brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
   cursor: pointer;
 }
 
 .edit-delete :nth-child(2):hover {
   color: rgb(65, 157, 241);
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
-    brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
   cursor: pointer;
 }
 
@@ -451,8 +452,7 @@ h4 {
 
 .edit-delete img:hover {
   cursor: pointer;
-  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg)
-    brightness(100%) contrast(100%);
+  filter: invert(33%) sepia(100%) saturate(5000%) hue-rotate(190deg) brightness(100%) contrast(100%);
 }
 
 .edit-delete span {
@@ -473,12 +473,15 @@ h4 {
 }
 
 .input-with-icon {
-  padding-right: 30px; /* Platz für das Icon */
+  padding-right: 30px;
+  /* Platz für das Icon */
   background: url('./contact-assets/img/call.png') no-repeat right center;
-  background-size: 20px 20px; /* Größe des Icons */
-  border: 1px solid #ccc; /* Optional: Rand des Input-Feldes */
-  border-radius: 4px; /* Optional: Abgerundete Ecken */
-  height: 40px; /* Optional: Höhe des Input-Feldes */
+  background-size: 20px 20px;
+  /* Größe des Icons */
+  border: 1px solid #ccc;
+  /* Optional: Rand des Input-Feldes */
+  border-radius: 4px;
+  /* Optional: Abgerundete Ecken */
+  height: 40px;
+  /* Optional: Höhe des Input-Feldes */
 }
-
-
