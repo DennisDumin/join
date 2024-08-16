@@ -733,3 +733,84 @@ input[type="checkbox"]:hover {
 .add-task-button-responsive {
   display: none;
 }
+
+body {
+  font-family: inter;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: var(--bg-color);
+  margin: 0;
+  display: flex;
+  box-sizing: border-box;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--lightgrey);
+  gap: 16px;
+  padding: 8px 0 8px 25%;
+}
+
+nav a:hover {
+  background-color: #2a3d59;
+}
+
+.active-link {
+  background-color: var(--secundary-color);
+}
+
+.bg-focus {
+  background-color: #091931;
+}
+
+h1 {
+  font-size: 61px;
+  font-weight: 700;
+}
+
+.container-sidebar {
+  display: flex;
+  width: 232px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 997;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-logo {
+  padding-top: 64px;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  margin: 32px 0px;
+  gap: 20px;
+  width: 100%;
+}
+
+.nav-bottom-link {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20% 0 64px 0;
+}
+
+.nav-bottom-link a {
+  text-decoration: none;
+  color: #a8a8a8;
+}
+
+.nav-bottom-link a:hover {
+  color: var(--highlight-color);
+  font-weight: 700;
+  background-color: transparent;
+}
