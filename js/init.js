@@ -62,7 +62,6 @@ async function showUser() {
           name: "Gast",
           initials: "G"
       };
-      console.log("No user ID found. Falling back to guest user.");
       userInitialsElement.innerHTML = `<div>G</div>`;
       return;
   }
