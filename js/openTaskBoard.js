@@ -188,13 +188,16 @@ function UpdateProgress(taskIndex) {
  */
 function contactsShowLetterRender(taskIndex) {
   let content = document.getElementById('user-show-letter');
-  for (let j = 0; j < tasks[taskIndex]['contacts'].length; j++) {
-    let letter = tasks[taskIndex]['contacts'][j]['name'].split(" ");
-    let result = "";
-    for (let name = 0; name < letter.length; name++) {
-      result += letter[name].charAt(0).toUpperCase();
+  content.innerHTML = ""; // Clear the content first
+  if (tasks[taskIndex]['contacts'] && Array.isArray(tasks[taskIndex]['contacts'])) {
+    for (let j = 0; j < tasks[taskIndex]['contacts'].length; j++) {
+      let letter = tasks[taskIndex]['contacts'][j]['name'].split(" ");
+      let result = "";
+      for (let name = 0; name < letter.length; name++) {
+        result += letter[name].charAt(0).toUpperCase();
+      }
+      content.innerHTML += `<div class="user-task-content-show" style="background-color:${tasks[taskIndex]['contacts'][j]['color']};">${result}</div>`;
     }
-    content.innerHTML += `<div class="user-task-content-show" style="background-color:${tasks[taskIndex]['contacts'][j]['color']};">${result}</div>`;
   }
 }
 
@@ -206,8 +209,11 @@ function contactsShowLetterRender(taskIndex) {
  */
 function contactsShowNameRender(taskIndex) {
   let content = document.getElementById('user-show-name');
-  for (let j = 0; j < tasks[taskIndex]['contacts'].length; j++) {
-    content.innerHTML += `<div class="user-show-name">${tasks[taskIndex]['contacts'][j]['name']}</div>`;
+  content.innerHTML = "";
+  if (tasks[taskIndex]['contacts'] && Array.isArray(tasks[taskIndex]['contacts'])) {
+    for (let j = 0; j < tasks[taskIndex]['contacts'].length; j++) {
+      content.innerHTML += `<div class="user-show-name">${tasks[taskIndex]['contacts'][j]['name']}</div>`;
+    }
   }
 }
 
