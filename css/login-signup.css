@@ -27,7 +27,7 @@ a {
 .text-line {
   width: 150px;
   border-bottom: 3px solid var(--highlight-color);
-  margin-top: 16px;
+  margin-top: -30px;
 }
 
 .login-head {
@@ -334,7 +334,6 @@ input[type="password"]:focus {
     top: 61px;
     left: 45px;
   }
-
   @keyframes logo-animation {
     from {
       width: 100px;
@@ -421,7 +420,7 @@ input[type="password"]:focus {
   }
 
   .login-head-top-right {
-    gap: 8px;
+    gap: 10px;
     flex-direction: column;
   }
 
@@ -438,7 +437,7 @@ input[type="password"]:focus {
       width: 64px;
       height: 78px;
       top: 100px;
-      left: 50%;
+      left: 20%;
     }
   }
 
