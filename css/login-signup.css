@@ -377,8 +377,8 @@ input[type="password"]:focus {
 
   .login-mask,
   .signup-mask {
-    margin-top: 200px;
-    padding: 32px 32px;
+    margin-top: 165px;
+    padding: 15px 15px;
   }
 
   .login-footer {
@@ -417,7 +417,7 @@ input[type="password"]:focus {
   }
 
   .login-head {
-    margin-top: 24px;
+    margin-top: 20px;
   }
 
   .login-head-top-right {
