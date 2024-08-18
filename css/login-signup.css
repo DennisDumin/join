@@ -326,6 +326,7 @@ input[type="password"]:focus {
   .logo-start {
     width: 100px;
     height: 122px;
+    padding-bottom: 84px;
   }
 
   .logo-end {
@@ -357,11 +358,11 @@ input[type="password"]:focus {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 8px;
   }
 
   h1 {
-    font-size: 47px;
+    font-size: 40px;
   }
 
   .text-line {
@@ -376,8 +377,8 @@ input[type="password"]:focus {
 
   .login-mask,
   .signup-mask {
-    margin-top: 165px;
-    padding: 15px 15px;
+    margin-top: 124px;
+    padding: 0px 15px 18px 15px;
   }
 
   .login-footer {
@@ -417,11 +418,6 @@ input[type="password"]:focus {
 
   .login-head {
     margin-top: 20px;
-  }
-
-  .login-head-top-right {
-    gap: 10px;
-    flex-direction: column;
   }
 
   @keyframes logo-animation {
