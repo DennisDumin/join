@@ -59,7 +59,7 @@
 @media (max-width: 1000px) {
     .popUp {
         width: 90vw;
-        height: 80vh;
+        height: 54vh;
 
     }
 
@@ -103,10 +103,11 @@
         font-size: 32px;
     }
 
-.contact-profile {
-gap: 48px;
+    .contact-profile {
+        gap: 48px;
 
     }
+
     #cancelButton {
         display: none;
     }
@@ -209,6 +210,66 @@ gap: 48px;
         width: 347px;
         height: auto;
     }
+
+    .edit_hoverr:hover {
+        cursor: pointer;
+        content: url('/contact-assets/img/edit_hover.png');
+    }
+
+    .delete_hoverr:hover {
+        cursor: pointer;
+        content: url('/contact-assets/img/delete_hover.png');
+    }
+
+    .edit_contact {
+        z-index: 9;
+        display: block !important;
+        position: fixed;
+        bottom: 96px;
+        right: 15px;
+
+        display: flex;
+        justify-content: end;
+
+        img {
+            height: 80px;
+            margin-right: 10px;
+        }
+    }
+
+    .hoverr:hover {
+        cursor: pointer;
+        content: url('/contact-assets/img/edit_contact_hover.png');
+    }
+
+    .miniReg {
+        position: absolute;
+        width: 116px;
+        height: 100px;
+        bottom: 0;
+        right: -116px;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 20px 20px 0px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        transition: right 0.3s ease;
+        transition: transform 0.3s ease; /* Smooth transition for sliding effect */
+        transform: translateX(100%); /* Start position off-screen */
+
+        img {
+            height: 45px !important;
+        }
+    }
+
+    .miniReg.show {
+        right: 15px;
+        display: block; /* Show the menu */
+        transform: translateX(0); /* Slide in the menu */
+    }
+
 }
 
 @media (max-width:500px) {
@@ -298,7 +359,7 @@ gap: 48px;
 
 .mobileAddContactBtn img:hover {
     cursor: pointer;
-  }
+}
 
 .mobileEditBtn {
     position: fixed;
@@ -318,6 +379,4 @@ gap: 48px;
 
 .mobileEditBtn img:hover {
     cursor: pointer;
-  }
-
-
+}

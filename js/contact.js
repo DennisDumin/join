@@ -540,6 +540,38 @@ function contactsBgMenu() {
     document.getElementById('link-contact').classList.add('bg-focus');
 }
 
+ /**
+   * Toggles the visibility of the mini actions menu for editing and deleting contacts.
+   * 
+   * @param {HTMLElement} element - The element triggering the toggle.
+   */
+ function toggleMiniReg() {
+    const miniReg = document.getElementById('miniReg');
+    const editContact = document.getElementById('editContact');
+
+    if (miniReg.classList.contains('show')) {
+        miniReg.classList.remove('show');
+        editContact.style.display = 'block'; // Reset editContact display
+    } else {
+        miniReg.classList.add('show');
+        editContact.style.display = 'none'; // Hide editContact
+    }
+    document.addEventListener('click', handleClickOutside);
+}
+
+/**
+ * Closes the mini actions menu if the user clicks outside of it.
+ * @param {Event} event - The click event.
+ */
+function handleClickOutside(event) {
+    const miniReg = document.getElementById('miniReg');
+    const editContact = document.getElementById('editContact');
+
+    if (!miniReg.contains(event.target) && !editContact.contains(event.target)) {
+        miniReg.classList.remove('show');
+        editContact.style.display = 'block';
+    }
+}
 
 
 

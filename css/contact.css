@@ -484,3 +484,7 @@ h4 {
   height: 40px;
   /* Optional: Höhe des Input-Feldes */
 }
+
+.edit_contact, .miniReg {
+  display: none;
+}

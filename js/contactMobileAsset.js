@@ -49,10 +49,8 @@ function hideMobileAssets() {
 function changeMobileButton(param) {
     if (param === 'add') { // If the parameter is 'add', perform the following actions.
         document.getElementById('mobileAddContact').classList.add('displayNone'); // Hide the mobile add contact button.
-        document.getElementById('mobileEditBtn').classList.add('displayNone'); // Hide the mobile edit button.
     } else if (param === 'remove') { // If the parameter is 'remove', perform the following actions.
         document.getElementById('mobileAddContact').classList.remove('displayNone'); // Show the mobile add contact button.
-        document.getElementById('mobileEditBtn').classList.remove('displayNone'); // Show the mobile edit button.
     }
 }
 

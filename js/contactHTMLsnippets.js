@@ -25,6 +25,14 @@ function detailedContactHtml(source, contactId) {
             <span><b>Phone</b></span>
             <span>${source['telefonnummer']}</span>
         </div>
+        <!-- Mini action buttons for editing and deleting -->
+      <div class="edit_contact" id="editContact" onclick="toggleMiniReg()" >
+        <img class="hoverr" src="contact-assets/img/mobileEditBtn.png" alt="">
+        <div class="miniReg" id="miniReg">
+            <img class="edit_hoverr" src="contact-assets/img/mini_edit.png" onclick="openClosePopUp('open', true)" alt="">
+            <img class="delete_hoverr" src="contact-assets/img/mini_delete.png" onclick="deleteContact('contact', '${contactId}')" alt="">
+        </div>          
+      </div>
     `;
 }
 
