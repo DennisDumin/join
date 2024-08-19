@@ -207,26 +207,47 @@ function addContact() {
     if (array.length === 0 && material.length > 0) {
         array = Object.values(material[0]);
     }
-    let email = document.getElementById('email').value;
-    let name = document.getElementById('name').value;
-    let tel = document.getElementById('tel').value;
+    let email = document.getElementById('email').value.trim();
+    let name = document.getElementById('name').value.trim();
+    let tel = document.getElementById('tel').value.trim();
+
+    // Überprüfe auf Duplikate
     let duplicate = array.some(contact => 
         contact.email === email || contact.name === name || contact.telefonnummer === tel
     );
+
     if (duplicate) {
-        alert("Dieser Kontakt existiert bereits!");
+        showDuplicateNotification();
         return;
     }
+    
     const nextColor = getNextColor();
-    let data = {
+    let newContact = {
         'email': email,
         'name': name,
         'telefonnummer': tel,
         'color': nextColor
     };
-    array.push(data);
-    postNewContact('contact');
+
+    // Füge den neuen Kontakt nur temporär in das Array ein
+    array.push(newContact);
+
+    // Poste nur den neuen Kontakt
+    postNewContact('contact', newContact);
 }
+
+/**
+ * Validates input fields to ensure they are not empty.
+ * @param {string} email - The email input value.
+ * @param {string} name - The name input value.
+ * @param {string} tel - The telephone input value.
+ * @returns {boolean} Returns `true` if all inputs are filled, otherwise `false`.
+ */
+function validateInputs(email, name, tel) {
+    return email !== "" && name !== "" && tel !== "";
+}
+
+
 
 /**
  * Generates a list of random colors.
@@ -283,26 +304,27 @@ function getNextColor() {
  * @async
  * @param {string} path - The server path to post the contact to.
  */
-async function postNewContact(path) {
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
-        highlightKey = element;
-        saveForBackground();
+async function postNewContact(path, newContact) {
+    try {
         let response = await fetch(BASE_URL + path + '.json', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(element)
+            body: JSON.stringify(newContact)
         });
+
         if (response.ok) {
             console.log('Contact saved successfully');
-            saveColorIndex();
+            saveColorIndex(); // Falls relevant für die weitere Verarbeitung
         } else {
             console.error('Failed to save contact');
         }
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        window.location.reload(); // Lade die Seite neu, falls erforderlich
     }
-    window.location.reload();
 }
 
 /**
@@ -415,6 +437,16 @@ async function UpdateContact() {
     } catch (error) {
         console.error('Fehler beim Aktualisieren des Kontakts:', error.message);
     }
+}
+
+function showDuplicateNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerText = 'Dieser Kontakt existiert bereits!';
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 /**
