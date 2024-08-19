@@ -137,15 +137,19 @@ function checkIfpriorityHighArray() {
  * @return {string} A greeting message based on the user type.
  */
 function checkIfGuest() {
-  if (user["name"] === "Gast") {
+  if (user?.name === "Gast") {
     return /*html*/ `
-            <h2>Good morning</h2>
-        `
+            <h2>Guten Morgen</h2>
+        `;
+  } else if (user?.name) {
+    return /*html*/ `
+            <h2>Guten Morgen,</h2>
+            <h1>${user.name}</h1>  
+        `;
   } else {
     return /*html*/ `
-            <h2>Good morning,</h2>
-            <h1>${user["name"]}</h1>  
-        `
+            <h2>Guten Morgen</h2>
+        `;
   }
 }
 
