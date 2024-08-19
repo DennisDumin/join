@@ -47,8 +47,14 @@ async function loadData() {
         let response = await fetch(BASE_URL + '.json');
         let responseAsJson = await response.json();
         let info = responseAsJson.contact;
-        material.push(responseAsJson.contact);
+
+        if (info) {
+            material.push(info);
+            array = Object.values(info);
+        }
+
         renderData(info);
+
         let colorIndexResponse = await fetch(BASE_URL + 'colorIndex.json');
         let colorIndexData = await colorIndexResponse.json();
         if (colorIndexData !== null) {
@@ -198,16 +204,24 @@ function setSingleLetterBackgroundColor(contactId) {
  * Adds a new contact.
  */
 function addContact() {
-    stopWindowReload('new');
-
-    let email = document.getElementById('email');
-    let name = document.getElementById('name');
-    let tel = document.getElementById('tel');
+    if (array.length === 0 && material.length > 0) {
+        array = Object.values(material[0]);
+    }
+    let email = document.getElementById('email').value;
+    let name = document.getElementById('name').value;
+    let tel = document.getElementById('tel').value;
+    let duplicate = array.some(contact => 
+        contact.email === email || contact.name === name || contact.telefonnummer === tel
+    );
+    if (duplicate) {
+        alert("Dieser Kontakt existiert bereits!");
+        return;
+    }
     const nextColor = getNextColor();
     let data = {
-        'email': email.value,
-        'name': name.value,
-        'telefonnummer': tel.value,
+        'email': email,
+        'name': name,
+        'telefonnummer': tel,
         'color': nextColor
     };
     array.push(data);
