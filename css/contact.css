@@ -473,18 +473,28 @@ h4 {
 
 .input-with-icon {
   padding-right: 30px;
-  /* Platz für das Icon */
   background: url('./contact-assets/img/call.png') no-repeat right center;
   background-size: 20px 20px;
-  /* Größe des Icons */
   border: 1px solid #ccc;
-  /* Optional: Rand des Input-Feldes */
   border-radius: 4px;
-  /* Optional: Abgerundete Ecken */
   height: 40px;
-  /* Optional: Höhe des Input-Feldes */
 }
 
 .edit_contact, .miniReg {
   display: none;
+}
+
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f44336; 
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

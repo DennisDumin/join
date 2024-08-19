@@ -203,15 +203,19 @@ function setSingleLetterBackgroundColor(contactId) {
 /**
  * Adds a new contact.
  */
-function addContact() {
+function addContact(event) {
+    if (event) {
+        event.preventDefault();
+    }
+
     if (array.length === 0 && material.length > 0) {
         array = Object.values(material[0]);
     }
+
     let email = document.getElementById('email').value.trim();
     let name = document.getElementById('name').value.trim();
     let tel = document.getElementById('tel').value.trim();
 
-    // Überprüfe auf Duplikate
     let duplicate = array.some(contact => 
         contact.email === email || contact.name === name || contact.telefonnummer === tel
     );
@@ -228,11 +232,8 @@ function addContact() {
         'telefonnummer': tel,
         'color': nextColor
     };
-
-    // Füge den neuen Kontakt nur temporär in das Array ein
     array.push(newContact);
 
-    // Poste nur den neuen Kontakt
     postNewContact('contact', newContact);
 }
 
@@ -316,14 +317,14 @@ async function postNewContact(path, newContact) {
 
         if (response.ok) {
             console.log('Contact saved successfully');
-            saveColorIndex(); // Falls relevant für die weitere Verarbeitung
+            saveColorIndex();
         } else {
             console.error('Failed to save contact');
         }
     } catch (error) {
         console.error('Error:', error);
     } finally {
-        window.location.reload(); // Lade die Seite neu, falls erforderlich
+        window.location.reload();
     }
 }
 

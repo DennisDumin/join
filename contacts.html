@@ -77,17 +77,15 @@
                 <img class="profile-pic" src="./contact-assets/img/empty-profil.png" alt="">
               </div>
               <div class="contact_input">
-                <form class="form" id="addContactForm" onsubmit="addContact()">
+                <form class="form" id="addContactForm" onsubmit="addContact(event)">
                   <input required id="name" placeholder="Name" type="text" minlength="3" maxlength="50" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}$" title="Der Name muss mindestens 3 Zeichen lang sein und darf nur Buchstaben und Leerzeichen enthalten.">
                   <input required id="email" placeholder="Email" type="email" minlength="7" title="Bitte geben Sie eine gültige E-Mail-Adresse ein.">
                   <input required id="tel" placeholder="Phone" type="tel" pattern="^\d{6,15}$" minlength="6" maxlength="15"  title="Die Telefonnummer muss zwischen 6 und 15 Ziffern lang sein und darf nur Zahlen und Leerzeichen enthalten.">
                   <div class="contact_button">
-                    <button id="cancelButton" type="button" onclick="openClosePopUp('close')"
-                      class="cancel-Button">Cancel <img src="./contact-assets/img/close.png" alt=""></button>
-                    <button type="submit" class="addContactButton">Create Contact <img class="check"
-                        src="./contact-assets/img/check.png" alt=""></button>
+                      <button id="cancelButton" type="button" onclick="openClosePopUp('close')" class="cancel-Button">Cancel <img src="./contact-assets/img/close.png" alt=""></button>
+                      <button type="submit" class="addContactButton">Create Contact <img class="check" src="./contact-assets/img/check.png" alt=""></button>
                   </div>
-                </form>
+              </form>
               </div>
             </div>
           </div>
