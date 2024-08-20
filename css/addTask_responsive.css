@@ -6,7 +6,8 @@
 
 @media (max-width: 376px) {
   .add-task-bottom {
-    bottom: 65px !important;
+    bottom: 0px !important;
+    margin-bottom: 0px;
   }
 }
 
@@ -58,7 +59,7 @@
 @media (max-width: 1025px) {
   .add-task-bottom {
     left: 16px !important;
-    bottom: 80px;
+    margin-bottom: 80px;
   }
   .add-task {
     height: 1050px;
