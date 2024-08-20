@@ -69,6 +69,15 @@
     }
 }
 
+@media (max-width: 900px) {
+    .letter_For_PopUp {
+        width: 94px;
+        height: 94px;
+        font-size: 32px;
+    }
+
+}
+
 @media (max-width: 800px) {
 
     /* CSS for sliding in from the bottom */
@@ -256,8 +265,10 @@
         align-items: flex-start;
         padding: 10px;
         transition: right 0.3s ease;
-        transition: transform 0.3s ease; /* Smooth transition for sliding effect */
-        transform: translateX(100%); /* Start position off-screen */
+        transition: transform 0.3s ease;
+        /* Smooth transition for sliding effect */
+        transform: translateX(100%);
+        /* Start position off-screen */
 
         img {
             height: 45px !important;
@@ -266,8 +277,10 @@
 
     .miniReg.show {
         right: 15px;
-        display: block; /* Show the menu */
-        transform: translateX(0); /* Slide in the menu */
+        display: block;
+        /* Show the menu */
+        transform: translateX(0);
+        /* Slide in the menu */
     }
 
 }

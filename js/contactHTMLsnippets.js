@@ -6,9 +6,13 @@
  * @returns {string} The HTML string for the detailed contact view.
  */
 function detailedContactHtml(source, contactId) {
+    const nameParts = source['name'].split(' ');
+    const initials = nameParts.length > 1 
+        ? nameParts[0][0] + nameParts[1][0] 
+        : nameParts[0][0];
     return `
         <div class="contact-profile">
-            <div id="singleLetterProfile" class="single-letter">${source['name'][0]}</div>
+            <div id="singleLetterProfile" class="single-letter">${initials}</div>
             <div id="editDelete" class="h4_edit-delete">
                 <h4>${source['name']}</h4>
                 <div class="edit-delete">
@@ -44,13 +48,17 @@ function detailedContactHtml(source, contactId) {
  * @returns {string} The HTML string for displaying the contact in the list.
  */
 function renderContactHtml(contactColor, contact) {
+    const nameParts = contact.name.split(' ');
+    const initials = nameParts.length > 1 
+        ? nameParts[0][0] + nameParts[1][0] 
+        : nameParts[0][0];
     return `
         <div onclick="renderDetailedContact('${contact.id}')" id="${contact.id}" class="contactCard">
-             <div id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${contact.name[0]}</div>
-             <div class="fullName-email">
-               <span>${contact.name}</span>
-               <a class="email" href="#">${contact.email}</a>
-             </div>
+            <div id="letter${contact.id}" class="single_letter" style="background-color: ${contactColor};">${initials}</div>
+            <div class="fullName-email">
+                <span>${contact.name}</span>
+                <a class="email" href="#">${contact.email}</a>
+            </div>
         </div>
     `;
 }

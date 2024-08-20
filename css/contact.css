@@ -127,6 +127,7 @@ h2 {
   border-radius: 50%;
   display: flex;
   align-items: center;
+  margin-bottom: 80px;
   justify-content: center;
   overflow: hidden;
   font-size: 48px;
@@ -368,6 +369,7 @@ h2 {
   width: 70px;
   border-radius: 50%;
   display: flex;
+  color: white;
   align-items: center;
   justify-content: center;
   overflow: hidden;

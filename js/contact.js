@@ -181,7 +181,11 @@ function renderDetailedContact(contactId) {
  * @param {Object} source - The contact information.
  */
 function fillEditPopUp(source) {
-    document.getElementById('letterForPopUp').innerHTML = `${source['name'][0]}`;
+    const nameParts = source['name'].split(' ');
+    const initials = nameParts.length > 1 
+        ? nameParts[0][0] + nameParts[1][0] 
+        : nameParts[0][0];
+    document.getElementById('letterForPopUp').innerHTML = `${initials}`;
     document.getElementById('editEmail').value = source['email'];
     document.getElementById('editTel').value = source['telefonnummer'];
     document.getElementById('editName').value = source['name'];
