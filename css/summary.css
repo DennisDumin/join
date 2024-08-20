@@ -229,6 +229,34 @@
   background-color: var(--white);
 }
 
+.greeting-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #F5F7F8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  z-index: 10000;
+}
+
+.greeting-overlay.hide {
+  opacity: 0;
+}
+
+.greeting-overlay h1 {
+  font-size: 64px;
+  color: black;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+}
+
 @media (max-width: 1024px) {
   .headline-section h1 {
     font-size: 47px;

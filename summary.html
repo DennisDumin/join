@@ -1,124 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <!--Favicon-->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="./assets/img/logo_coloured.svg"
-    />
-    <!--Stylesheets-->
-    <!--<link rel="stylesheet" href="./css/legal-Help_privacy.css" />-->
-    <link rel="stylesheet" href="./css/font.css" />
-    <link rel="stylesheet" href="./css/side_menu.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/summary.css" />
-    <script src="js/remotestaorage.js"></script>
-  </head>
-  <body onload="init()">
-    <div w3-include-html="./assets/templates/side_menu.html"></div>
-    <main>
-      <div
-        w3-include-html="./assets/templates/header.html"
-        class="header-sticky"
-      ></div>
-      <div class="content">
-        <section class="headline-section">
-          <div>
-            <h1>Join 360</h1>
-          </div>
-          <div class="placeholder"></div>
-          <div>
-            <h5>Key Metrics at a Glance</h5>
-          </div>
-          <div class="placeholder-mobile"></div>
-        </section>
 
-        <section class="summary-section">
-          <div class="summary-left-section">
-            <div class="card-overlying-div">
-              <div
-                class="card hover-right"
-                onmouseover="changePencilImg()"
-                onmouseout="resetPencilImg()"
-                onclick="loadBoardPage()"
-              >
-                <img
-                  id="pencil-img"
-                  src="./assets/img/icon_pencil.svg"
-                  alt="Pencil logo"
-                />
-                <div class="info-cardpart">
-                  <h2 id="to-do"></h2>
-                  <p>To-do</p>
-                </div>
-              </div>
-              <div
-                class="card hover-left"
-                onmouseover="changeCheckImg()"
-                onmouseout="resetCheckImg()"
-                onclick="loadBoardPage()"
-              >
-                <img
-                  id="check-img"
-                  src="./assets/img/icon_check.svg"
-                  alt="Check logo"
-                />
-                <div class="info-cardpart">
-                  <h2 id="done"></h2>
-                  <p>Done</p>
-                </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <!--Favicon-->
+  <link rel="icon" type="image/x-icon" href="./assets/img/logo_coloured.svg" />
+  <!--Stylesheets-->
+  <!--<link rel="stylesheet" href="./css/legal-Help_privacy.css" />-->
+  <link rel="stylesheet" href="./css/font.css" />
+  <link rel="stylesheet" href="./css/side_menu.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/summary.css" />
+  <script src="js/remotestaorage.js"></script>
+</head>
+
+<body onload="init()">
+  <div w3-include-html="./assets/templates/side_menu.html"></div>
+  <main>
+    <div w3-include-html="./assets/templates/header.html" class="header-sticky"></div>
+    <div class="content">
+      <section class="headline-section">
+        <div>
+          <h1>Join 360</h1>
+        </div>
+        <div class="placeholder"></div>
+        <div>
+          <h5>Key Metrics at a Glance</h5>
+        </div>
+        <div class="placeholder-mobile"></div>
+      </section>
+
+      <section class="summary-section">
+        <div class="summary-left-section">
+          <div class="card-overlying-div">
+            <div class="card hover-right" onmouseover="changePencilImg()" onmouseout="resetPencilImg()"
+              onclick="loadBoardPage()">
+              <img id="pencil-img" src="./assets/img/icon_pencil.svg" alt="Pencil logo" />
+              <div class="info-cardpart">
+                <h2 id="to-do"></h2>
+                <p>To-do</p>
               </div>
             </div>
-
-            <div class="card-big hover-bottom" onclick="loadBoardPage()">
-              <div class="left-card-part-big">
-                <img src="./assets/img/icon_Upp2.svg" alt="Arrows up" />
-                <div class="info-cardpart">
-                  <h2 id="priority-high">1</h2>
-                  <p>Urgent</p>
-                </div>
-              </div>
-
-              <div class="paceholder-card-big"></div>
-
-              <div class="right-card-part-big">
-                <h3 id="deadline"></h3>
-                <h4>Upcoming Deadline</h4>
-              </div>
-            </div>
-
-            <div class="card-overlying-div">
-              <div class="card-bottom" onclick="loadBoardPage()">
-                <h2 id="tasks"></h2>
-                <h4>Task in Board</h4>
-              </div>
-
-              <div class="card-bottom" onclick="loadBoardPage()">
-                <h2 id="task-in-progress"></h2>
-                <h4>Task in Progress</h4>
-              </div>
-
-              <div class="card-bottom" onclick="loadBoardPage()">
-                <h2 id="awaiting-feedback"></h2>
-                <h4>Awaiting Feedback</h4>
+            <div class="card hover-left" onmouseover="changeCheckImg()" onmouseout="resetCheckImg()"
+              onclick="loadBoardPage()">
+              <img id="check-img" src="./assets/img/icon_check.svg" alt="Check logo" />
+              <div class="info-cardpart">
+                <h2 id="done"></h2>
+                <p>Done</p>
               </div>
             </div>
           </div>
 
-          <div class="summary-right-section d-none-mobile">
-            <div id="greeting-text"></div>
-          </div>
-        </section>
-      </div>
-    </main>
+          <div class="card-big hover-bottom" onclick="loadBoardPage()">
+            <div class="left-card-part-big">
+              <img src="./assets/img/icon_Upp2.svg" alt="Arrows up" />
+              <div class="info-cardpart">
+                <h2 id="priority-high">1</h2>
+                <p>Urgent</p>
+              </div>
+            </div>
 
-    <!--JS-->
-    <script src="./js/header.js"></script>
-    <script src="./js/summary.js"></script>
-    <script src="./js/init.js"></script>
-  </body>
+            <div class="paceholder-card-big"></div>
+
+            <div class="right-card-part-big">
+              <h3 id="deadline"></h3>
+              <h4>Upcoming Deadline</h4>
+            </div>
+          </div>
+
+          <div class="card-overlying-div">
+            <div class="card-bottom" onclick="loadBoardPage()">
+              <h2 id="tasks"></h2>
+              <h4>Task in Board</h4>
+            </div>
+
+            <div class="card-bottom" onclick="loadBoardPage()">
+              <h2 id="task-in-progress"></h2>
+              <h4>Task in Progress</h4>
+            </div>
+
+            <div class="card-bottom" onclick="loadBoardPage()">
+              <h2 id="awaiting-feedback"></h2>
+              <h4>Awaiting Feedback</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-right-section d-none-mobile">
+          <div id="greeting-text"></div>
+        </div>
+      </section>
+    </div>
+    <div id="greeting-overlay" class="greeting-overlay">
+      <h1 id="overlay-greeting"></h1>
+  </div>
+  </main>
+
+  <!--JS-->
+  <script src="./js/header.js"></script>
+  <script src="./js/summary.js"></script>
+  <script src="./js/init.js"></script>
+</body>
+
 </html>

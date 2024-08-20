@@ -45,11 +45,12 @@ let number = 15220
  * @async
  */
 async function init() {
-  await loadTasks()
-  laodLocalStorage()
-  sortDates()
-  showHTML()
-  summaryBgMenu()
+  await loadTasks();
+  laodLocalStorage();
+  sortDates();
+  showHTML();
+  showGreetingOverlay();
+  summaryBgMenu();
 }
 
 /**
@@ -97,24 +98,20 @@ function sortDates() {
  * Updates the HTML content to display the tasks and their status.
  */
 function showHTML() {
-  let todo = tasks.filter((t) => t["phases"] == "To Do")
-  let done = tasks.filter((t) => t["phases"] == "Done")
-  let priorityHigh = tasks.filter((t) => t["prio"] == "Urgent")
-  let inprogress = tasks.filter((t) => t["phases"] == "In progress")
-  let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback")
+  let todo = tasks.filter((t) => t["phases"] == "To Do");
+  let done = tasks.filter((t) => t["phases"] == "Done");
+  let priorityHigh = tasks.filter((t) => t["prio"] == "Urgent");
+  let inprogress = tasks.filter((t) => t["phases"] == "In progress");
+  let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback");
 
-  document.getElementById("to-do").innerHTML = `${todo.length}`
-  document.getElementById("done").innerHTML = `${done.length}`
-  document.getElementById("priority-high").innerHTML = `${priorityHigh.length}`
-  document.getElementById(
-    "deadline"
-  ).innerHTML = `${checkIfpriorityHighArray()}`
-  document.getElementById("tasks").innerHTML = `${tasks.length}`
-  document.getElementById("task-in-progress").innerHTML = `${inprogress.length}`
-  document.getElementById(
-    "awaiting-feedback"
-  ).innerHTML = `${awaitFeedback.length}`
-  document.getElementById("greeting-text").innerHTML = `${checkIfGuest()}`
+  document.getElementById("to-do").innerHTML = `${todo.length}`;
+  document.getElementById("done").innerHTML = `${done.length}`;
+  document.getElementById("priority-high").innerHTML = `${priorityHigh.length}`;
+  document.getElementById("deadline").innerHTML = `${checkIfpriorityHighArray()}`;
+  document.getElementById("tasks").innerHTML = `${tasks.length}`;
+  document.getElementById("task-in-progress").innerHTML = `${inprogress.length}`;
+  document.getElementById("awaiting-feedback").innerHTML = `${awaitFeedback.length}`;
+  document.getElementById("greeting-text").innerHTML = `${checkIfGuest()}`;
 }
 
 /**
@@ -137,20 +134,46 @@ function checkIfpriorityHighArray() {
  * @return {string} A greeting message based on the user type.
  */
 function checkIfGuest() {
+  const greeting = getCurrentGreeting();
   if (user?.name === "Gast") {
-    return /*html*/ `
-            <h2>Guten Morgen</h2>
-        `;
+      return `<h2>${greeting}</h2>`;
   } else if (user?.name) {
-    return /*html*/ `
-            <h2>Guten Morgen,</h2>
-            <h1>${user.name}</h1>  
-        `;
+      return `<h2>${greeting},</h2><h1>${user.name}</h1>`;
   } else {
-    return /*html*/ `
-            <h2>Guten Morgen</h2>
-        `;
+      return `<h2>${greeting}</h2>`;
   }
+}
+
+function getCurrentGreeting() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour >= 3 && hour < 12) {
+      return "Guten Morgen";
+  } else if (hour >= 12 && hour < 18) {
+      return "Guten Tag";
+  } else if (hour >= 18 || hour < 3) {
+      return "Guten Abend";
+  } else {
+      return "Guten Morgen"; // Default fallback
+  }
+}
+
+function showGreetingOverlay() {
+  const greeting = getCurrentGreeting();
+  const overlay = document.getElementById("greeting-overlay");
+  const overlayGreeting = document.getElementById("overlay-greeting");
+
+  overlayGreeting.innerText = greeting;
+
+  setTimeout(() => {
+      overlay.classList.add("hide");
+  }, 3000);
+  overlay.addEventListener('transitionend', () => {
+      if (overlay.classList.contains('hide')) {
+          overlay.style.display = 'none';
+      }
+  });
 }
 
 /**
