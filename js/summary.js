@@ -136,11 +136,11 @@ function checkIfpriorityHighArray() {
 function checkIfGuest() {
   const greeting = getCurrentGreeting();
   if (user?.name === "Gast") {
-      return `<h2>${greeting}</h2>`;
+    return `<h2>${greeting}</h2>`;
   } else if (user?.name) {
-      return `<h2>${greeting},</h2><h1>${user.name}</h1>`;
+    return `<h2>${greeting},</h2><h1><span class="user-name">${user.name}</span></h1>`;
   } else {
-      return `<h2>${greeting}</h2>`;
+    return `<h2>${greeting}</h2>`;
   }
 }
 
@@ -149,30 +149,31 @@ function getCurrentGreeting() {
   const hour = now.getHours();
 
   if (hour >= 3 && hour < 12) {
-      return "Guten Morgen";
+    return "Guten Morgen";
   } else if (hour >= 12 && hour < 18) {
-      return "Guten Tag";
+    return "Guten Tag";
   } else if (hour >= 18 || hour < 3) {
-      return "Guten Abend";
+    return "Guten Abend";
   } else {
-      return "Guten Morgen"; // Default fallback
+    return "Guten Morgen";
   }
 }
 
 function showGreetingOverlay() {
-  const greeting = getCurrentGreeting();
   const overlay = document.getElementById("greeting-overlay");
   const overlayGreeting = document.getElementById("overlay-greeting");
 
-  overlayGreeting.innerText = greeting;
+  overlayGreeting.innerHTML = checkIfGuest();
+
+  overlay.style.display = 'flex';
 
   setTimeout(() => {
-      overlay.classList.add("hide");
-  }, 3000);
+    overlay.classList.add("hide");
+  }, 2000);
   overlay.addEventListener('transitionend', () => {
-      if (overlay.classList.contains('hide')) {
-          overlay.style.display = 'none';
-      }
+    if (overlay.classList.contains('hide')) {
+      overlay.style.display = 'none';
+    }
   });
 }
 

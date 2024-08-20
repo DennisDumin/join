@@ -179,7 +179,7 @@
 
 .summary-right-section h1 {
   font-size: 64px;
-  font-weight: 700;
+  font-weight: 600;
   color: #29abe2;
   margin: 0;
 }
@@ -249,7 +249,11 @@
   opacity: 0;
 }
 
-.greeting-overlay h1 {
+.user-name {
+  color: #29abe2; /* Benutzername in spezifischer Farbe */
+}
+
+.greeting-overlay h2 {
   font-size: 64px;
   color: black;
   font-weight: 400;
