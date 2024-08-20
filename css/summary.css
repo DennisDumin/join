@@ -263,12 +263,34 @@
 
 @media (max-width: 1024px) {
   .headline-section h1 {
-    font-size: 47px;
+    font-size: 32px;
   }
+
+  .headline-section h5 {
+    font-weight: 300;
+    font-size: 24px;
+}
+
+.card {
+  height: 80px;
+}
 
   .d-none-mobile {
     display: none;
   }
+
+  .card-big {
+    height: 88px;
+  }
+
+ .paceholder-card-big{
+  height: 64px;
+ }
+
+ .card-bottom {
+  height: 80px;
+  gap: 0px;
+ }
 
   .content {
     padding: 48px clamp(0.625rem, 0.0568rem + 2.8409vw, 1.875rem) 128px
