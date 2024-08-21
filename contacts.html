@@ -109,17 +109,15 @@
                 <span id="letterForPopUp" class="letter_For_PopUp"></span>
               </div>
               <div class="contact_input">
-                <form class="form" id="editContactForm" onsubmit="UpdateContact()">
+                <form class="form" id="editContactForm" onsubmit="UpdateContact(event)">
                   <input required id="editName" placeholder="Name" type="text">
                   <input required id="editEmail" placeholder="Email" type="email">
                   <input required id="editTel" placeholder="Phone" type="tel">
                   <div class="contact_button">
-                    <button onclick="deleteContact(path ='contact', keyForEdit)" type="button"
-                      class="cancel-Button">Delete <img src="./contact-assets/img/close.png" alt=""></button>
-                    <button type="submit" class="addContactButton">Save<img class="check"
-                        src="./contact-assets/img/check.png" alt=""></button>
+                      <button onclick="deleteContact(path ='contact', keyForEdit)" type="button" class="cancel-Button">Delete <img src="./contact-assets/img/close.png" alt=""></button>
+                      <button type="submit" class="addContactButton">Save<img class="check" src="./contact-assets/img/check.png" alt=""></button>
                   </div>
-                </form>
+              </form>
               </div>
             </div>
           </div>

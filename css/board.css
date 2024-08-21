@@ -196,6 +196,12 @@ h1 {
   justify-content: center;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
 .inner-management-content.highlight {
   background-color: #e7e7e7;
 }

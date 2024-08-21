@@ -86,6 +86,7 @@ function generateEditTask(taskIndex) {
   contactsEditRender(taskIndex)
   renderEditContacts('add-task-contacts-container-edit');
   generateInputEditSubtask(taskIndex);
+  renderDateInputForTask(taskIndex);
 
 }
 
@@ -233,32 +234,42 @@ function addEditSubtasks(taskIndex) {
  * @returns {Promise<void>}
  */
 async function saveEditTask() {
-  let title = document.getElementById("add-task-edit-title").value;
+  let title = document.getElementById("add-task-edit-title").value.trim();
   let hiddenInput = document.getElementById("hidden-input").value;
-  let description = document.getElementById("add-task-edit-description").value;
+  let description = document.getElementById("add-task-edit-description").value.trim();
   let date = document.getElementById("task-edit-date").value;
-
-  if (title.trim() === "" || date.trim() === "") {
+  if (title === "" || title.length < 5) {
+    document.getElementById('title-error').textContent = "Title must be at least 5 characters long.";
     return;
   } else {
-    for (let i = 0; i < tasks.length; i++) {
-      if (tasks[i].title === hiddenInput) {
-        tasks[i].title = title;
-        tasks[i].description = description;
-        tasks[i].date = date;
-        tasks[i].prioIcon = prioBtn;
-        tasks[i].prio = prioText;
-        if (selectedEditContacts.length > 0) {
-          tasks[i]["contacts"] = selectedEditContacts.slice();
-        }
-        ensureSubtasksArray(tasks[i]);
-        tasks[i]["subtasks"] = Array.isArray(subtasks) ? subtasks : [];
-        keepPrioButton(i);
-        break;
+    document.getElementById('title-error').textContent = "";
+  }
+  if (description === "" || description.length < 10) {
+    document.getElementById('description-error').textContent = "Description must be at least 10 characters long.";
+    return;
+  } else {
+    document.getElementById('description-error').textContent = "";
+  }
+  if (date.trim() === "") {
+    alert("Please select a valid due date.");
+    return;
+  }
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].title === hiddenInput) {
+      tasks[i].title = title;
+      tasks[i].description = description;
+      tasks[i].date = date;
+      tasks[i].prioIcon = prioBtn;
+      tasks[i].prio = prioText;
+      if (selectedEditContacts.length > 0) {
+        tasks[i]["contacts"] = selectedEditContacts.slice();
       }
+      ensureSubtasksArray(tasks[i]);
+      tasks[i]["subtasks"] = Array.isArray(subtasks) ? subtasks : [];
+      keepPrioButton(i);
+      break;
     }
   }
-
   await putData("/tasks", tasks);
   updateHTML();
   closeMe();
@@ -467,4 +478,45 @@ function changeIconOfLow() {
   medium.src = './assets/img/icon_PrioMediaOrange.svg';
   let urgent = document.getElementById('urgent-img');
   urgent.src = './assets/img/icon_PrioAltaRed.svg';
+}
+
+// Validate the title input
+function validateTitle() {
+  const title = document.getElementById('add-task-edit-title').value.trim();
+  const errorElement = document.getElementById('title-error');
+  
+  if (title.length < 5) {
+    errorElement.textContent = "Title must be at least 5 characters long.";
+    return false;
+  } else {
+    errorElement.textContent = "";
+    return true;
+  }
+}
+
+// Validate the description input
+function validateDescription() {
+  const description = document.getElementById('add-task-edit-description').value.trim();
+  const errorElement = document.getElementById('description-error');
+  
+  if (description.length < 10) {
+    errorElement.textContent = "Description must be at least 10 characters long.";
+    return false;
+  } else {
+    errorElement.textContent = "";
+    return true;
+  }
+}
+
+// Validate the entire form before saving
+function validateAndSaveTask() {
+  const isTitleValid = validateTitle();
+  const isDescriptionValid = validateDescription();
+
+  // Check if all validations pass
+  if (isTitleValid && isDescriptionValid) {
+    saveEditTask(); // Call the function to save the task
+  } else {
+    alert("Please correct the errors before saving.");
+  }
 }

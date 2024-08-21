@@ -209,21 +209,24 @@ function selectCategory(categoryId) {
  * @returns {Promise<void>}
  */
 async function createTask() {
-  let title = document.getElementById("task-title").value
-  let date = document.getElementById("task-date").value
-  let category = document.getElementById("select-task-text").innerHTML
+  let title = document.getElementById("task-title").value;
+  let description = document.getElementById("add-task-description").value;
+  let date = document.getElementById("task-date").value;
+  let category = document.getElementById("select-task-text").innerHTML;
+  let assignedContacts = selectedContacts.length;
 
-  if (title !== "" && date !== "" && category !== `Select task category`) {
-    document.getElementById("create-task-button").disabled = true
-    getValues()
-    await saveTask()
-    showTaskAdded()
+  // Title, Description, Date, Category, and Assigned Contacts Validations
+  if (validateTaskInput(title, description, date, category, assignedContacts)) {
+    document.getElementById("create-task-button").disabled = true;
+    getValues();
+    await saveTask();
+    showTaskAdded();
     setTimeout(() => {
-      redirectToBoard()
-    }, 2000)
-    clearAddTask()
+      redirectToBoard();
+    }, 2000);
+    clearAddTask();
   } else {
-    checkInput(title, date, category)
+    checkInput(title, description, date, category, contacts);
   }
 }
 
@@ -357,6 +360,64 @@ function showTaskAdded() {
 }
 
 /**
+ * Validates the task input fields.
+ * @param {string} title - The task title to validate.
+ * @param {string} description - The task description to validate.
+ * @param {string} date - The task due date.
+ * @param {string} category - The task category.
+ * @param {number} assignedContacts - Number of assigned contacts.
+ * @returns {boolean} - Returns true if all validations pass, otherwise false.
+ */
+function validateTaskInput(title, description, date, category) {
+  let isValid = true;
+
+  // Validate Title (Minimum 5 characters)
+  const titleElement = document.getElementById("task-title");
+  if (titleElement && title.length < 5) {
+    titleElement.classList.add("empty");
+   document.getElementById("required-title").classList.remove("transparent");
+    isValid = false;
+  }
+
+  // Validate Description (Minimum 10 characters)
+  const descriptionElement = document.getElementById("add-task-description");
+  if (descriptionElement && description.length < 10) {
+    descriptionElement.classList.add("empty");
+    document.getElementById("required-description").classList.remove("transparent");
+    isValid = false;
+  }
+
+  // Validate Assigned Contacts (At least 1 contact)
+  const contactsElement = document.getElementById("selected-contacts");
+  if (contactsElement && contactsElement.children.length === 0) {
+    contactsElement.classList.add("empty");
+    document.getElementById("required-contacts").classList.remove("transparent");
+    isValid = false;
+  } else if (!contactsElement) {
+    console.warn("Contacts element not found.");
+    isValid = false;
+  }
+
+  // Validate Date (Make sure date is selected)
+  const dateElement = document.getElementById("task-date");
+  if (!dateElement || dateElement.value === "") {
+    document.getElementById("add-task-due-date").classList.add("empty");
+    document.getElementById("required-date").classList.remove("transparent");
+    isValid = false;
+  }
+
+  // Validate Category (Make sure category is selected and not the default value)
+  const categoryTextElement = document.getElementById("select-task-text");
+  if (categoryTextElement && categoryTextElement.innerText.trim() === "Select task category") {
+    document.getElementById("add-task-category").classList.add("empty");
+    document.getElementById("required-category").classList.remove("transparent");
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+/**
  * Checks the input fields for title, date, and category, and displays an error if any are invalid.
  * @function checkInput
  * @param {string} title - The task title to check.
@@ -364,10 +425,27 @@ function showTaskAdded() {
  * @param {string} category - The task category to check.
  * @returns {void}
  */
-function checkInput(title, date, category) {
-  checkTitle(title)
-  checkDate(date)
-  checkCategory(category)
+function checkInput(title, description, date, category, contacts) {
+  checkTitle(title);
+  checkDate(date);
+  checkCategory(category);
+  checkDescription(description);
+  checkContacts(contacts);
+}
+
+/**
+ * Checks if contacts are selected and displays an error if none are selected.
+ * Adds the "empty" class and removes the "transparent" class on the required contacts elements.
+ * @function checkContacts
+ * @param {Array} contacts - The selected contacts to check.
+ * @returns {void}
+ */
+function checkContacts(contacts) {
+  const contactsElement = document.getElementById("selected-contacts");
+  if (contacts.length === 0) {
+    contactsElement.classList.add("empty");
+    document.getElementById("required-contacts").classList.remove("transparent");
+  }
 }
 
 /**
@@ -378,9 +456,23 @@ function checkInput(title, date, category) {
  * @returns {void}
  */
 function checkTitle(title) {
-  if (title === "") {
-    document.getElementById("add-task-title").classList.add("empty")
-    document.getElementById("required-title").classList.remove("transparent")
+  if (title === "" || title.length < 5) {
+    document.getElementById("add-task-title").classList.add("empty");
+    document.getElementById("required-title").classList.remove("transparent");
+  }
+}
+
+/**
+ * Checks if the description is invalid (empty or less than 10 characters).
+ * Adds the "empty" class and removes the "transparent" class on the required description elements.
+ * @function checkDescription
+ * @param {string} description - The task description to check.
+ * @returns {void}
+ */
+function checkDescription(description) {
+  if (description === "" || description.length < 10) {
+    document.getElementById("add-task-description").classList.add("empty");
+    document.getElementById("required-description").classList.remove("transparent");
   }
 }
 
@@ -419,15 +511,17 @@ function checkCategory(category) {
  * @returns {Promise<void>}
  */
 async function clearAddTask() {
-  hideRequiredInfo("add-task-title", "required-title")
-  hideRequiredInfo("add-task-due-date", "required-date")
-  hideRequiredCategory()
-  deletePrio()
-  emptyInput()
-  selectedContacts = []
-  subtasks = []
-  contacts = []
-  renderContacts("add-task-contacts-container")
+  hideRequiredInfo("add-task-title", "required-title");
+  hideRequiredInfo("add-task-due-date", "required-date");
+  hideRequiredInfo("selected-contacts", "required-contacts");
+  hideRequiredCategory();
+  deletePrio();
+  emptyInput();
+  selectedContacts = [];
+  subtasks = [];
+  contacts = [];
+  document.getElementById("selected-contacts").innerHTML = "";
+  renderContacts("add-task-contacts-container");
 }
 
 /**

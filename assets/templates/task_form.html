@@ -11,33 +11,35 @@
             <div class="input-container-required">
               <div id="add-task-title" onclick="hideRequiredInfo('add-task-title', 'required-title')"
                 class="input-container" tabindex="1">
-                <input id="task-title" class="inputfield" type="text" placeholder="Enter a title" required="" />
+                <input id="task-title" class="inputfield" type="text" placeholder="Enter a title (Minimum 5 characters)" required="" />
               </div>
               <span id="required-title" class="required-text transparent">This field is required</span>
             </div>
           </div>
           <!-- DESCRIPTION -->
           <div class="input-section-element">
-            <label for="add-task-description">Description</label>
+            <label for="add-task-description">Description<span style="color: #FF8190">*</span></label>
             <div id="input-container-description" class="input-container input-container-description">
               <textarea id="add-task-description" class="textarea-description"
-                placeholder="Enter a Description"></textarea>
+                placeholder="Enter a Description (Minimum 10 characters)"></textarea>
               <img src="./assets/img/icon_textarea.svg" alt="" />
             </div>
+            <span id="required-description" class="required-text transparent">This field is required</span>
           </div>
           <!-- ASSIGNED TO -->
           <div id="input-section-element" class="input-section-element">
-            <label for="add-task-assigned">Assigned to</label>
+            <label for="add-task-assigned">Assigned to<span style="color: #FF8190">*</span></label>
             <div id="contacts-input-container" onclick="openContacts()" class="input-container input-container-select"
               tabindex="1">
               <input id="add-task-assigned" onkeyup="searchContacts()" class="inputfield" type="text"
-                placeholder="Select contacts to assign" onfocus="this.placeholder = ''"
-                onblur="this.placeholder = 'Select contacts to assign'" />
+                placeholder="Select at least 1 contact to assign" onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Select at least 1 contact to assign'" />
               <img id="dropdown-img-contacts" onclick="openCloseContacts(event)" class="dropdown-img"
                 src="./assets/img/icon_arrow_drop_down.svg" />
             </div>
             <div id="selected-contacts" class="contact-circles d-none"></div>
             <div id="add-task-contacts-container" class="add-task-contacts-container d-none"></div>
+            <span id="required-contacts" class="required-text transparent">This field is required</span>
           </div>
         </div>
 

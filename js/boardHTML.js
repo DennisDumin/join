@@ -195,11 +195,17 @@ function generateShowTask(taskIndex) {
     <div class="title-content-show"><h2 class="show-card-title">${tasks[taskIndex]["title"]}</h2></div>
     <p class="show-card-description">${tasks[taskIndex]["description"]}</p>
   </div>
-  <div class="due-date-content"><div class="due-date-text-content">Due date:</div>${convertDate(
-    tasks[taskIndex]["date"])}</div>
-  <div class="priority-content">
-    <div class="prio-text">Priority:</div>
-    <div class="prio-icon-text-content">${tasks[taskIndex]["prio"]} <img src="${tasks[taskIndex]["prioIcon"]}" alt=""></div>
+    <div class="due-date-content">
+    <div class="due-date-text-content">Due date:</div>
+    <input 
+      id="task-date-show${taskIndex}" 
+      class="inputfield" 
+      type="date" 
+      placeholder="dd/mm/yyyy" 
+      required 
+      value="${tasks[taskIndex]["date"]}" 
+    />
+  </div>
   </div>
   <div class="show-assigned-to-content">
     <div class="assigned-to-text">Assigned To:</div>

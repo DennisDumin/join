@@ -325,6 +325,44 @@ function createNewContact(email, name, tel, color) {
 }
 
 /**
+ * Displays a notification with a custom message.
+ * 
+ * @param {string} message - The message to display in the notification.
+ * @returns {void}
+ */
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerText = message;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+/**
+ * Validates the name to ensure it doesn't consist of three identical letters or only whitespace.
+ * 
+ * @param {string} name - The name to validate.
+ * @returns {boolean} Returns `true` if the name is valid, otherwise `false`.
+ */
+function validateName(name) {
+    if (!name.trim()) {
+        showNotification("Der Name darf nicht nur aus Leerzeichen bestehen.");
+        document.getElementById('name').style.border = "2px solid red";
+        return false;
+    }
+    const regex = /(.)\1\1/;
+    if (regex.test(name)) {
+        showNotification("Der Name darf nicht 3 mal den gleichen Buchstaben hintereinander haben.");
+        document.getElementById('name').style.border = "2px solid red";
+        return false;
+    }
+    document.getElementById('name').style.border = "";
+    return true;
+}
+
+/**
  * Adds a new contact to the list and posts it to the server.
  * 
  * @param {Event} [event] - The event object, if any. Prevents default action if provided.
@@ -340,6 +378,9 @@ function addContact(event) {
     let email = document.getElementById('email').value.trim();
     let name = document.getElementById('name').value.trim();
     let tel = document.getElementById('tel').value.trim();
+    if (!validateName(name)) {
+        return;
+    }
 
     if (validateDuplicateContact(email, name, tel, array)) {
         showDuplicateNotification();
@@ -536,21 +577,39 @@ async function getExistingContact(contactId) {
  * @throws {Error} Throws an error if the update request fails.
  */
 async function updateContactData(contactId, contactData) {
+    openClosePopUp('close');
     await putData(`contact/${contactId}`, contactData);
 }
 
 /**
  * Updates the contact with new details, including error handling and UI updates.
+ * Prevents the page from reloading and closes the popup only if all inputs are valid.
  * 
- * @async
- * @returns {Promise<void>} A promise that resolves when the update is complete.
+ * @param {Event} event - The event object that triggered the form submission.
+ * @returns {Promise<void>}
  */
-async function updateContact() {
+async function UpdateContact(event) {
+    event.preventDefault();
     let email = document.getElementById('editEmail').value.trim();
     let name = document.getElementById('editName').value.trim();
     let tel = document.getElementById('editTel').value.trim();
-    if (email === "" || name === "" || tel === "") {
-        return;
+    const namePattern = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,}$/;
+    const threeSameLettersPattern = /(.)\1\1/;
+
+    if (!name.match(namePattern) || name.length < 3 || threeSameLettersPattern.test(name.trim()) || name.trim().length === 0) {
+        showNotification("Ungültiger Name. Der Name muss mindestens 3 Zeichen lang sein, darf keine drei gleichen Buchstaben in Folge haben und nicht nur aus Leerzeichen bestehen.");
+        return; 
+    }
+    if (email === "" || !validateEmail(email)) {
+        showNotification("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        return;  
+    }
+    const phonePattern = /^\d{6,15}$/;
+    const fourSameDigitsPattern = /(.)\1\1\1/;
+
+    if (!tel.match(phonePattern) || fourSameDigitsPattern.test(tel)) {
+        showNotification("Die Telefonnummer muss zwischen 6 und 15 Ziffern lang sein und darf keine vier gleichen Ziffern in Folge haben.");
+        return; 
     }
     if (!keyForEdit) {
         return;
@@ -564,11 +623,21 @@ async function updateContact() {
             color: existingContact.color
         };
         await updateContactData(keyForEdit, updatedContact);
-        openClosePopUp('close');
         await loadData();
     } catch (error) {
-        console.error('Error updating contact:', error.message);
+        console.error('Fehler beim Aktualisieren des Kontakts:', error.message);
     }
+}
+
+/**
+ * Validates the email format using a regular expression.
+ * 
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} Returns true if the email format is valid, false otherwise.
+ */
+function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
 }
 
 /**
@@ -603,6 +672,23 @@ function stopWindowReload(key) {
 }
 
 /**
+ * Opens the edit popup and pre-fills the form with contact details.
+ * 
+ * @param {Object} contact - The contact object containing name, email, and phone details.
+ */
+function openEditPopup(contact) {
+    openClosePopUp('open', true);
+    document.getElementById('editName').value = contact.name;
+    document.getElementById('editEmail').value = contact.email;
+    document.getElementById('editTel').value = contact.telefonnummer;
+}
+
+function openContactEdit(contactId) {
+    const contact = getContactById(contactId);
+    openEditPopup(contact);
+}
+
+/**
  * Deletes a contact.
  * @async
  * @param {string} [path='contact'] - The server path to delete the contact from.
@@ -622,6 +708,7 @@ async function deleteContact(path = 'contact', id) {
         }
         openClosePopUp('close', key = true);
         await loadData();
+        newContactBgHighlight();
     } catch (error) {
     }
 }

@@ -416,10 +416,6 @@ input[type="password"]:focus {
     width: 250px;
   }
 
-  .login-head {
-    margin-top: 20px;
-  }
-
   @keyframes logo-animation {
     from {
       width: 100px;
@@ -441,6 +437,7 @@ input[type="password"]:focus {
     width: 64px;
     height: 78px;
     left: auto;
+    top: 16px;
   }
 }
 

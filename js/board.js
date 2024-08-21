@@ -570,3 +570,22 @@ function handleDragOver(event) {
   event.preventDefault();
   event.dataTransfer.dropEffect = 'move';
 }
+
+function renderDateInputForTask() {
+  const today = new Date(); // Heutiges Datum
+  let year = today.getFullYear();
+  let month = (today.getMonth() + 1).toString().padStart(2, '0');
+  let day = today.getDate().toString().padStart(2, '0');
+
+  const newDate = `${year}-${month}-${day}`;
+  
+  // Verwende die ID aus deinem HTML-Code
+  const dateInput = document.getElementById('task-edit-date');
+  
+  if (dateInput) {
+    dateInput.min = newDate;
+    console.log("Min date set to:", newDate); // Debugging: Überprüfen, ob das Minimum gesetzt wird
+  } else {
+    console.error("Date input with ID 'task-edit-date' not found!");
+  }
+}
