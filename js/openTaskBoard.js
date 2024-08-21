@@ -150,34 +150,55 @@ function toggleSubtask(taskIndex, subtaskIndex) {
 }
 
 /**
- * Updates the progress bar for the subtasks of a specific task.
- * This function calculates and displays the progress of completed subtasks in a progress bar.
- * @param {number} taskIndex - The index of the task in the `tasks` array.
- * @returns {void}
+ * Calculates the progress of completed subtasks for a given task.
+ * 
+ * @param {Array} subtasks - The list of subtasks for the task.
+ * @returns {Object} An object containing the number of completed subtasks and the total number of subtasks.
  */
-function UpdateProgress(taskIndex) {
-  let subtasks = tasks[taskIndex]['subtasks'];
+function calculateProgress(subtasks) {
   if (!Array.isArray(subtasks)) {
-    subtasks = [];
+      subtasks = [];
   }
-  let checkedCount = subtasks.filter(subtask => subtask.completed).length;
-  let totalSubtasks = subtasks.length;
+  const checkedCount = subtasks.filter(subtask => subtask.completed).length;
+  const totalSubtasks = subtasks.length;
+  return { checkedCount, totalSubtasks };
+}
 
-  let progress = document.getElementById(`progress-bar${taskIndex}`);
-  let numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
-
+/**
+* Updates the progress bar and the number of subtasks displayed in the UI.
+* 
+* @param {number} taskIndex - The index of the task in the `tasks` array.
+* @param {number} progressValue - The value to set for the progress bar.
+* @param {number} checkedCount - The number of completed subtasks.
+* @param {number} totalSubtasks - The total number of subtasks.
+* @returns {void}
+*/
+function updateProgressUI(taskIndex, progressValue, checkedCount, totalSubtasks) {
+  const progress = document.getElementById(`progress-bar${taskIndex}`);
+  const numberOfSubtask = document.getElementById(`number-of-subtask${taskIndex}`);
+  
   if (progress && numberOfSubtask) {
-    if (totalSubtasks > 0) {
-      let progressValue = (checkedCount / totalSubtasks) * 100;
       progress.value = progressValue;
       numberOfSubtask.textContent = `${checkedCount}/${totalSubtasks}`;
-    } else {
-      progress.value = 0;
-      numberOfSubtask.textContent = `0/0`;
-    }
-
-    putData(`/tasks/${taskIndex}`, tasks[taskIndex]);
   }
+}
+
+/**
+* Updates the progress bar for the subtasks of a specific task.
+* This function calculates the progress and updates the UI, then saves the updated task data.
+* 
+* @param {number} taskIndex - The index of the task in the `tasks` array.
+* @returns {void}
+*/
+async function UpdateProgress(taskIndex) {
+  const subtasks = tasks[taskIndex]['subtasks'];
+  const { checkedCount, totalSubtasks } = calculateProgress(subtasks);
+  
+  const progressValue = totalSubtasks > 0 ? (checkedCount / totalSubtasks) * 100 : 0;
+  
+  updateProgressUI(taskIndex, progressValue, checkedCount, totalSubtasks);
+  
+  await putData(`/tasks/${taskIndex}`, tasks[taskIndex]);
 }
 
 /**

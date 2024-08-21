@@ -69,39 +69,69 @@ function openAddTask() {
 }
 
 /**
+ * Closes a dialog by applying slide-out animations and hiding the element after a delay.
+ * 
+ * @param {string} dialogSelector - The CSS selector of the dialog to close.
+ * @returns {void}
+ */
+function closeDialog(dialogSelector) {
+  const dialog = document.querySelector(dialogSelector);
+  if (dialog) {
+    dialog.classList.remove("slide-in");
+    dialog.classList.add("slide-out");
+  }
+}
+
+/**
+ * Hides the specified dialog and overlay after a delay.
+ * 
+ * @param {string[]} dialogSelectors - Array of CSS selectors for dialogs to hide.
+ * @param {string} overlaySelector - The CSS selector for the overlay to hide.
+ * @returns {void}
+ */
+function hideDialogsAndOverlay(dialogSelectors, overlaySelector) {
+  setTimeout(() => {
+    dialogSelectors.forEach(selector => {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.classList.add("hidden");
+      }
+    });
+
+    const overlay = document.querySelector(overlaySelector);
+    if (overlay) {
+      overlay.classList.add("hidden");
+    }
+  }, 500);
+}
+
+/**
+ * Resets the contacts and reloads the data.
+ * 
+ * @returns {void}
+ */
+function resetContactsAndLoadData() {
+  contacts = [];
+  selectedEditContacts = [];
+  loadData();
+}
+
+/**
  * Closes the "Add Task", "Show Task", and "Edit Task" dialogs by sliding them out and hiding the associated overlay.
  * It also resets the contacts and reloads the data.
+ * 
  * @function closeMe
  * @returns {void}
  */
 function closeMe() {
-  let dialog3 = document.getElementById("add-task-edit");
-  let dialog2 = document.querySelector(".add-task-board");
-  let dialog = document.querySelector(".show-task");
+  closeDialog("#add-task-edit");
+  closeDialog(".add-task-board");
+  closeDialog(".show-task");
 
-  dialog3.classList.remove("slide-in");
-  dialog3.classList.add("slide-out");
-  dialog2.classList.remove("slide-in");
-  dialog2.classList.add("slide-out");
-  dialog.classList.remove("slide-in");
-  dialog.classList.add("slide-out");
-
-  setTimeout(() => {
-    let content = document.getElementById("add-task");
-    let showContent = document.getElementById("show-task");
-    let editContent = document.getElementById("add-task-edit");
-    let overlay = document.getElementsByClassName("overlay")[0];
-
-    content.classList.add("hidden");
-    showContent.classList.add("hidden");
-    editContent.classList.add("hidden");
-    overlay.classList.add("hidden");
-  }, 500);
+  hideDialogsAndOverlay(["#add-task", "#show-task", "#add-task-edit"], ".overlay");
 
   updateHTML();
-  contacts = [];
-  selectedEditContacts = [];
-  loadData();
+  resetContactsAndLoadData();
 }
 
 /**
@@ -192,7 +222,7 @@ function updateHTML() {
   updateTaskPhase("In progress", "new-task-in-progress", styleOfNoTaskInProgress);
   updateTaskPhase("Await feedback", "new-task-await", styleOfNoTaskAwaitFeedback);
   updateTaskPhase("Done", "new-task-done", styleOfNoTaskDone);
-  
+
   changeColorOfCategoryTitle();
   contactsRender();
 }
@@ -309,7 +339,7 @@ function updateAdditionalContacts(numberOfContacts, element) {
       const additionalContacts = numberOfContacts - maxContacts;
       element.innerHTML = `+${additionalContacts}`;
     } else {
-      element.innerHTML = ""; 
+      element.innerHTML = "";
     }
   }
 }
@@ -497,7 +527,7 @@ function handleDragEnter(event) {
   event.preventDefault();
   const dropZone = event.target.closest('.inner-management-content');
   if (dropZone && !dropZone.classList.contains('highlight')) {
-    dropZone.classList.add('highlight'); 
+    dropZone.classList.add('highlight');
   }
 }
 
@@ -510,7 +540,7 @@ function handleDragEnter(event) {
 function handleDragLeave(event) {
   const dropZone = event.target.closest('.inner-management-content');
   if (dropZone && !dropZone.contains(event.relatedTarget)) {
-    dropZone.classList.remove('highlight'); 
+    dropZone.classList.remove('highlight');
   }
 }
 
@@ -525,8 +555,8 @@ function handleDrop(event) {
   event.preventDefault();
   const dropZone = event.target.closest('.inner-management-content');
   if (dropZone) {
-      moveTo(dropZone.getAttribute('data-phase'));
-      dropZone.classList.remove('highlight');
+    moveTo(dropZone.getAttribute('data-phase'));
+    dropZone.classList.remove('highlight');
   }
 }
 
@@ -537,6 +567,6 @@ function handleDrop(event) {
  * @param {Event} event - The dragover event.
  */
 function handleDragOver(event) {
-  event.preventDefault(); 
+  event.preventDefault();
   event.dataTransfer.dropEffect = 'move';
 }

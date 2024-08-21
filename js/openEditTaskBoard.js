@@ -1,35 +1,51 @@
 /**
- * Opens the edit view for a specific task, allowing users to modify task details.
- * This function hides the current task view, shows the edit task view, and populates
- * the edit fields with the existing task data. It also displays the task's assigned
- * contacts and subtasks for editing.
- * @param {number} taskIndex - The index of the task in the `tasks` array to be edited.
+ * Shows the edit task view and hides the current task view.
+ * 
  * @returns {void}
  */
-function openEdit(taskIndex) {
-  let showContent = document.getElementById("show-task");
-  showContent.classList.add("hidden");
-  let editContent = document.getElementById("add-task-edit");
+function showEditView() {
+  document.getElementById("show-task").classList.add("hidden");
+  const editContent = document.getElementById("add-task-edit");
   editContent.classList.remove("hidden");
   editContent.classList.add("slide-in");
-  let overlay = document.getElementsByClassName("overlay")[0];
-  overlay.classList.remove("hidden");
+  document.getElementsByClassName("overlay")[0].classList.remove("hidden");
+}
 
-  let title = document.getElementById("add-task-edit-title");
-  let hiddenInput = document.getElementById("hidden-input");
-  let description = document.getElementById("add-task-edit-description");
-  let assignedTo = document.getElementById("add-task-assigned");
-  let dates = document.getElementById("task-edit-date");
+/**
+* Fills the edit fields with the task data.
+* 
+* @param {Object} task - The task data to populate the edit fields.
+* @returns {void}
+*/
+function populateEditFields(task) {
+  document.getElementById("add-task-edit-title").value = task.title;
+  document.getElementById("hidden-input").value = task.title;
+  document.getElementById("add-task-edit-description").value = task.description;
+  document.getElementById("add-task-assigned").value = task.contacts[0] || '';
+  document.getElementById("task-edit-date").value = task.date;
+}
 
-  title.value = tasks[taskIndex]["title"];
-  hiddenInput.value = tasks[taskIndex]["title"];
-  description.value = tasks[taskIndex]["description"];
-  assignedTo.value = tasks[taskIndex]["contacts"][taskIndex];
-  dates.value = tasks[taskIndex]["date"];
+/**
+* Updates the selected contacts in the edit view.
+* 
+* @param {Array} contacts - The list of contacts to be shown in the edit view.
+* @returns {void}
+*/
+function updateSelectedContactsEdit(contacts) {
+  showSelectedContactsEdit(contacts);
+}
 
-  let selected = tasks[taskIndex]["contacts"];
-  showSelectedContactsEdit(selected);
-
+/**
+* Opens the edit view for a specific task by setting up the UI and populating the edit fields.
+* 
+* @param {number} taskIndex - The index of the task in the `tasks` array to be edited.
+* @returns {void}
+*/
+function openEdit(taskIndex) {
+  const task = tasks[taskIndex];
+  showEditView();
+  populateEditFields(task);
+  updateSelectedContactsEdit(task.contacts);
   generateEditTask(taskIndex);
 }
 

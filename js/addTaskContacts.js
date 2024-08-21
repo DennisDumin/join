@@ -123,32 +123,52 @@ function selectContact(i) {
 }
 
 /**
+ * Generates HTML for a contact's initials with a specified background color.
+ * 
+ * @param {Object} contact - The contact object containing the name and color.
+ * @param {string} contact.name - The name of the contact.
+ * @param {string} contact.color - The background color for the contact's initials.
+ * @returns {string} The HTML string for the contact's initials.
+ */
+function generateContactHtml(contact) {
+    const initials = getInitials(contact.name);
+    return `
+        <span style="background-color: ${contact.color}" class="circle-name">${initials}</span>
+    `;
+}
+
+/**
+ * Updates the container with the number of additional selected contacts.
+ * 
+ * @param {number} additionalContacts - The number of additional contacts beyond the visible ones.
+ * @returns {string} The HTML string for displaying the count of additional contacts.
+ */
+function generateAdditionalContactsHtml(additionalContacts) {
+    return `
+        <span style="background-color: #2a3647; color: white;" class="circle-name">+${additionalContacts}</span>
+    `;
+}
+
+/**
  * Displays the selected contacts in a separate container.
  * Shows the selected contacts by their initials with corresponding colors.
+ * 
  * @function showSelectedContacts
  * @returns {void}
  */
 function showSelectedContacts() {
-    let container = document.getElementById('selected-contacts');
+    const container = document.getElementById('selected-contacts');
     container.classList.remove('d-none');
     container.innerHTML = '';
-
-    let maxVisibleContacts = 3;
-    let numSelectedContacts = selectedContacts.length;
+    const maxVisibleContacts = 3;
+    const numSelectedContacts = selectedContacts.length;
     for (let i = 0; i < Math.min(maxVisibleContacts, numSelectedContacts); i++) {
-        let contact = selectedContacts[i];
-        let name = contact['name'];
-        let initials = getInitials(name);
-        let color = contact['color'];
-        container.innerHTML += `
-        <span style="background-color: ${color}" class="circle-name">${initials}</span>
-        `;
+        const contact = selectedContacts[i];
+        container.innerHTML += generateContactHtml(contact);
     }
     if (numSelectedContacts > maxVisibleContacts) {
-        let additionalContacts = numSelectedContacts - maxVisibleContacts;
-        container.innerHTML += `
-        <span style="background-color: #2a3647; color: white;" class="circle-name">+${additionalContacts}</span>
-        `;
+        const additionalContacts = numSelectedContacts - maxVisibleContacts;
+        container.innerHTML += generateAdditionalContactsHtml(additionalContacts);
     }
 }
 

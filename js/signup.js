@@ -5,31 +5,59 @@
 let userList = [];
 
 /**
- * This function handles the creation of a new user. 
- * It checks for various conditions such as email uniqueness, 
- * password validation, and acceptance of the privacy policy.
+ * Validates the privacy policy checkbox and shows an error if not accepted.
  * 
- * @returns {Promise<void>}
+ * @returns {boolean} Returns `true` if the checkbox is checked, otherwise `false`.
  */
-async function addUser() {
-  let mail = document.getElementById("inputSignUpMail");
-  let password = document.getElementById("inputSignUpPassword1");
-  let password2 = document.getElementById("inputSignUpPassword2");
-  let checkbox = document.getElementById("checkboxAccept");
-  let passwordIncorrect = document.getElementById("passwordIncorrect");
+function validatePrivacyPolicy() {
+  const checkbox = document.getElementById("checkboxAccept");
+  const passwordIncorrect = document.getElementById("passwordIncorrect");
+
   if (!checkbox.checked) {
-    passwordIncorrect.classList.remove("d-none");
-    passwordIncorrect.innerText = "You must accept the Privacy Policy";
-    checkbox.style.border = "2px solid red";
-    return;
+      passwordIncorrect.classList.remove("d-none");
+      passwordIncorrect.innerText = "You must accept the Privacy Policy";
+      checkbox.style.border = "2px solid red";
+      return false;
   }
-  if (!(await isEmailUnique(mail.value))) {
-    passwordIncorrect.classList.remove("d-none");
-    passwordIncorrect.innerText = "This email is already registered";
-    mail.style.border = "2px solid red";
-    return;
+
+  return true;
+}
+
+/**
+* Validates the uniqueness of the email and shows an error if it is already registered.
+* 
+* @param {string} email - The email to validate.
+* @returns {Promise<boolean>} Returns `true` if the email is unique, otherwise `false`.
+*/
+async function validateEmailUniqueness(email) {
+  const passwordIncorrect = document.getElementById("passwordIncorrect");
+
+  if (!(await isEmailUnique(email))) {
+      passwordIncorrect.classList.remove("d-none");
+      passwordIncorrect.innerText = "This email is already registered";
+      document.getElementById("inputSignUpMail").style.border = "2px solid red";
+      return false;
   }
-  let user = createUserObject();
+
+  return true;
+}
+
+/**
+* Handles the creation of a new user.
+* It checks for various conditions such as email uniqueness,
+* password validation, and acceptance of the privacy policy.
+* 
+* @returns {Promise<void>}
+*/
+async function addUser() {
+  const mail = document.getElementById("inputSignUpMail");
+  const password = document.getElementById("inputSignUpPassword1");
+  const password2 = document.getElementById("inputSignUpPassword2");
+
+  if (!validatePrivacyPolicy()) return;
+  if (!await validateEmailUniqueness(mail.value)) return;
+
+  const user = createUserObject();
   if (await passwordCheck(user, password, password2)) {
   }
 }

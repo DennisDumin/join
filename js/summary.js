@@ -103,7 +103,6 @@ function showHTML() {
   let priorityHigh = tasks.filter((t) => t["prio"] == "Urgent");
   let inprogress = tasks.filter((t) => t["phases"] == "In progress");
   let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback");
-
   document.getElementById("to-do").innerHTML = `${todo.length}`;
   document.getElementById("done").innerHTML = `${done.length}`;
   document.getElementById("priority-high").innerHTML = `${priorityHigh.length}`;
@@ -144,6 +143,14 @@ function checkIfGuest() {
   }
 }
 
+/**
+ * Determines the current greeting based on the time of day.
+ * 
+ * @returns {string} The greeting message. 
+ * - "Guten Morgen" for morning (3 AM - 12 PM)
+ * - "Guten Tag" for afternoon (12 PM - 6 PM)
+ * - "Guten Abend" for evening (6 PM - 3 AM)
+ */
 function getCurrentGreeting() {
   const now = new Date();
   const hour = now.getHours();
@@ -159,6 +166,12 @@ function getCurrentGreeting() {
   }
 }
 
+/**
+ * Displays a greeting overlay with a message based on the user type.
+ * The overlay will be shown briefly and then hidden with a transition.
+ * 
+ * @returns {void}
+ */
 function showGreetingOverlay() {
   const overlay = document.getElementById("greeting-overlay");
   const overlayGreeting = document.getElementById("overlay-greeting");

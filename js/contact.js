@@ -143,24 +143,39 @@ function getInitials(name) {
 }
 
 /**
- * Renders detailed contact information.
- * @param {string} contactId - The ID of the contact.
+ * Validates if the provided contact ID is valid.
+ * 
+ * @param {string} contactId - The ID of the contact to validate.
+ * @returns {boolean} - Returns `true` if the contact ID is valid, otherwise `false`.
  */
-function renderDetailedContact(contactId) {
+function isValidContactId(contactId) {
     if (!contactId) {
         console.error('Error: Contact ID is undefined or null.');
-        return;
+        return false;
     }
-    let source = material[0] ? material[0][contactId] : null;
+    return true;
+}
 
-    if (!source) {
-        console.error('Error: Contact data not found for ID', contactId);
-        return;
-    }
+/**
+ * Retrieves the contact data based on the contact ID.
+ * 
+ * @param {string} contactId - The ID of the contact.
+ * @returns {Object|null} - The contact data object or `null` if not found.
+ */
+function getContactData(contactId) {
+    return material[0] ? material[0][contactId] : null;
+}
+
+/**
+ * Updates the visual indication of the currently edited contact.
+ * 
+ * @param {string} contactId - The ID of the contact to be updated.
+ * @returns {void}
+ */
+function updateEditedContactVisual(contactId) {
     if (keyForEdit !== null && document.getElementById(keyForEdit)) {
         document.getElementById(keyForEdit).classList.remove('blueBackground');
     }
-
     keyForEdit = contactId;
     let contactElement = document.getElementById(keyForEdit);
     if (contactElement) {
@@ -168,7 +183,16 @@ function renderDetailedContact(contactId) {
     } else {
         console.error('Error: Contact element not found for ID', contactId);
     }
+}
 
+/**
+ * Renders the detailed contact information and updates the UI accordingly.
+ * 
+ * @param {Object} source - The contact data object.
+ * @param {string} contactId - The ID of the contact.
+ * @returns {void}
+ */
+function renderContactContent(source, contactId) {
     let target = document.getElementById('content');
     target.innerHTML = detailedContactHtml(source, contactId);
     fillEditPopUp(source);
@@ -177,18 +201,81 @@ function renderDetailedContact(contactId) {
 }
 
 /**
- * Fills the edit popup with contact data.
- * @param {Object} source - The contact information.
+ * Renders detailed contact information.
+ * 
+ * @param {string} contactId - The ID of the contact.
+ * @returns {void}
  */
-function fillEditPopUp(source) {
-    const nameParts = source['name'].split(' ');
+function renderDetailedContact(contactId) {
+    if (!isValidContactId(contactId)) return;
+
+    let source = getContactData(contactId);
+    if (!source) {
+        console.error('Error: Contact data not found for ID', contactId);
+        return;
+    }
+
+    updateEditedContactVisual(contactId);
+    renderContactContent(source, contactId);
+}
+
+/**
+ * Updates the initials and background color of the contact's initials element.
+ * 
+ * @param {Object} source - The contact information.
+ * @property {string} source.name - The name of the contact.
+ * @property {string} [source.color] - The background color for the contact's initials (optional).
+ * @returns {void}
+ */
+function updateInitials(source) {
+    const nameParts = source.name.split(' ');
     const initials = nameParts.length > 1
         ? nameParts[0][0] + nameParts[1][0]
         : nameParts[0][0];
-    document.getElementById('letterForPopUp').innerHTML = `${initials}`;
-    document.getElementById('editEmail').value = source['email'];
-    document.getElementById('editTel').value = source['telefonnummer'];
-    document.getElementById('editName').value = source['name'];
+
+    const letterElement = document.getElementById('letterForPopUp');
+    if (letterElement) {
+        letterElement.innerHTML = initials;
+        letterElement.style.backgroundColor = source.color || getRandomColor();
+    } else {
+        console.error('Error: Element with ID "letterForPopUp" not found.');
+    }
+}
+
+/**
+ * Populates the edit popup fields with the contact's data.
+ * 
+ * @param {Object} source - The contact information.
+ * @property {string} source.email - The email of the contact.
+ * @property {string} source.telefonnummer - The phone number of the contact.
+ * @property {string} source.name - The name of the contact.
+ * @returns {void}
+ */
+function populatePopupFields(source) {
+    document.getElementById('editEmail').value = source.email;
+    document.getElementById('editTel').value = source.telefonnummer;
+    document.getElementById('editName').value = source.name;
+}
+
+/**
+ * Fills the edit popup with contact data.
+ * Updates the visual appearance of the contact initials and populates other fields.
+ * 
+ * @param {Object} source - The contact information.
+ * @property {string} source.name - The name of the contact.
+ * @property {string} source.email - The email of the contact.
+ * @property {string} source.telefonnummer - The phone number of the contact.
+ * @property {string} [source.color] - The background color for the contact's initials (optional).
+ * @returns {void}
+ */
+function fillEditPopUp(source) {
+    if (!source || !source.name) {
+        console.error('Error: Invalid contact data.');
+        return;
+    }
+
+    updateInitials(source);
+    populatePopupFields(source);
 }
 
 /**
@@ -205,39 +292,62 @@ function setSingleLetterBackgroundColor(contactId) {
 }
 
 /**
- * Adds a new contact.
+ * Checks if the contact already exists based on email, name, or phone number.
+ * 
+ * @param {string} email - The email of the contact to be checked.
+ * @param {string} name - The name of the contact to be checked.
+ * @param {string} tel - The phone number of the contact to be checked.
+ * @param {Array} contacts - The list of existing contacts.
+ * @returns {boolean} True if a duplicate contact is found, otherwise false.
+ */
+function validateDuplicateContact(email, name, tel, contacts) {
+    return contacts.some(contact =>
+        contact.email === email || contact.name === name || contact.telefonnummer === tel
+    );
+}
+
+/**
+ * Creates a new contact object with the provided details and a color.
+ * 
+ * @param {string} email - The email of the new contact.
+ * @param {string} name - The name of the new contact.
+ * @param {string} tel - The phone number of the new contact.
+ * @param {string} color - The background color for the contact's initials.
+ * @returns {Object} The newly created contact object.
+ */
+function createNewContact(email, name, tel, color) {
+    return {
+        'email': email,
+        'name': name,
+        'telefonnummer': tel,
+        'color': color
+    };
+}
+
+/**
+ * Adds a new contact to the list and posts it to the server.
+ * 
+ * @param {Event} [event] - The event object, if any. Prevents default action if provided.
+ * @returns {void}
  */
 function addContact(event) {
     if (event) {
         event.preventDefault();
     }
-
     if (array.length === 0 && material.length > 0) {
         array = Object.values(material[0]);
     }
-
     let email = document.getElementById('email').value.trim();
     let name = document.getElementById('name').value.trim();
     let tel = document.getElementById('tel').value.trim();
 
-    let duplicate = array.some(contact =>
-        contact.email === email || contact.name === name || contact.telefonnummer === tel
-    );
-
-    if (duplicate) {
+    if (validateDuplicateContact(email, name, tel, array)) {
         showDuplicateNotification();
         return;
     }
-
     const nextColor = getNextColor();
-    let newContact = {
-        'email': email,
-        'name': name,
-        'telefonnummer': tel,
-        'color': nextColor
-    };
+    let newContact = createNewContact(email, name, tel, nextColor);
     array.push(newContact);
-
     postNewContact('contact', newContact);
 }
 
@@ -263,7 +373,6 @@ function generateColors(numColors) {
     const colors = [];
     const letters = '0123456789ABCDEF';
     const brightnessThreshold = 128;
-
     for (let i = 0; i < numColors; i++) {
         let color;
         do {
@@ -272,10 +381,8 @@ function generateColors(numColors) {
                 color += letters[Math.floor(Math.random() * 16)];
             }
         } while (getColorBrightness(color) < brightnessThreshold);
-
         colors.push(color);
     }
-
     return colors;
 }
 
@@ -318,7 +425,6 @@ async function postNewContact(path, newContact) {
             },
             body: JSON.stringify(newContact)
         });
-
         if (response.ok) {
             console.log('Contact saved successfully');
             saveColorIndex();
@@ -366,15 +472,11 @@ function saveForBackground() {
  */
 function newContactBgHighlight() {
     let asTexthighlightKey = localStorage.getItem('highlightKey');
-
     if (!asTexthighlightKey) {
         return;
     }
-
     highlightKey = JSON.parse(asTexthighlightKey);
-
     keyForEdit = searchNameInMaterialArray();
-
     if (keyForEdit) {
         renderDetailedContact(keyForEdit);
         localStorage.clear();
@@ -391,7 +493,6 @@ function searchNameInMaterialArray() {
     if (!material || !material.length || !material[0]) {
         return null;
     }
-
     let nameData = material[0];
     for (const key in nameData) {
         if (nameData[key].name === highlightKey['name']) {
@@ -412,44 +513,73 @@ function scrollToNewDiv() {
 }
 
 /**
- * Updates a contact.
- * @async
+ * Retrieves the existing contact data from the server.
+ * 
+ * @param {string} contactId - The ID of the contact to retrieve.
+ * @returns {Promise<Object>} The existing contact data.
+ * @throws {Error} Throws an error if the fetch request fails.
  */
-async function UpdateContact() {
-    let email = document.getElementById('editEmail').value;
-    let name = document.getElementById('editName').value;
-    let tel = document.getElementById('editTel').value;
-    if (email.trim() === "" || name.trim() === "" || tel.trim() === "") {
+async function getExistingContact(contactId) {
+    let response = await fetch(`${BASE_URL}contact/${contactId}.json`);
+    if (!response.ok) {
+        throw new Error('Error fetching the existing contact');
+    }
+    return await response.json();
+}
+
+/**
+ * Updates the contact data on the server.
+ * 
+ * @param {string} contactId - The ID of the contact to update.
+ * @param {Object} contactData - The updated contact data.
+ * @returns {Promise<void>} A promise that resolves when the update is complete.
+ * @throws {Error} Throws an error if the update request fails.
+ */
+async function updateContactData(contactId, contactData) {
+    await putData(`contact/${contactId}`, contactData);
+}
+
+/**
+ * Updates the contact with new details, including error handling and UI updates.
+ * 
+ * @async
+ * @returns {Promise<void>} A promise that resolves when the update is complete.
+ */
+async function updateContact() {
+    let email = document.getElementById('editEmail').value.trim();
+    let name = document.getElementById('editName').value.trim();
+    let tel = document.getElementById('editTel').value.trim();
+    if (email === "" || name === "" || tel === "") {
         return;
     }
     if (!keyForEdit) {
         return;
     }
     try {
-        let response = await fetch(`${BASE_URL}contact/${keyForEdit}.json`);
-        if (!response.ok) {
-            throw new Error('Fehler beim Abrufen des bestehenden Kontakts');
-        }
-
-        let existingContact = await response.json();
+        let existingContact = await getExistingContact(keyForEdit);
         let updatedContact = {
             email: email,
             name: name,
             telefonnummer: tel,
             color: existingContact.color
         };
-        await putData(`contact/${keyForEdit}`, updatedContact);
+        await updateContactData(keyForEdit, updatedContact);
         openClosePopUp('close');
         await loadData();
     } catch (error) {
-        console.error('Fehler beim Aktualisieren des Kontakts:', error.message);
+        console.error('Error updating contact:', error.message);
     }
 }
 
+/**
+ * Displays a notification indicating a duplicate contact.
+ * 
+ * @returns {void}
+ */
 function showDuplicateNotification() {
     const notification = document.createElement('div');
     notification.className = 'notification';
-    notification.innerText = 'Dieser Kontakt existiert bereits!';
+    notification.innerText = 'This contact already exists!';
     document.body.appendChild(notification);
     setTimeout(() => {
         notification.remove();

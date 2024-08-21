@@ -35,56 +35,73 @@ async function includeHTML() {
 })()
 
 /**
- * Displays the user's initials in the designated container.
- * This function retrieves user information from local storage, parses it,
- * and sets the inner HTML of the `userInitials` element to show the user's initials.
- * If the `userInitials` element is not found, it logs an error to the console.
- * @function showUser
- * @returns {void}
+ * Retrieves user data from local storage and returns it.
+ * If no user data is found, returns a default user object.
+ * 
+ * @returns {Object} The user data object.
  */
+function getUserData() {
+  const userAsText = localStorage.getItem("user");
+  if (userAsText) {
+      return JSON.parse(userAsText);
+  } 
+  return {
+      id: "guest",
+      name: "Gast",
+      initials: "G"
+  };
+}
+
+/**
+* Fetches user data from the server.
+* 
+* @param {string} userId - The ID of the user to fetch.
+* @returns {Promise<Object>} The fetched user data.
+* @throws Will throw an error if the fetch fails or user data is incomplete.
+*/
+async function fetchUserData(userId) {
+  try {
+      const response = await fetch(`${BASE_URL}users/${userId}.json`);
+      if (!response.ok) {
+          throw new Error(`Failed to fetch user data: ${response.status}`);
+      }
+      const user = await response.json();
+      if (!user || !user.initials) {
+          throw new Error("User data is incomplete or not found.");
+      }
+      return user;
+  } catch (error) {
+      console.error("Error fetching user data from Firebase:", error.message);
+      throw error;
+  }
+}
+
+/**
+* Displays the user's initials in the designated container.
+* Retrieves user information, fetches additional data if needed,
+* and updates the `userInitials` element with the user's initials.
+* 
+* @returns {void}
+*/
 async function showUser() {
-  let userInitialsElement = document.getElementById("userInitials");
+  const userInitialsElement = document.getElementById("userInitials");
   if (!userInitialsElement) {
       console.error("Cannot find container userInitials");
       return;
   }
 
-  let userAsText = localStorage.getItem("user");
-  let user;
+  const user = getUserData();
 
-  if (userAsText) {
-      user = JSON.parse(userAsText);
-  }
-
-  if (!user || !user.id) {
-      user = {
-          id: "guest",
-          name: "Gast",
-          initials: "G"
-      };
-      userInitialsElement.innerHTML = `<div>G</div>`;
+  if (user.id === "guest") {
+      userInitialsElement.innerHTML = `<div>${user.initials}</div>`;
       return;
   }
 
   try {
-      let response = await fetch(BASE_URL + `users/${user.id}.json`);
-
-      if (!response.ok) {
-          throw new Error(`Failed to fetch user data: ${response.status}`);
-      }
-
-      user = await response.json();
-
-      console.log("Fetched user data:", user);
-
-      if (user && user.initials) {
-          userInitialsElement.innerHTML = `<div>${user.initials}</div>`;
-      } else {
-          throw new Error("User data is incomplete or not found.");
-      }
-  } catch (error) {
-      console.error("Error fetching user data from Firebase:", error.message);
-      userInitialsElement.innerHTML = `<div>G</div>`;
+      const fetchedUser = await fetchUserData(user.id);
+      userInitialsElement.innerHTML = `<div>${fetchedUser.initials}</div>`;
+  } catch {
+      userInitialsElement.innerHTML = `<div>${user.initials}</div>`;
   }
 }
 
