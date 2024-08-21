@@ -10,7 +10,19 @@ function generateAllTasksHTML(element) {
   return `
     <div id="card-id${element["ID"]}" draggable="true" ondragstart="startDragging(${element["ID"]})" onclick="showTask(${element["ID"]})">
       <div class="card">
+      <div class="top-content-card">
         <div id="card-category-title${element["ID"]}" class="card-category-title">${element["category"]}</div>
+        <div class="card-menu" onclick="handleTopContentCardClick(event, ${element["ID"]})">
+           <i class="fa fa-arrows-alt" style="font-size:20px; cursor:pointer; display: flex; align-items: center;" onclick="toggleDropdown(${element["ID"]})"><button>Move to</button></i>
+        <!-- Dropdown menu -->
+        <div id="dropdown${element["ID"]}" class="dropdown-content">
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'To Do')">To Do</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'In progress')">In Progress</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Await feedback')">Await Feedback</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Done')">Done</a>
+          </div>
+        </div>
+        </div>
         <div class="title-description-content">
           <h2 class="card-title">${element["title"]}</h2>
           <p class="card-description">${element["description"]}</p>
@@ -208,17 +220,6 @@ function generateShowTask(taskIndex) {
         <i class="fa fa-edit" style="font-size:24px"></i>
         <button>Edit</button>
       </div>
-      <div class="show-line-content-cardmenu"></div>
-        <!-- Button to open the dropdown menu -->
-      <div class="card-menu">
-     <i class="fa fa-arrows-alt" style="font-size:20px; cursor:pointer; display: flex; align-items: center;" onclick="toggleDropdown(${taskIndex})"><button>Move to</button></i>
-        <!-- Dropdown menu -->
-        <div id="dropdown${taskIndex}" class="dropdown-content">
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'To Do')">To Do</a>
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'In progress')">In Progress</a>
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'Await feedback')">Await Feedback</a>
-          <a href="#" onclick="moveToCategory(${taskIndex}, 'Done')">Done</a>
-    </div>
   </div> 
   `;
 }

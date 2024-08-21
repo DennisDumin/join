@@ -63,6 +63,7 @@ async function loadData() {
     } catch (error) {
         console.error('Error loading data:', error);
     }
+    contactsBgMenu();
 }
 
 /**
@@ -82,7 +83,6 @@ function renderData(info) {
     });
 
     newContactBgHighlight();
-    contactsBgMenu();
 }
 
 /**
@@ -182,8 +182,8 @@ function renderDetailedContact(contactId) {
  */
 function fillEditPopUp(source) {
     const nameParts = source['name'].split(' ');
-    const initials = nameParts.length > 1 
-        ? nameParts[0][0] + nameParts[1][0] 
+    const initials = nameParts.length > 1
+        ? nameParts[0][0] + nameParts[1][0]
         : nameParts[0][0];
     document.getElementById('letterForPopUp').innerHTML = `${initials}`;
     document.getElementById('editEmail').value = source['email'];
@@ -220,7 +220,7 @@ function addContact(event) {
     let name = document.getElementById('name').value.trim();
     let tel = document.getElementById('tel').value.trim();
 
-    let duplicate = array.some(contact => 
+    let duplicate = array.some(contact =>
         contact.email === email || contact.name === name || contact.telefonnummer === tel
     );
 
@@ -228,7 +228,7 @@ function addContact(event) {
         showDuplicateNotification();
         return;
     }
-    
+
     const nextColor = getNextColor();
     let newContact = {
         'email': email,
@@ -322,13 +322,14 @@ async function postNewContact(path, newContact) {
         if (response.ok) {
             console.log('Contact saved successfully');
             saveColorIndex();
+            openClosePopUp('close');
+
+            await loadData();
         } else {
             console.error('Failed to save contact');
         }
     } catch (error) {
         console.error('Error:', error);
-    } finally {
-        window.location.reload();
     }
 }
 
@@ -438,7 +439,8 @@ async function UpdateContact() {
             color: existingContact.color
         };
         await putData(`contact/${keyForEdit}`, updatedContact);
-        window.location.reload();
+        openClosePopUp('close');
+        await loadData();
     } catch (error) {
         console.error('Fehler beim Aktualisieren des Kontakts:', error.message);
     }
@@ -488,7 +490,8 @@ async function deleteContact(path = 'contact', id) {
         if (!response.ok) {
             throw new Error('Fehler beim Löschen des Kontakts');
         }
-        window.location.reload();
+        openClosePopUp('close', key = true);
+        await loadData();
     } catch (error) {
     }
 }
@@ -577,12 +580,12 @@ function contactsBgMenu() {
     document.getElementById('link-contact').classList.add('bg-focus');
 }
 
- /**
-   * Toggles the visibility of the mini actions menu for editing and deleting contacts.
-   * 
-   * @param {HTMLElement} element - The element triggering the toggle.
-   */
- function toggleMiniReg() {
+/**
+  * Toggles the visibility of the mini actions menu for editing and deleting contacts.
+  * 
+  * @param {HTMLElement} element - The element triggering the toggle.
+  */
+function toggleMiniReg() {
     const miniReg = document.getElementById('miniReg');
     const editContact = document.getElementById('editContact');
 

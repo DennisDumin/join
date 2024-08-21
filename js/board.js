@@ -18,10 +18,10 @@ async function initBoard() {
   updateHTML()
   renderEditContacts("add-task-contacts-container-edit")
   renderContacts("add-task-contacts-container")
-  boardBg()
   chooseMedium()
   showUser()
   renderDateInput()
+  boardBg()
 }
 
 /**
@@ -112,12 +112,16 @@ function closeMe() {
  */
 function changeColorOfCategoryTitle() {
   for (let i = 0; i < tasks.length; i++) {
-    let content = document.getElementById(`card-category-title${i}`)
-    let category = tasks[i]["category"]
-    if (category.includes("User")) {
-      content.classList.add("blue")
-    } else if (category.includes("Technical")) {
-      content.classList.add("green")
+    let content = document.getElementById(`card-category-title${i}`);
+    if (content) {  // Check if the element exists
+      let category = tasks[i]["category"];
+      if (category.includes("User")) {
+        content.classList.add("blue");
+      } else if (category.includes("Technical")) {
+        content.classList.add("green");
+      }
+    } else {
+      console.warn(`Element with ID card-category-title${i} not found.`);
     }
   }
 }
@@ -427,4 +431,47 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 function boardBg() {
   document.getElementById("link-board").classList.add("bg-focus")
+}
+
+function handleCardClick(cardId) {
+  if (window.innerWidth > 768) {
+    showTask(cardId);
+  }
+}
+
+function handleTopContentCardClick(event, cardId) {
+  event.stopPropagation();
+  toggleDropdown(cardId);
+}
+
+function handleDragEnter(event) {
+  event.preventDefault();  // Verhindere Standardverhalten
+  // Finde das nächste übergeordnete Element mit der Klasse '.inner-management-content'
+  const dropZone = event.target.closest('.inner-management-content');
+  if (dropZone) {
+      dropZone.classList.add('highlight');  // Füge eine Klasse hinzu, die die Hintergrundfarbe ändert
+  }
+}
+
+function handleDragLeave(event) {
+  // Finde das nächste übergeordnete Element mit der Klasse '.inner-management-content'
+  const dropZone = event.target.closest('.inner-management-content');
+  if (dropZone) {
+      dropZone.classList.remove('highlight');  // Entferne die Klasse, die die Hintergrundfarbe ändert
+  }
+}
+
+function handleDrop(event) {
+  event.preventDefault();
+  // Finde das nächste übergeordnete Element mit der Klasse '.inner-management-content'
+  const dropZone = event.target.closest('.inner-management-content');
+  if (dropZone) {
+      moveTo(dropZone.getAttribute('data-phase'));  // Führe die Drop-Aktion durch
+      dropZone.classList.remove('highlight');  // Setze die Hintergrundfarbe zurück
+  }
+}
+
+function handleDragOver(event) {
+  event.preventDefault();  // Ermöglicht das Droppen
+  event.dataTransfer.dropEffect = 'move';
 }

@@ -43,7 +43,7 @@ function moveToCategory(taskIndex, newCategory) {
  */
 function toggleDropdown(id) {
   const dropdown = document.getElementById(`dropdown${id}`);
-  dropdown.classList.toggle("show");
+  dropdown.classList.add("show");
   
   window.removeEventListener('click', closeDropdownMenu);
 
@@ -108,8 +108,6 @@ function slideInTask() {
 function heightOfShowTaskAdjust() {
   let showContent = document.getElementById('show-task');
   if (showContent.scrollHeight > 650) {
-    showContent.style.height = 'auto';
-    showContent.style.maxHeight = 'none';
   } else {
     showContent.style.maxHeight = '650px';
   }

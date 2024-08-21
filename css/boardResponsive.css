@@ -347,7 +347,7 @@
   }
 
   #user-show-name {
-    gap: 27px;
+    gap: 22px;
   }
 
   .subtask-show-text {
@@ -411,6 +411,7 @@
 
   .show-task {
     width: 270px;
+    height: 540px;
     padding: 30px 25px 30px 20px;
   }
 
@@ -429,7 +430,7 @@
   }
 
   #user-show-name {
-    gap: 25px;
+    gap: 19px;
   }
 
   .blue {

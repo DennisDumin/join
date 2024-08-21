@@ -52,7 +52,11 @@
         <div w3-include-html="./assets/templates/edit.html"></div>
 
         <div class="board-management-content">
-          <div class="inner-management-content">
+          <div class="inner-management-content" ondragover="handleDragOver(event)"
+          ondragenter="handleDragEnter(event)"
+          ondragleave="handleDragLeave(event)"
+          ondrop="handleDrop(event)"
+          data-phase="To Do">
             <div class="title-m-content">
               <p class="title-m">To do</p>
               <button onclick="updateButtonOnClick()" class="plus-btn">
@@ -64,7 +68,11 @@
             </div>
             <div id="new-task-to-do" ondrop="moveTo('To Do')" ondragover="allowDrop(event)"></div>
           </div>
-          <div class="inner-management-content">
+          <div class="inner-management-content" ondragover="handleDragOver(event)"
+          ondragenter="handleDragEnter(event)"
+          ondragleave="handleDragLeave(event)"
+          ondrop="handleDrop(event)"
+          data-phase="In progress">
             <div class="title-m-content">
               <p class="title-m">In progress</p>
               <button onclick="updateButtonOnClick()" class="plus-btn">
@@ -76,7 +84,11 @@
             </div>
             <div id="new-task-in-progress" ondrop="moveTo('In progress')" ondragover="allowDrop(event)"></div>
           </div>
-          <div class="inner-management-content">
+          <div class="inner-management-content" ondragover="handleDragOver(event)"
+          ondragenter="handleDragEnter(event)"
+          ondragleave="handleDragLeave(event)"
+          ondrop="handleDrop(event)"
+          data-phase="Await feedback">
             <div class="title-m-content">
               <p class="title-m">Await feedback</p>
               <button onclick="updateButtonOnClick()" class="plus-btn">
@@ -88,7 +100,11 @@
             </div>
             <div id="new-task-await" ondrop="moveTo('Await feedback')" ondragover="allowDrop(event)"></div>
           </div>
-          <div class="inner-management-content">
+          <div class="inner-management-content" ondragover="handleDragOver(event)"
+          ondragenter="handleDragEnter(event)"
+          ondragleave="handleDragLeave(event)"
+          ondrop="handleDrop(event)"
+          data-phase="Done">
             <div class="title-m-content">
               <p class="title-m">Done</p>
             </div>
