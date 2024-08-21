@@ -16,10 +16,10 @@ function generateAllTasksHTML(element) {
            <i class="fa fa-arrows-alt" style="font-size:20px; cursor:pointer; display: flex; align-items: center;" onclick="toggleDropdown(${element["ID"]})"><button>Move to</button></i>
         <!-- Dropdown menu -->
         <div id="dropdown${element["ID"]}" class="dropdown-content">
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'To Do')">To Do</a>
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'In progress')">In Progress</a>
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Await feedback')">Await Feedback</a>
-          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Done')">Done</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'To Do'); return false;">To Do</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'In progress'); return false;">In Progress</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Await feedback'); return false;">Await Feedback</a>
+          <a href="#" onclick="moveToCategory(${element["ID"]}, 'Done'); return false;">Done</a>
           </div>
         </div>
         </div>

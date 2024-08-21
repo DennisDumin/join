@@ -185,53 +185,38 @@ function convertDate(date) {
 let currentDraggedElement
 
 /**
- * Updates the HTML content of the task board by filtering tasks based on their phases
- * and rendering them in their respective columns ("To Do", "In progress", "Await feedback", "Done").
- * This function also updates the styles and contact elements for each task.
- * @function updateHTML
- * @returns {void}
+ * Updates the HTML content for task phases and renders category titles and contacts.
  */
 function updateHTML() {
-  let toDo = tasks.filter((t) => t["phases"] == "To Do")
-  let toDoContent = document.getElementById("new-task-to-do")
-  toDoContent.innerHTML = ""
+  updateTaskPhase("To Do", "new-task-to-do", styleOfNoTaskToDo);
+  updateTaskPhase("In progress", "new-task-in-progress", styleOfNoTaskInProgress);
+  updateTaskPhase("Await feedback", "new-task-await", styleOfNoTaskAwaitFeedback);
+  updateTaskPhase("Done", "new-task-done", styleOfNoTaskDone);
+  
+  changeColorOfCategoryTitle();
+  contactsRender();
+}
 
-  for (let index = 0; index < toDo.length; index++) {
-    const element = toDo[index]
-    document.getElementById("new-task-to-do").innerHTML +=
-      generateAllTasksHTML(element)
-    styleOfNoTaskToDo()
-  }
+/**
+ * Updates the HTML content for a specific task phase.
+ * 
+ * @param {string} phase - The phase to filter tasks by.
+ * @param {string} containerId - The ID of the HTML container element.
+ * @param {Function} styleFunction - The function to call for styling the container.
+ */
+function updateTaskPhase(phase, containerId, styleFunction) {
+  const tasksInPhase = tasks.filter(task => task["phases"] === phase);
+  const container = document.getElementById(containerId);
 
-  let inProgress = tasks.filter((t) => t["phases"] == "In progress")
-  let inProgressContent = document.getElementById("new-task-in-progress")
-  inProgressContent.innerHTML = ""
+  if (container) {
+    container.innerHTML = ""; // Clear existing content
 
-  for (let index = 0; index < inProgress.length; index++) {
-    const element = inProgress[index]
-    document.getElementById("new-task-in-progress").innerHTML +=
-      generateAllTasksHTML(element)
-    styleOfNoTaskInProgress()
-  }
+    tasksInPhase.forEach(task => {
+      container.innerHTML += generateAllTasksHTML(task);
+    });
 
-  let awaitFeedback = tasks.filter((t) => t["phases"] == "Await feedback")
-  document.getElementById("new-task-await").innerHTML = ""
-  for (let index = 0; index < awaitFeedback.length; index++) {
-    const element = awaitFeedback[index]
-    document.getElementById("new-task-await").innerHTML +=
-      generateAllTasksHTML(element)
-    styleOfNoTaskAwaitFeedback()
+    styleFunction();
   }
-  let done = tasks.filter((t) => t["phases"] == "Done")
-  document.getElementById("new-task-done").innerHTML = ""
-  for (let index = 0; index < done.length; index++) {
-    const element = done[index]
-    document.getElementById("new-task-done").innerHTML +=
-      generateAllTasksHTML(element)
-    styleOfNoTaskDone()
-  }
-  changeColorOfCategoryTitle()
-  contactsRender()
 }
 
 /**
@@ -254,51 +239,77 @@ function startDragging(id) {
  */
 function valueOfProgressBar(taskIndex) {
   const task = tasks[taskIndex];
-
   if (!task || !Array.isArray(task["subtasks"])) {
     return 0;
   }
-
   const totalSubtasks = task["subtasks"].length;
   const completedSubtasks = task["subtasks"].filter(subtask => subtask.completed).length;
-
   if (totalSubtasks === 0) {
     return 0;
   }
-
   return (completedSubtasks / totalSubtasks) * 100;
 }
 
 /**
- * Renders the contact initials for each task in the task board.
- * Displays a maximum of three contacts per task, with an indication if there are more contacts.
- * @function contactsRender
- * @returns {void}
+ * Renders the contacts for each task.
+ * Iterates through each task and updates the contact display.
  */
 function contactsRender() {
-  for (let i = 0; i < tasks.length; i++) {
-    let maxContacts = 3;
-    let content = document.getElementById(`new-div${i}`);
-    content.innerHTML = ""; 
+  tasks.forEach((task, index) => {
+    const content = document.getElementById(`new-div${index}`);
+    const numberOfContacts = document.getElementById(`plus-number-contacts${index}`);
 
-    if (tasks[i]["contacts"] && Array.isArray(tasks[i]["contacts"])) {
-      for (
-        let j = 0;
-        j < Math.min(tasks[i]["contacts"].length, maxContacts);
-        j++
-      ) {
-        let nameParts = tasks[i]["contacts"][j]["name"].split(" ");
-        let initials = nameParts
-          .map((part) => part.charAt(0).toUpperCase())
-          .join("");
-        content.innerHTML += `<div class="user-task-content" style="background-color:${tasks[i]["contacts"][j]["color"]};">${initials}</div>`;
-      }
+    if (content) {
+      content.innerHTML = "";
 
-      if (tasks[i]["contacts"].length > maxContacts) {
-        let additionalContacts = tasks[i]["contacts"].length - maxContacts;
-        let numberOfContacts = document.getElementById(`plus-number-contacts${i}`);
-        numberOfContacts.innerHTML = `+${additionalContacts}`;
+      if (task["contacts"] && Array.isArray(task["contacts"])) {
+        renderContactInitials(task["contacts"], content);
+        updateAdditionalContacts(task["contacts"].length, numberOfContacts);
       }
+    }
+  });
+}
+
+/**
+ * Renders contact initials as user-task-content elements.
+ * 
+ * @param {Array<Object>} contacts - Array of contact objects.
+ * @param {HTMLElement} container - The HTML element to render contacts into.
+ */
+function renderContactInitials(contacts, container) {
+  const maxContacts = 3;
+  contacts.slice(0, maxContacts).forEach(contact => {
+    const initials = generateInitialsContact(contact["name"]);
+    container.innerHTML += `<div class="user-task-content" style="background-color:${contact["color"]};">${initials}</div>`;
+  });
+}
+
+/**
+ * Generates initials from a full name.
+ * 
+ * @param {string} name - The full name of the contact.
+ * @returns {string} - The initials of the contact.
+ */
+function generateInitialsContact(name) {
+  return name.split(" ")
+    .map(part => part.charAt(0).toUpperCase())
+    .join("");
+}
+
+/**
+ * Updates the display of additional contacts if there are more than the maximum allowed.
+ * 
+ * @param {number} numberOfContacts - Total number of contacts.
+ * @param {HTMLElement} element - The HTML element to display additional contacts.
+ */
+function updateAdditionalContacts(numberOfContacts, element) {
+  const maxContacts = 3;
+  if (element) {
+    if (numberOfContacts > maxContacts) {
+      const additionalContacts = numberOfContacts - maxContacts;
+      element.innerHTML = `+${additionalContacts}`;
+    } else {
+      element.innerHTML = ""; 
     }
   }
 }
@@ -418,7 +429,6 @@ function updateButtonOnClick() {
     }
   }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   updateButtonOnClick()
   window.addEventListener("resize", updateButtonOnClick)
@@ -433,45 +443,100 @@ function boardBg() {
   document.getElementById("link-board").classList.add("bg-focus")
 }
 
+/**
+ * Handles the click event on a card.
+ * Shows the task details if the window width is greater than 768 pixels.
+ * 
+ * @param {string} cardId - The ID of the card being clicked.
+ */
 function handleCardClick(cardId) {
   if (window.innerWidth > 768) {
     showTask(cardId);
   }
 }
 
+/**
+ * Handles the click event on a top content card.
+ * Stops the event from propagating and toggles the dropdown associated with the card.
+ * 
+ * @param {Event} event - The click event.
+ * @param {string} cardId - The ID of the card being clicked.
+ */
 function handleTopContentCardClick(event, cardId) {
   event.stopPropagation();
-  toggleDropdown(cardId);
+  if (!event.target.closest('.dropdown-content')) {
+    toggleDropdown(cardId);
+  }
 }
 
+/**
+ * Toggles the visibility of the dropdown menu for the specified card.
+ * Closes any other open dropdowns before opening the specified one.
+ * 
+ * @param {string} cardId - The ID of the card to toggle the dropdown for.
+ */
+function toggleDropdown(cardId) {
+  const allDropdowns = document.querySelectorAll('.dropdown-content');
+
+  allDropdowns.forEach(dropdown => {
+    if (dropdown.id !== `dropdown${cardId}`) {
+      dropdown.classList.remove('show');
+    }
+  });
+  const dropdown = document.getElementById(`dropdown${cardId}`);
+  dropdown.classList.toggle('show');
+}
+
+/**
+ * Handles the dragenter event.
+ * Prevents the default behavior and highlights the drop zone if it's not already highlighted.
+ * 
+ * @param {Event} event - The dragenter event.
+ */
 function handleDragEnter(event) {
-  event.preventDefault();  // Verhindere Standardverhalten
-  // Finde das nächste übergeordnete Element mit der Klasse '.inner-management-content'
+  event.preventDefault();
   const dropZone = event.target.closest('.inner-management-content');
-  if (dropZone) {
-      dropZone.classList.add('highlight');  // Füge eine Klasse hinzu, die die Hintergrundfarbe ändert
+  if (dropZone && !dropZone.classList.contains('highlight')) {
+    dropZone.classList.add('highlight'); 
   }
 }
 
+/**
+ * Handles the dragleave event.
+ * Removes the highlight from the drop zone if the related target is not contained within it.
+ * 
+ * @param {Event} event - The dragleave event.
+ */
 function handleDragLeave(event) {
-  // Finde das nächste übergeordnete Element mit der Klasse '.inner-management-content'
   const dropZone = event.target.closest('.inner-management-content');
-  if (dropZone) {
-      dropZone.classList.remove('highlight');  // Entferne die Klasse, die die Hintergrundfarbe ändert
+  if (dropZone && !dropZone.contains(event.relatedTarget)) {
+    dropZone.classList.remove('highlight'); 
   }
 }
+
+/**
+ * Handles the drop event.
+ * Prevents the default behavior, performs the drop action by moving the dragged item, and removes the highlight from the drop zone.
+ * 
+ * @param {Event} event - The drop event.
+ */
 
 function handleDrop(event) {
   event.preventDefault();
-  // Finde das nächste übergeordnete Element mit der Klasse '.inner-management-content'
   const dropZone = event.target.closest('.inner-management-content');
   if (dropZone) {
-      moveTo(dropZone.getAttribute('data-phase'));  // Führe die Drop-Aktion durch
-      dropZone.classList.remove('highlight');  // Setze die Hintergrundfarbe zurück
+      moveTo(dropZone.getAttribute('data-phase'));
+      dropZone.classList.remove('highlight');
   }
 }
 
+/**
+ * Handles the dragover event.
+ * Prevents the default behavior to allow dropping and sets the drop effect to 'move'.
+ * 
+ * @param {Event} event - The dragover event.
+ */
 function handleDragOver(event) {
-  event.preventDefault();  // Ermöglicht das Droppen
+  event.preventDefault(); 
   event.dataTransfer.dropEffect = 'move';
 }

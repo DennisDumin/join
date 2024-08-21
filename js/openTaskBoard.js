@@ -24,6 +24,7 @@ function showTask(taskIndex) {
 /**
  * Moves a task to a new category.
  * This function updates the category of a task and hides the dropdown menu.
+ * 
  * @param {number} taskIndex - The index of the task in the `tasks` array.
  * @param {string} newCategory - The new category to assign to the task.
  * @returns {void}
@@ -31,6 +32,7 @@ function showTask(taskIndex) {
 function moveToCategory(taskIndex, newCategory) {
   moveToPhase(taskIndex, newCategory);
 
+  // Hide the dropdown menu after selection
   document.getElementById(`dropdown${taskIndex}`).classList.remove("show");
 }
 
